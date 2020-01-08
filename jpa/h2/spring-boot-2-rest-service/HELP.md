@@ -5,6 +5,10 @@
 ##Используемые технологии 
 * h2 (memory), скрипт инициализации
 * JpaRepository extends PagingAndSortingRepository which in turn extends CrudRepository 
+* Валидация 
+    * Hibernate Validator
+
+
 
 ### H2
  H2 console at http://localhost:8080/h2-console.
@@ -15,8 +19,8 @@
 * get all http://localhost:8080/students  
 ``` curl  http://localhost:8080/students ```
 
-* specific student  ``` curl http://localhost:8080/students/10002 ```
-* DELETE ``` curl http://localhost:8080/students/10002 ```
+* get specific student  ``` curl http://localhost:8080/students/10002 ```
+* DELETE ``` curl -i http://localhost:8080/students/10002 ```
 * create a new student 
 ```
 curl -s -i  -X POST \
