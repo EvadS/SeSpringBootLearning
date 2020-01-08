@@ -1,21 +1,45 @@
 # Getting Started
 
 ### Reference Documentation
-For further reference, please consider the following sections:
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/maven-plugin/)
-* [Spring Boot Actuator](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#production-ready)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.2.2.RELEASE/reference/htmlsingle/#using-boot-devtools)
+##Используемые технологии 
+* h2 (memory), скрипт инициализации
+* JpaRepository extends PagingAndSortingRepository which in turn extends CrudRepository 
 
-### Guides
-The following guides illustrate how to use some features concretely:
+### H2
+ H2 console at http://localhost:8080/h2-console.
+ 
+  H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+  
+## REST API 
+* get all http://localhost:8080/students  
+``` curl  http://localhost:8080/students ```
 
-* [Building a RESTful Web Service with Spring Boot Actuator](https://spring.io/guides/gs/actuator-service/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-
+* specific student  ``` curl http://localhost:8080/students/10002 ```
+* DELETE ``` curl http://localhost:8080/students/10002 ```
+* create a new student 
+```
+curl -s -i  -X POST \
+  http://localhost:8080/students \
+  -H 'Content-Type: application/json' \
+  -H 'cache-control: no-cache' \
+  -d '{
+    "name": "Tom",
+    "passportNumber": "Z1234567"
+  }'
+ ```
+ 
+ * UPDATE (   http://localhost:8080/students/{id})
+ 
+ ```
+ curl -s -i -X PUT \
+   http://localhost:8080/students/2 \
+   -H 'Content-Type: application/json' \
+   -H 'cache-control: no-cache' \
+   -d '{
+     "name": "Tom",
+     "passportNumber": "Z1234567"
+   }'
+  ```
+ 
+ 
