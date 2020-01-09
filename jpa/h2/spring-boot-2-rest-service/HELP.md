@@ -86,3 +86,20 @@ curl -s -i  -X POST \
  https://javadeveloperzone.com/spring-boot/spring-boot-hateoas-rest-service-example/
  
  
+ ## profiles 
+ 
+ 
+ run on development profile
+ ```
+ java -Dspring.profiles.active=development -jar target/app.jar
+ ```
+ check profile 
+ 
+ ```
+ curl http://localhost:8080/profile/checkProfile
+ ```
+ as a result:
+  ``` java 
+  Spring Boot is running under development Profile
+ ```
+ 
