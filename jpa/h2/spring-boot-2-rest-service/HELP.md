@@ -85,6 +85,7 @@ curl -s -i  -X POST \
  ### smaples 
  https://javadeveloperzone.com/spring-boot/spring-boot-hateoas-rest-service-example/
  
+ https://howtodoinjava.com/spring-boot/rest-with-spring-hateoas-example/
  
  ## profiles 
  
