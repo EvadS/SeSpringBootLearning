@@ -32,4 +32,36 @@ public class Account {
 
     Account() { // jpa only
     }
+
+    public Set<Bookmark> getBookmarks() {
+        return bookmarks;
+    }
+
+    public void setBookmarks(Set<Bookmark> bookmarks) {
+        this.bookmarks = bookmarks;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

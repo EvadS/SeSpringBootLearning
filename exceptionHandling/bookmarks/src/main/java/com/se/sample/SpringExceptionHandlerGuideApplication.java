@@ -4,7 +4,6 @@ import com.se.sample.entity.Account;
 import com.se.sample.entity.Bookmark;
 import com.se.sample.repository.AccountRepository;
 import com.se.sample.repository.BookmarkRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -37,10 +36,5 @@ public class SpringExceptionHandlerGuideApplication {
                             bookmarkRepository.save(new Bookmark(account,
                                     "http://bookmark.com/2/" + a, "A description"));
                         });
-    }
-
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
     }
 }
