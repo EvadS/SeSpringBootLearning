@@ -9,5 +9,4 @@ public class HabrexceptionApplication {
     public static void main(String[] args) {
         SpringApplication.run(HabrexceptionApplication.class, args);
     }
-
 }
