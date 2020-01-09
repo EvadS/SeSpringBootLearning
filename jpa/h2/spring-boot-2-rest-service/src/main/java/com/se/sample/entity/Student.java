@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 
-    @Entity
+    @Entity(name="student")
     public class Student {
         @Id
         @GeneratedValue
@@ -25,16 +25,15 @@ import javax.validation.constraints.Size;
         private String passportNumber;
 
     public Student() {
-        super();
+       // super();
     }
 
-    public Student(Long id, String name, String passportNumber) {
-        super();
-        this.id = id;
-        this.name = name;
-        this.passportNumber = passportNumber;
-    }
-    public Long getId() {
+        public Student(@NotNull @Size(min = 2, message = "Name should have atleast 2 characters") String name, @NotNull @Size(min = 7, message = "Passport should have atleast 2 characters") String passportNumber) {
+            this.name = name;
+            this.passportNumber = passportNumber;
+        }
+
+        public Long getId() {
         return id;
     }
     public void setId(Long id) {

@@ -1,5 +1,17 @@
 # Getting Started
 
+примеир не закончен но рабочий 
+## TODO: 
+1. зделать нормальные апи в соотвествии с best practice 
+2. maven 
+    профили 
+    sonar cube 
+    
+3. база в файл
+
+
+
+http://localhost:8080/v3/api-docs/    
 ### Reference Documentation
 
 ##Используемые технологии 
@@ -7,7 +19,10 @@
 * JpaRepository extends PagingAndSortingRepository which in turn extends CrudRepository 
 * Валидация 
     * Hibernate Validator
-
+   
+* HATEOAS (Hypermedia as the Engine of Application State) - это правило архитектуры REST приложения. 
+* swagger
+    http://localhost:8080/my/swagger-ui/index.html
 
 
 ### H2
@@ -45,5 +60,29 @@ curl -s -i  -X POST \
      "passportNumber": "Z1234567"
    }'
   ```
+  
+  ##Правила валидации 
+ * DecimalMax
+ * DecimalMin
+ * Digits
+ * Email
+ * Future
+ * FutureOrPresent
+ * Max
+ * Min
+ * Negative
+ * NegativeOrZero
+ * NotBlank
+ * NotEmpty
+ * NotNull
+ * Null
+ * Past
+ * PastOrPresent
+ * Pattern
+ * Positive
+ * PositiveOrZero
+ 
+ ### smaples 
+ https://javadeveloperzone.com/spring-boot/spring-boot-hateoas-rest-service-example/
  
  
