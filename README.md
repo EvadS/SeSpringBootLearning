@@ -1,7 +1,5 @@
 # SeSpringBootLearning
-Several sample from 28 minutes 
-
-
+Several Boot skeletons samples.
 ## Git recomendations 
 
 Правила комментария к коммиту
@@ -22,29 +20,36 @@ Several sample from 28 minutes
 #### Заголовок и тело 
 Разбиваем коммит пробелом на заголовок и тело. 
 
-``` git commit -am 'commit title
+``` 
+git commit -am 'commit title
 
-commit body'
+commit body message'
 ```
-выводит только строку заголовка
-``` git log --oneline ```
-
+Выводим только строку заголовка
+``` 
+ git log --oneline 
+```
 группируем коммиты по автору, опять же, для краткости показывает только заголовок
-``` git shortlog ```
+```
+ git shortlog 
+```
 
 #### Поиск по коммитам 
+```
 git log --oneline -5 --author 'Evad' --before "Fri Mar 2 2020"
-
+```
 
 #### Заголовок
-Правильно составленный заголовок коммита должен завершать следующее предложение:
+
+Правильно составленный заголовок коммита должен завершать следующее предложение
+
 ---
 If applied, this commit will <заголовок коммита>
 ---
 
 Например:
-* If applied, this commit will <i> refactor subsystem X for readability</i>
-* If applied, this commit will <i> update getting started documentation</i>
-* If applied, this commit will <i> remove deprecated methods</i>
-* If applied, this commit will <i> release version 1.0.0</i>
+* If applied, this commit will <b><i> refactor subsystem X for readability</i></b>
+* If applied, this commit will <b><i> update getting started documentation</i></b>
+* If applied, this commit will <b><i> remove deprecated methods</i></b>
+* If applied, this commit will <b><i> release version 1.0.0</i></b>
 
