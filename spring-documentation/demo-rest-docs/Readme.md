@@ -1,5 +1,6 @@
 
-
+# TestDriven Documentation. SpringRestDocs. Asciidoctor.
+![BOOT LOGO](img/_asciidoctor.png)
 
 ### run
 you can run the application by using
@@ -12,5 +13,6 @@ run test
 ``` gradle test ```
 
 run asciidoctor
+run after tests 
 ``` gradle asciidoctor ```
 

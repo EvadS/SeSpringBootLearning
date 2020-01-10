@@ -13,7 +13,7 @@ buildscript {
 
 
 plugins {
-    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'org.springframework.boot' version ${springBootVersion}
     id 'io.spring.dependency-management' version '1.0.8.RELEASE'
     id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
@@ -52,7 +52,7 @@ repositories {
 }
 
 ext {
-    set('snippetsDir', file("build/generated-snippets"))
+    set('snippetsDir', file("build/snippets"))
 }
 
 dependencies {
@@ -82,26 +82,33 @@ asciidoctor {
     sourceDir 'src/main/asciidoc'
     attributes 'snippets': file('build/snippets')
 
-    outputDir = file('my-build/docs')
+    outputDir = file('my-builded-docs')
 
-    backends 'pdf'
-    attributes 'build-gradle': file('build.gradle'),
-            'sourcedir': project.sourceSets.main.java.srcDirs[0],
-            'endpoint-url': 'http://example.org',
-            'source-highlighter': 'coderay',
-            'imagesdir': './images',
-            'toc': 'left',
-            'icons': 'font',
-            'setanchors': '',
-            'idprefix': '',
-            'idseparator': '-',
-            'docinfo1': ''
+    backends = ['html5', 'pdf', 'docbook']
+
+    attributes = [
+            'source-highlighter': 'highlightjs',
+            'imagesdir'         : './images',
+            'toc'               : 'left',
+            'toclevels'         : 3,
+            'numbered'          : '',
+            'icons'             : 'font',
+            'setanchors'        : '',
+            'idprefix'          : '',
+            'idseparator'       : '-',
+            'docinfo1'          : '',
+            'safe-mode-unsafe'  : '',
+            'allow-uri-read'    : '',
+            'snippets'          : snippetsDir,
+            linkattrs           : true,
+            encoding            : 'utf-8'
+    ]
 }
 
 asciidoctor.doLast {
-    copy {
-        from 'my-build/docs/html5'
-        into "docs/"
-        include 'index.html'
-    }
+//    copy {
+//        from 'my-build/docs/html5'
+//        into "docs/"
+//        include 'index.html'
+//    }
 }
