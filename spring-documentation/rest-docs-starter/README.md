@@ -3,3 +3,6 @@ Starter repository with a simple REST controller used as a starting point for tr
 
 Documentation
 http://springfox.github.io/springfox/docs/current/#support-for-documentation-from-property-file-lookup
+
+
+## Spring Test MVC
