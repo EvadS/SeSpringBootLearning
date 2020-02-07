@@ -1,13 +1,15 @@
 package com.se.sample.controller;
 
 import com.se.sample.dto.PostDto;
+import com.se.sample.entity.Post;
 import com.se.sample.entity.Tag;
 import com.se.sample.exception.ResourceNotFoundException;
-import com.se.sample.entity.Post;
 import com.se.sample.repository.PostRepository;
 import com.se.sample.repository.TagRepository;
 import com.se.sample.service.PostService;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,15 +17,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @RestController
 public class PostController {
 
-    @Autowired
+
     private ModelMapper modelMapper;
 
 
@@ -32,9 +30,13 @@ public class PostController {
 
     private TagRepository tagRepository;
 
-    public PostController(@Autowired PostRepository postRepository,@Autowired TagRepository tagRepository) {
+    public PostController(@Autowired PostRepository postRepository,@Autowired TagRepository tagRepository,@Autowired ModelMapper modelMapper) {
         this.postRepository = postRepository;
         this.tagRepository = tagRepository;
+
+        this.modelMapper = modelMapper;
+
+        this.modelMapper.createTypeMap(PostDto.class,Post.class).setConverter(converter);
     }
 
     @Autowired
@@ -52,7 +54,8 @@ public class PostController {
 
     @PostMapping("/posts")
     public Post createPost(@Valid @RequestBody PostDto  model) {
-        Post post = convertToEntity(model);
+
+        Post post = modelMapper.map(model, Post.class);
         return postRepository.save(post);
     }
 
@@ -76,35 +79,51 @@ public class PostController {
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
     }
 
-    private Post convertToEntity(PostDto postDto)  {
-        Post post = modelMapper.map(postDto, Post.class);
 
-        post.setContent(postDto.getContent());
-        post.setDescription(postDto.getDescription());
-        post.setTitle(postDto.getTitle());
+    Converter<PostDto, Post> converter = new Converter<PostDto, Post>() {
 
+        @Override
+        public Post convert(MappingContext<PostDto, Post> mappingContext) {
+            Post post = new Post();
 
-        // ищем по тег нейм
+            PostDto postDto = mappingContext.getSource();
+            post.setContent(postDto.getContent());
+            post.setDescription(postDto.getDescription());
+            post.setTitle(postDto.getTitle());
 
-        for (String item : postDto.getTags()) {
-            Tag tagEntity = tagRepository.findByName(item);
+            for (String item : postDto.getTags()) {
+                Tag tagEntity = tagRepository.findByName(item);
 
-            if(tagEntity == null){
-                tagEntity = new Tag(item);
+                if (tagEntity == null) {
+                    tagEntity = new Tag(item);
+                }
+
+                post.addTag(tagEntity);
             }
 
-            post.addTag(tagEntity);
+            return post;
         }
+    };
 
-        // оставлено на потом
 
-//        post.setTags(postDto.getTags().stream()
-//                .map(tag -> new Tag(tag))
-//                .collect(Collectors.toSet()));
-
-        return  post;
-
-    }
+//    private Post convertToEntity(PostDto postDto)  {
+//        Post post = modelMapper.map(postDto, Post.class);
+//
+//
+//
+//
+//        // ищем по тег нейм
+//
+//
+//        // оставлено на потом
+//
+////        post.setTags(postDto.getTags().stream()
+////                .map(tag -> new Tag(tag))
+////                .collect(Collectors.toSet()));
+//
+//        return  post;
+//
+//    }
 
     private PostDto convertToDto(Post post) {
         PostDto postDto = modelMapper.map(post, PostDto.class);
