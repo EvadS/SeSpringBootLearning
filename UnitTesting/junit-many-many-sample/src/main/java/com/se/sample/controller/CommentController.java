@@ -2,7 +2,7 @@ package com.se.sample.controller;
 
 
 import com.se.sample.exception.ResourceNotFoundException;
-import com.se.sample.model.Comment;
+import com.se.sample.entity.Comment;
 import com.se.sample.repository.CommentRepository;
 import com.se.sample.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;

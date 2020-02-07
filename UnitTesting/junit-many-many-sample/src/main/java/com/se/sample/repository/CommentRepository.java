@@ -1,7 +1,7 @@
 package com.se.sample.repository;
 
 
-import com.se.sample.model.Comment;
+import com.se.sample.entity.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

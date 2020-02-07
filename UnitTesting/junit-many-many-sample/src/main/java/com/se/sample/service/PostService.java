@@ -1,7 +1,7 @@
 package com.se.sample.service;
 
 
-import com.se.sample.model.Post;
+import com.se.sample.entity.Post;
 import com.se.sample.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

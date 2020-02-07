@@ -1,15 +1,15 @@
 package com.se.sample.service;
 
-import com.se.sample.model.Post;
+import com.se.sample.entity.Post;
 import com.se.sample.repository.PostRepository;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Collection;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -21,13 +21,17 @@ public class PostServiceTest {
 
     private PostService postService;
 
+    @Test
+    public void isLoadCorrect(){
+
+    }
 
     @Before
     public void init(){
         postService = new PostService(postRepository);
     }
 
-    @org.junit.Test
+    @Test
     public void getPostById() {
 
         BDDMockito

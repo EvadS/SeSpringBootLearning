@@ -1,0 +1,11 @@
+FROM 537248123198.dkr.ecr.eu-central-1.amazonaws.com/safechain/java
+COPY . /var/www/java
+
+WORKDIR /var/www/java
+
+RUN apk add --update nodejs nodejs-npm
+
+#Angular CLI
+#RUN npm install -g @angular/cli
+
+RUN npm install --prefix ./sshserver/app
