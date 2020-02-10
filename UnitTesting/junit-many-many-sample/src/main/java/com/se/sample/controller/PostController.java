@@ -59,6 +59,8 @@ public class PostController {
     public Post createPost(@Valid @RequestBody PostDto  model) {
 
         Post post = modelMapper.map(model, Post.class);
+
+
         return postRepository.save(post);
     }
 
