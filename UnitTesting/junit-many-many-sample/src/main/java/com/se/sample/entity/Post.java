@@ -1,7 +1,5 @@
 package com.se.sample.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,7 +9,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "post")
+@Table(name = "posts")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,18 +37,9 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_updated_at")
     private Date lastUpdatedAt = new Date();
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<PostTag> postTags;
 
-
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {
-//                    CascadeType.PERSIST,
-//                    CascadeType.MERGE
-//            })
-//    @JoinTable(name = "post_tags",
-//            joinColumns = { @JoinColumn(name = "post_id") },
-//            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
-//    @JsonManagedReference
-//    private Set<Tag> tags;
 
 
     public Post() {
@@ -58,7 +47,6 @@ public class Post {
     }
 
     /**
-     *
      * @param title
      * @param description
      * @param content
@@ -71,6 +59,7 @@ public class Post {
 
     /**
      * parametrized constructor for unit testing
+     *
      * @param id
      * @param title
      * @param description
@@ -82,7 +71,6 @@ public class Post {
         this.description = description;
         this.content = content;
     }
-
 
     public Long getId() {
         return id;
@@ -132,14 +120,6 @@ public class Post {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
-  //  public Set<Tag> getTags() {
-//        return tags;
-//    }
-
-//    public void setTags(Set<Tag> tags) {
-//        this.tags = tags;
-//    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,18 +135,6 @@ public class Post {
         return Objects.hash(id, title, description);
     }
 
-//    public void addTag(Tag tag){
-//        if (tags == null) {
-//            tags = new HashSet<>();
-//        }
-//
-//        tags.add(tag);
-//    }
-
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<PostTag> postTags;
-
     public Set<PostTag> getPostTags() {
         return postTags;
     }
@@ -174,4 +142,13 @@ public class Post {
     public void setPostTags(Set<PostTag> postTags) {
         this.postTags = postTags;
     }
+
+    public void addTag(PostTag postTag){
+        if (postTags == null) {
+            postTags = new HashSet<>();
+        }
+
+        postTags.add(postTag);
+    }
+
 }

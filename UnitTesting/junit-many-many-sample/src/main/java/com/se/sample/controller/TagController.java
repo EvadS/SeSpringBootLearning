@@ -25,6 +25,4 @@ public class TagController {
     public Tag createPost(@Valid @RequestBody Tag model) {
         return tagRepository.save(model);
     }
-
-
 }

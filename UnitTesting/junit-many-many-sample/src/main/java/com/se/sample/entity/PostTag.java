@@ -1,39 +1,26 @@
 package com.se.sample.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "post_tag")
+@IdClass(PostTagId.class)
 public class PostTag implements Serializable {
-
-    @Id
-    @ManyToOne
-    @JoinColumn
-    private Post post;
 
     @Id
     @ManyToOne
     @JoinColumn
     private Tag tag;
 
-    public PostTag(Post post, Tag tag) {
-        this.post = post;
-        this.tag = tag;
-    }
+    @Id
+    @ManyToOne
+    @JoinColumn
+  //  @Column(name = "Post")
+    private Post post;
 
     public PostTag() {
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 
     public Tag getTag() {

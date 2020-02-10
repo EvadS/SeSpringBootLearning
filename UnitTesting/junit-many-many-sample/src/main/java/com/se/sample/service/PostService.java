@@ -25,6 +25,4 @@ public class PostService {
     public Post getPostById(Long postId){
         return postRepository.getOne(postId);
     }
-
-
 }

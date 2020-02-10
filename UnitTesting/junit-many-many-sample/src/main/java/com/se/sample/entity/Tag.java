@@ -23,8 +23,11 @@ public class Tag {
     @NaturalId
     private String name;
 
-//    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
-//    private Set<PostTag> postTags = new HashSet<>();
+    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+    private Set<PostTag> postTags = new HashSet<>();
+
+    public Tag() {
+    }
 
     public Tag(String name) {
         this.name = name;
@@ -45,6 +48,4 @@ public class Tag {
     public void setName(String name) {
         this.name = name;
     }
-
-
 }

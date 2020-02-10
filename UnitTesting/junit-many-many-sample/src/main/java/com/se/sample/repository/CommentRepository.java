@@ -9,11 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-/**
- * Created by rajeevkumarsingh on 21/11/17.
- */
 @Repository
-public interface CommentRepository extends JpaRepository<Comment, Long> {
-//    Page<Comment> findByPostId(Long postId, Pageable pageable);
-//    Optional<Comment> findByIdAndPostId(Long id, Long postId);
+public interface CommentRepository extends JpaRepository<Comment, Long>
+{
+  //  Page<Comment> findByPostId(Long postId, Pageable pageable);
+  //  Optional<Comment> findByIdAndPostId(Long id, Long postId);
 }

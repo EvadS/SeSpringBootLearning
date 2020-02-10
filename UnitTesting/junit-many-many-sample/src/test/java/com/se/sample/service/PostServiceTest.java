@@ -15,34 +15,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 public class PostServiceTest {
-
-    @MockBean
-    private PostRepository postRepository;
-
-    private PostService postService;
-
-    @Test
-    public void isLoadCorrect(){
-
-    }
-
-    @Before
-    public void init(){
-        postService = new PostService(postRepository);
-    }
-
-    @Test
-    public void getPostById() {
-
-        BDDMockito
-                .given(this.postRepository.getOne(1l))
-                .willReturn(new Post(1l,"title","description", "content" ));
-
-        Post actual = postService.getPostById(1l);
-
-        assertThat(actual).isNotNull();
-        assertThat(actual.getId()).isEqualTo(1l);
-
-        assertThat(actual.getTitle()).isEqualTo("title");
-    }
+//
+//    @MockBean
+//    private PostRepository postRepository;
+//
+//    private PostService postService;
+//
+//    @Test
+//    public void isLoadCorrect(){
+//
+//    }
+//
+//    @Before
+//    public void init(){
+//        postService = new PostService(postRepository);
+//    }
+//
+//    @Test
+//    public void getPostById() {
+//
+//        BDDMockito
+//                .given(this.postRepository.getOne(1l))
+//                .willReturn(new Post(1l,"title","description", "content" ));
+//
+//        Post actual = postService.getPostById(1l);
+//
+//        assertThat(actual).isNotNull();
+//        assertThat(actual.getId()).isEqualTo(1l);
+//
+//        assertThat(actual.getTitle()).isEqualTo("title");
+//    }
 }

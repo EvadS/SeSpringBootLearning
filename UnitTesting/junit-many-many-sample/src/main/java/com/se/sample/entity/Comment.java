@@ -32,6 +32,14 @@ public class Comment extends AuditModel
 //    @JsonProperty("post_id")
 //    private Post post;
 
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+
+    private Post post;
+
     public Long getId() {
         return id;
     }

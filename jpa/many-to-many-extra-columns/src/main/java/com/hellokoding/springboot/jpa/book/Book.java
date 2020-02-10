@@ -25,4 +25,31 @@ public class Book {
         for(BookPublisher bookPublisher : bookPublishers) bookPublisher.setBook(this);
         this.bookPublishers = Stream.of(bookPublishers).collect(Collectors.toSet());
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<BookPublisher> getBookPublishers() {
+        return bookPublishers;
+    }
+
+    public void setBookPublishers(Set<BookPublisher> bookPublishers) {
+        this.bookPublishers = bookPublishers;
+    }
+
+    public Book() {
+    }
 }
