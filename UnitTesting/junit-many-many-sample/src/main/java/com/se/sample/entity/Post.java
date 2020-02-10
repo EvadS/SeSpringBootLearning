@@ -1,5 +1,7 @@
 package com.se.sample.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -9,7 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "posts")
+@Table(name = "post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,15 +41,16 @@ public class Post {
     private Date lastUpdatedAt = new Date();
 
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "post_tags",
-            joinColumns = { @JoinColumn(name = "post_id") },
-            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
-    private Set<Tag> tags;
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {
+//                    CascadeType.PERSIST,
+//                    CascadeType.MERGE
+//            })
+//    @JoinTable(name = "post_tags",
+//            joinColumns = { @JoinColumn(name = "post_id") },
+//            inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+//    @JsonManagedReference
+//    private Set<Tag> tags;
 
 
     public Post() {
@@ -129,13 +132,13 @@ public class Post {
         this.lastUpdatedAt = lastUpdatedAt;
     }
 
-    public Set<Tag> getTags() {
-        return tags;
-    }
+  //  public Set<Tag> getTags() {
+//        return tags;
+//    }
 
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
-    }
+//    public void setTags(Set<Tag> tags) {
+//        this.tags = tags;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -152,11 +155,23 @@ public class Post {
         return Objects.hash(id, title, description);
     }
 
-    public void addTag(Tag tag){
-        if (tags == null) {
-            tags = new HashSet<>();
-        }
+//    public void addTag(Tag tag){
+//        if (tags == null) {
+//            tags = new HashSet<>();
+//        }
+//
+//        tags.add(tag);
+//    }
 
-        tags.add(tag);
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<PostTag> postTags;
+
+    public Set<PostTag> getPostTags() {
+        return postTags;
+    }
+
+    public void setPostTags(Set<PostTag> postTags) {
+        this.postTags = postTags;
     }
 }

@@ -98,7 +98,7 @@ public class PostController {
                     tagEntity = new Tag(item);
                 }
 
-                post.addTag(tagEntity);
+              //  post.addTag(tagEntity);
             }
 
             return post;

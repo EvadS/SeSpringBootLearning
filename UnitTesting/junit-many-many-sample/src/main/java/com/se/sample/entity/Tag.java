@@ -1,6 +1,8 @@
 package com.se.sample.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -10,7 +12,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "tags")
+@Table(name = "tag")
 public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,17 +23,8 @@ public class Tag {
     @NaturalId
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "tags")
-    private Set<Post> posts = new HashSet<>();
-
-    public Tag() {
-
-    }
+//    @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
+//    private Set<PostTag> postTags = new HashSet<>();
 
     public Tag(String name) {
         this.name = name;
@@ -53,14 +46,5 @@ public class Tag {
         this.name = name;
     }
 
-    public Set<Post> getPosts() {
-        return posts;
-    }
 
-    public void setPosts(Set<Post> posts) {
-        this.posts = posts;
-    }
-
-
-// Getters and Setters (Omitted for brevity)
 }
