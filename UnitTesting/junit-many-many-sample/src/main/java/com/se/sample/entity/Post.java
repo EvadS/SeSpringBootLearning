@@ -37,9 +37,9 @@ public class Post {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_updated_at")
     private Date lastUpdatedAt = new Date();
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<PostTag> postTags;
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    private Set<PostTag> postTags = new HashSet<>();
 
 
     public Post() {
@@ -135,15 +135,7 @@ public class Post {
         return Objects.hash(id, title, description);
     }
 
-    public Set<PostTag> getPostTags() {
-        return postTags;
-    }
-
-    public void setPostTags(Set<PostTag> postTags) {
-        this.postTags = postTags;
-    }
-
-    public void addTag(PostTag postTag){
+     public void addTag(PostTag postTag){
         if (postTags == null) {
             postTags = new HashSet<>();
         }
@@ -151,4 +143,7 @@ public class Post {
         postTags.add(postTag);
     }
 
+    public Set<PostTag> getPostTags() {
+        return postTags;
+    }
 }

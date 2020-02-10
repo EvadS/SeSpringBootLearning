@@ -19,6 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.Locale;
+import java.util.Set;
 
 @RestController
 public class PostController {
@@ -60,8 +64,28 @@ public class PostController {
 
         Post post = modelMapper.map(model, Post.class);
 
+        post.setTitle(String.format("%s", System.nanoTime()));
+        Set<PostTag> postTagSet = post.getPostTags();
 
-        return postRepository.save(post);
+        //   post = postRepository.save(post);
+
+
+            Tag tag = tagRepository.findById(1L).get();
+            PostTag pt = new PostTag(tag, post);
+            //   postTagRepository.save(pt);
+
+//     tag = tagRepository.findById(2L).get();
+            //    pt = new PostTag(tag,post);
+//    postTagRepository.save(pt);
+
+
+            post.addTag(pt);
+
+            return postRepository.save(post);
+
+
+
+
     }
 
 
@@ -96,34 +120,27 @@ public class PostController {
             post.setDescription(postDto.getDescription());
             post.setTitle(postDto.getTitle());
 
-//            for (String item : postDto.getTags()) {
-//                PostTag tagEntity = tagRepository.findByName(item);
+
+
+//            for(String item : postDto.getTags()){
 //
-//                if (tagEntity == null) {
-//                    tagEntity = new Tag(item);
+//                Tag existsTag = tagRepository.findByName(item);
+//
+//                if(existsTag  != null){
+//
+//                    PostTag postTag = postTagRepository.findPostTagByTag(existsTag.getId());
+//                    post.addTag(postTag);
 //                }
 //
-//                  post.addTag(tagEntity);
+//                else {
+//                   Tag tag = new Tag(item);
+//                   tagRepository.save(tag);
+//                   PostTag postTag = new PostTag();
+//                   postTag.setTag(tag);
+//
+//                   post.addTag(postTag);
+//                }
 //            }
-
-            for(String item : postDto.getTags()){
-
-                Tag existsTag = tagRepository.findByName(item);
-
-                if(existsTag  != null){
-
-                    PostTag postTag = postTagRepository.findPostTagByTag(existsTag.getId());
-                    post.addTag(postTag);
-                }
-
-                else {
-                   Tag tag = new Tag(item);
-                   PostTag postTag = new PostTag();
-                   postTag.setTag(tag);
-
-                   post.addTag(postTag);
-                }
-            }
 
             return post;
         }

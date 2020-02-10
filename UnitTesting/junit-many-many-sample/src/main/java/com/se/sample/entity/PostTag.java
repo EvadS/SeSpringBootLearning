@@ -20,7 +20,13 @@ public class PostTag implements Serializable {
   //  @Column(name = "Post")
     private Post post;
 
+
     public PostTag() {
+    }
+
+    public PostTag(Tag tag, Post post) {
+        this.tag = tag;
+        this.post = post;
     }
 
     public Tag getTag() {
@@ -29,5 +35,13 @@ public class PostTag implements Serializable {
 
     public void setTag(Tag tag) {
         this.tag = tag;
+    }
+
+    public Post getPost() {
+        return post;
+    }
+
+    public void setPost(Post post) {
+        this.post = post;
     }
 }
