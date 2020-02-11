@@ -3,7 +3,6 @@ package com.se.sample.controller;
 import com.se.sample.dto.PostDto;
 import com.se.sample.entity.Post;
 import com.se.sample.entity.PostTag;
-import com.se.sample.entity.PostTagRepository;
 import com.se.sample.entity.Tag;
 import com.se.sample.exception.ResourceNotFoundException;
 import com.se.sample.repository.PostRepository;
@@ -19,95 +18,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 public class PostController {
-
-    private ModelMapper modelMapper;
-
-    private PostTagRepository postTagRepository;
-
-    private PostRepository postRepository;
-
-    private TagRepository tagRepository;
-
-    public PostController(@Autowired PostRepository postRepository,@Autowired TagRepository tagRepository
-            ,@Autowired ModelMapper modelMapper, @Autowired PostTagRepository postTagRepository) {
-        this.postRepository = postRepository;
-        this.tagRepository = tagRepository;
-       // this.postTagRepository = postTagRepository;
-
-        this.modelMapper = modelMapper;
-
-        this.modelMapper.createTypeMap(PostDto.class,Post.class).setConverter(converter);
-    }
-
-    @Autowired
-    private PostService postervice;
-
-    @GetMapping("/posts")
-    public Page<Post> getAllPosts(Pageable pageable) {
-        return postervice.getPosts(pageable);
-    }
-
-    @GetMapping("/post/{postId}")
-    public void  getPost(@PathVariable Long postId){
-
-    }
-
-    @PostMapping("/posts")
-    public Post createPost(@Valid @RequestBody PostDto  model) {
-
-        Post post = modelMapper.map(model, Post.class);
-
-        post.setTitle(String.format("%s", System.nanoTime()));
-        Set<PostTag> postTagSet = post.getPostTags();
-
-        //   post = postRepository.save(post);
-
-
-            Tag tag = tagRepository.findById(1L).get();
-            PostTag pt = new PostTag(tag, post);
-            //   postTagRepository.save(pt);
-
-//     tag = tagRepository.findById(2L).get();
-            //    pt = new PostTag(tag,post);
-//    postTagRepository.save(pt);
-
-
-            post.addTag(pt);
-
-            return postRepository.save(post);
-
-
-
-
-    }
-
-
-    @PutMapping("/posts/{postId}")
-    public Post updatePost(@PathVariable Long postId, @Valid @RequestBody Post postRequest) {
-        return postRepository.findById(postId).map(post -> {
-            post.setTitle(postRequest.getTitle());
-            post.setDescription(postRequest.getDescription());
-            post.setContent(postRequest.getContent());
-            return postRepository.save(post);
-        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-    }
-
-
-    @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
-        return postRepository.findById(postId).map(post -> {
-            postRepository.delete(post);
-            return ResponseEntity.ok().build();
-        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-    }
-
 
     Converter<PostDto, Post> converter = new Converter<PostDto, Post>() {
 
@@ -121,8 +36,13 @@ public class PostController {
             post.setTitle(postDto.getTitle());
 
 
+            for (String item : postDto.getTags()) {
+                Tag tag = new Tag(item);
 
-//            for(String item : postDto.getTags()){
+                PostTag postTag = new PostTag(tag);
+                post.buildPostTags(postTag);
+
+            }
 //
 //                Tag existsTag = tagRepository.findByName(item);
 //
@@ -146,11 +66,93 @@ public class PostController {
         }
     };
 
+    // private PostTagRepository postTagRepository;
+    private ModelMapper modelMapper;
+    private PostRepository postRepository;
+    private TagRepository tagRepository;
 
-    private Post convertToEntity(PostDto postDto)  {
+    @Autowired
+    private PostService postervice;
+
+    public PostController(@Autowired PostRepository postRepository, @Autowired TagRepository tagRepository
+            , @Autowired ModelMapper modelMapper/*, @Autowired PostTagRepository postTagRepository*/) {
+        this.postRepository = postRepository;
+        this.tagRepository = tagRepository;
+        // this.postTagRepository = postTagRepository;
+
+        this.modelMapper = modelMapper;
+
+        this.modelMapper.createTypeMap(PostDto.class, Post.class).setConverter(converter);
+    }
+
+    @GetMapping("/posts")
+    public Page<Post> getAllPosts(Pageable pageable) {
+        return postervice.getPosts(pageable);
+    }
+
+    @GetMapping("/post/{postId}")
+    public void getPost(@PathVariable Long postId) {
+
+    }
+
+    @PostMapping("/post-base")
+    public ResponseEntity<Post> create(@Valid @RequestBody Post post) {
+        return ResponseEntity.ok(postRepository.save(post));
+    }
+
+    @PostMapping("/posts")
+    public boolean createPost(@Valid @RequestBody PostDto model) {
+
+        //    Post post = modelMapper.map(model, Post.class);
+//        Tag tag = new Tag(String.format("tag_%s", System.nanoTime()));
+//        Tag tag2 = new Tag(String.format("tag_2_%s", System.nanoTime()));
+//
+//        tagRepository.saveAll(Arrays.asList(tag, tag2));
+//
+        String title = String.format("title_%s", System.nanoTime());
+        String description = String.format("title_%s", System.nanoTime());
+//
+//        Post post2 = new Post(title, description, "content"
+//                , new PostTag(tag)
+//                , new PostTag(tag2));
+
+       Collection<Tag> collection =  model.getTags().stream()
+                .map(tag -> new Tag(tag))
+                .collect(Collectors.toSet());
+
+       List<PostTag> postTags = new ArrayList<>();
+       for(Tag tag: collection){
+           tagRepository.save(tag);
+
+           postTags.add(new PostTag(tag));
+       }
+
+        Post post2 = new Post(title, description, "content",  postTags);
+        postRepository.save(post2);
+
+        return true;
+    }
+
+    @PutMapping("/posts/{postId}")
+    public Post updatePost(@PathVariable Long postId, @Valid @RequestBody Post postRequest) {
+        return postRepository.findById(postId).map(post -> {
+            post.setTitle(postRequest.getTitle());
+            post.setDescription(postRequest.getDescription());
+            post.setContent(postRequest.getContent());
+            return postRepository.save(post);
+        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+    }
+
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<?> deletePost(@PathVariable Long postId) {
+        return postRepository.findById(postId).map(post -> {
+            postRepository.delete(post);
+            return ResponseEntity.ok().build();
+        }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
+    }
+
+    private Post convertToEntity(PostDto postDto) {
         Post post = modelMapper.map(postDto, Post.class);
-
-
 
 
         // ищем по тег нейм
@@ -162,7 +164,7 @@ public class PostController {
 //                .map(tag -> new Tag(tag))
 //                .collect(Collectors.toSet()));
 
-        return  post;
+        return post;
 
     }
 

@@ -7,9 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-//@Getter
-//@Setter
-//@NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 
 @Entity
 public class BookPublisher implements Serializable {
@@ -38,34 +38,6 @@ public class BookPublisher implements Serializable {
         return Objects.equals(book.getName(), that.book.getName()) &&
                 Objects.equals(publisher.getName(), that.publisher.getName()) &&
                 Objects.equals(publishedDate, that.publishedDate);
-    }
-
-    public Book getBook() {
-        return book;
-    }
-
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public Publisher getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(Publisher publisher) {
-        this.publisher = publisher;
-    }
-
-    public Date getPublishedDate() {
-        return publishedDate;
-    }
-
-    public void setPublishedDate(Date publishedDate) {
-        this.publishedDate = publishedDate;
-    }
-
-
-    public BookPublisher() {
     }
 
     @Override

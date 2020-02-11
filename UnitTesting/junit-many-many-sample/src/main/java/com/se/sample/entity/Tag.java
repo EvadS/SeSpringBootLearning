@@ -24,7 +24,7 @@ public class Tag {
     private String name;
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
-    private Set<PostTag> postTags = new HashSet<>();
+    private Set<PostTag> posttags = new HashSet<>();
 
     public Tag() {
     }

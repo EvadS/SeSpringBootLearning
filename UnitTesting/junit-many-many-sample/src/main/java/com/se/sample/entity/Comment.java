@@ -24,21 +24,13 @@ public class Comment extends AuditModel
     @Lob
     private String text;
 
+
+
 //    @ManyToOne(fetch = FetchType.LAZY, optional = false)
 //    @JoinColumn(name = "post_id", nullable = false)
 //    @OnDelete(action = OnDeleteAction.CASCADE)
-//    @JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-//    @JsonIdentityReference(alwaysAsId=true)
-//    @JsonProperty("post_id")
+//    @JsonIgnore
 //    private Post post;
-
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-
-    private Post post;
 
     public Long getId() {
         return id;

@@ -1,12 +1,13 @@
 package com.se.sample.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table(name = "posts")
@@ -31,15 +32,17 @@ public class Post {
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "posted_at")
+    @JsonIgnore
     private Date postedAt = new Date();
 
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_updated_at")
+    @JsonIgnore
     private Date lastUpdatedAt = new Date();
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private Set<PostTag> postTags = new HashSet<>();
+    private Set<PostTag> postTags;
 
 
     public Post() {
@@ -71,6 +74,57 @@ public class Post {
         this.description = description;
         this.content = content;
     }
+
+    /**
+     *
+     * @param title
+     * @param description
+     * @param content
+     * @param bookPublishers
+     */
+    public Post(@NotNull @Size(max = 100) String title,
+                @NotNull @Size(max = 250) String description,
+                @NotNull String content, PostTag... bookPublishers) {
+        this.title = title;
+        this.description = description;
+        this.content = content;
+
+//        for(PostTag bookPublisher : bookPublishers) {
+//            bookPublisher.setPost(this);
+//        }
+//        this.postTags = Stream.of(bookPublishers).collect(Collectors.toSet());
+        buildPostTags(bookPublishers);
+    }
+
+    public Post(String title, String description, String content, List<PostTag> postTagsList) {
+
+        this.title = title;
+        this.description = description;
+        this.content = content;
+
+        for(PostTag bookPublisher : postTagsList) {
+            bookPublisher.setPost(this);
+        }
+        this.postTags =   postTagsList.stream().collect(Collectors.toSet());
+    }
+
+
+    public void buildPostTags(PostTag... bookPublishers){
+        for(PostTag bookPublisher : bookPublishers) {
+            bookPublisher.setPost(this);
+        }
+
+        this.postTags = Stream.of(bookPublishers).collect(Collectors.toSet());
+    }
+
+
+    public void addPostTags(PostTag bookPublisher){
+
+        bookPublisher.setPost(this);
+        this.postTags.add(bookPublisher); //.addAll(Stream.of(bookPublishers).collect(Collectors.toSet()));
+    }
+
+
 
     public Long getId() {
         return id;
@@ -133,14 +187,6 @@ public class Post {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, description);
-    }
-
-     public void addTag(PostTag postTag){
-        if (postTags == null) {
-            postTags = new HashSet<>();
-        }
-
-        postTags.add(postTag);
     }
 
     public Set<PostTag> getPostTags() {

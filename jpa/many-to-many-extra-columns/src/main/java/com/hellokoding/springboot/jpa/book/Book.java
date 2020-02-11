@@ -7,7 +7,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-//@Data
+@Data
+
 @Entity
 public class Book {
     @Id
@@ -24,32 +25,5 @@ public class Book {
         this.name = name;
         for(BookPublisher bookPublisher : bookPublishers) bookPublisher.setBook(this);
         this.bookPublishers = Stream.of(bookPublishers).collect(Collectors.toSet());
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<BookPublisher> getBookPublishers() {
-        return bookPublishers;
-    }
-
-    public void setBookPublishers(Set<BookPublisher> bookPublishers) {
-        this.bookPublishers = bookPublishers;
-    }
-
-    public Book() {
     }
 }

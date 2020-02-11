@@ -1,12 +1,13 @@
-package com.se.sample.entity;
+package com.hellokoding.springboot.jpa.entity;
 
+import com.hellokoding.springboot.jpa.book.Book;
+import com.hellokoding.springboot.jpa.book.Publisher;
 
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "post_tag")
-//@IdClass(PostTagId.class)
 public class PostTag implements Serializable {
 
     @Id
