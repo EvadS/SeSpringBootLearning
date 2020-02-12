@@ -35,26 +35,26 @@ public class JunitManyManySampleApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        Tag tag = new Tag(String.format("tag_%s", System.nanoTime()));
-        Tag tag2 = new Tag(String.format("tag_2_%s", System.nanoTime()));
-
-        tagRepository.saveAll(Arrays.asList(tag, tag2));
-
-       String title =  String.format("title_%s", System.nanoTime());
-       String description =  String.format("title_%s", System.nanoTime());
-
-       Post post = new Post(title,description,"content"
-               , new PostTag(tag)
-               , new PostTag(tag2));
-
-        postRepository.save(post);
-
-        title =  String.format("title_%s", System.nanoTime());
-        post = new Post(title,description,"content"
-                , new PostTag(tag)
-                , new PostTag(tag2));
-
-        postRepository.save(post);
+//        Tag tag = new Tag(String.format("tag_%s", System.nanoTime()));
+//        Tag tag2 = new Tag(String.format("tag_2_%s", System.nanoTime()));
+//
+//        tagRepository.saveAll(Arrays.asList(tag, tag2));
+//
+//       String title =  String.format("title_%s", System.nanoTime());
+//       String description =  String.format("title_%s", System.nanoTime());
+//
+//       Post post = new Post(title,description,"content"
+//               , new PostTag(tag)
+//               , new PostTag(tag2));
+//
+//        postRepository.save(post);
+//
+//        title =  String.format("title_%s", System.nanoTime());
+//        post = new Post(title,description,"content"
+//                , new PostTag(tag)
+//                , new PostTag(tag2));
+//
+//        postRepository.save(post);
 
     }
 

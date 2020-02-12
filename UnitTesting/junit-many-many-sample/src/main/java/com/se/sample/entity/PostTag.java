@@ -19,6 +19,9 @@ public class PostTag implements Serializable {
     @JoinColumn
     private Tag tag;
 
+    public PostTag() {
+    }
+
     public PostTag(Tag tag) {
         this.tag = tag;
     }

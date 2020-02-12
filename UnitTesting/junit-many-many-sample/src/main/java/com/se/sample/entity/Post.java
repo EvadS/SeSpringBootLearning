@@ -89,10 +89,6 @@ public class Post {
         this.description = description;
         this.content = content;
 
-//        for(PostTag bookPublisher : bookPublishers) {
-//            bookPublisher.setPost(this);
-//        }
-//        this.postTags = Stream.of(bookPublishers).collect(Collectors.toSet());
         buildPostTags(bookPublishers);
     }
 

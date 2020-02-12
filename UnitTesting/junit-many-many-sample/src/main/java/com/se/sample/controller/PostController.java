@@ -1,16 +1,16 @@
 package com.se.sample.controller;
 
 import com.se.sample.dto.PostDto;
+import com.se.sample.dto.response.PostResponse;
 import com.se.sample.entity.Post;
-import com.se.sample.entity.PostTag;
 import com.se.sample.entity.Tag;
 import com.se.sample.exception.ResourceNotFoundException;
+import com.se.sample.model.PostModel;
 import com.se.sample.repository.PostRepository;
-import com.se.sample.repository.TagRepository;
 import com.se.sample.service.PostService;
+import com.se.sample.service.PostServiceImpl;
 import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.spi.MappingContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,71 +18,58 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
 public class PostController {
 
-    Converter<PostDto, Post> converter = new Converter<PostDto, Post>() {
+    Converter<PostDto, PostModel> PostDtoConverter = mappingContext -> {
+        Post post = new Post();
 
-        @Override
-        public Post convert(MappingContext<PostDto, Post> mappingContext) {
-            Post post = new Post();
+        PostDto postDto = mappingContext.getSource();
+        post.setContent(postDto.getContent());
+        post.setDescription(postDto.getDescription());
+        post.setTitle(postDto.getTitle());
 
-            PostDto postDto = mappingContext.getSource();
-            post.setContent(postDto.getContent());
-            post.setDescription(postDto.getDescription());
-            post.setTitle(postDto.getTitle());
+        Set<Tag> tags = postDto.getTags().stream()
+                .map(tag -> new Tag(tag))
+                .collect(Collectors.toSet());
 
-
-            for (String item : postDto.getTags()) {
-                Tag tag = new Tag(item);
-
-                PostTag postTag = new PostTag(tag);
-                post.buildPostTags(postTag);
-
-            }
-//
-//                Tag existsTag = tagRepository.findByName(item);
-//
-//                if(existsTag  != null){
-//
-//                    PostTag postTag = postTagRepository.findPostTagByTag(existsTag.getId());
-//                    post.addTag(postTag);
-//                }
-//
-//                else {
-//                   Tag tag = new Tag(item);
-//                   tagRepository.save(tag);
-//                   PostTag postTag = new PostTag();
-//                   postTag.setTag(tag);
-//
-//                   post.addTag(postTag);
-//                }
-//            }
-
-            return post;
-        }
+        return new PostModel(post, tags);
     };
+
+
+    Converter<Post, PostResponse> postResponseConverter = mappingContext -> {
+
+        return new PostResponse(mappingContext.getSource().getId(),
+                mappingContext.getSource().getContent(),
+                mappingContext.getSource().getTitle()
+        );
+    };
+
 
     // private PostTagRepository postTagRepository;
     private ModelMapper modelMapper;
     private PostRepository postRepository;
-    private TagRepository tagRepository;
+
+
+    private PostService postService;
 
     @Autowired
-    private PostService postervice;
+    private PostServiceImpl postervice;
 
-    public PostController(@Autowired PostRepository postRepository, @Autowired TagRepository tagRepository
-            , @Autowired ModelMapper modelMapper/*, @Autowired PostTagRepository postTagRepository*/) {
+    public PostController(@Autowired PostRepository postRepository
+            , @Autowired ModelMapper modelMapper, @Autowired PostService postService) {
         this.postRepository = postRepository;
-        this.tagRepository = tagRepository;
-        // this.postTagRepository = postTagRepository;
+
+        this.postService = postService;
 
         this.modelMapper = modelMapper;
 
-        this.modelMapper.createTypeMap(PostDto.class, Post.class).setConverter(converter);
+        this.modelMapper.createTypeMap(PostDto.class, PostModel.class).setConverter(PostDtoConverter);
+        this.modelMapper.createTypeMap(Post.class, PostResponse.class).setConverter(postResponseConverter);
+
     }
 
     @GetMapping("/posts")
@@ -101,36 +88,12 @@ public class PostController {
     }
 
     @PostMapping("/posts")
-    public boolean createPost(@Valid @RequestBody PostDto model) {
+    public ResponseEntity<PostResponse> createPost(@Valid @RequestBody PostDto model) {
 
-        //    Post post = modelMapper.map(model, Post.class);
-//        Tag tag = new Tag(String.format("tag_%s", System.nanoTime()));
-//        Tag tag2 = new Tag(String.format("tag_2_%s", System.nanoTime()));
-//
-//        tagRepository.saveAll(Arrays.asList(tag, tag2));
-//
-        String title = String.format("title_%s", System.nanoTime());
-        String description = String.format("title_%s", System.nanoTime());
-//
-//        Post post2 = new Post(title, description, "content"
-//                , new PostTag(tag)
-//                , new PostTag(tag2));
-
-       Collection<Tag> collection =  model.getTags().stream()
-                .map(tag -> new Tag(tag))
-                .collect(Collectors.toSet());
-
-       List<PostTag> postTags = new ArrayList<>();
-       for(Tag tag: collection){
-           tagRepository.save(tag);
-
-           postTags.add(new PostTag(tag));
-       }
-
-        Post post2 = new Post(title, description, "content",  postTags);
-        postRepository.save(post2);
-
-        return true;
+        PostModel postModel = modelMapper.map(model, PostModel.class);
+        Post post = postService.create(postModel);
+        PostResponse postResponse = modelMapper.map(post,PostResponse.class);
+        return ResponseEntity.ok(postResponse);
     }
 
     @PutMapping("/posts/{postId}")
@@ -149,28 +112,5 @@ public class PostController {
             postRepository.delete(post);
             return ResponseEntity.ok().build();
         }).orElseThrow(() -> new ResourceNotFoundException("PostId " + postId + " not found"));
-    }
-
-    private Post convertToEntity(PostDto postDto) {
-        Post post = modelMapper.map(postDto, Post.class);
-
-
-        // ищем по тег нейм
-
-
-        // оставлено на потом
-
-//        post.setTags(postDto.getTags().stream()
-//                .map(tag -> new Tag(tag))
-//                .collect(Collectors.toSet()));
-
-        return post;
-
-    }
-
-    private PostDto convertToDto(Post post) {
-        PostDto postDto = modelMapper.map(post, PostDto.class);
-
-        return postDto;
     }
 }
