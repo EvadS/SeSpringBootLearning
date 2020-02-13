@@ -3,7 +3,7 @@ package com.se.sample.dto.response;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostDetatils {
+public class PostDetails {
 
     List<String> tags = new ArrayList<>();
     private Long id;
@@ -12,11 +12,11 @@ public class PostDetatils {
     private String content;
 
 
-    public PostDetatils() {
-        
+    public PostDetails() {
+
     }
 
-    public PostDetatils(Long id, String title, String description, String content, List<String> tags) {
+    public PostDetails(Long id, String title, String description, String content, List<String> tags) {
         this.id = id;
         this.title = title;
         this.description = description;

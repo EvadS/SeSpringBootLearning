@@ -114,14 +114,6 @@ public class Post {
     }
 
 
-    public void addPostTags(PostTag bookPublisher){
-
-        bookPublisher.setPost(this);
-        this.postTags.add(bookPublisher); //.addAll(Stream.of(bookPublishers).collect(Collectors.toSet()));
-    }
-
-
-
     public Long getId() {
         return id;
     }
