@@ -105,14 +105,22 @@ public class Post {
     }
 
 
-    public void buildPostTags(PostTag... bookPublishers){
-        for(PostTag bookPublisher : bookPublishers) {
+    public void buildPostTags(PostTag... postTags){
+        for(PostTag bookPublisher : postTags) {
             bookPublisher.setPost(this);
         }
 
-        this.postTags = Stream.of(bookPublishers).collect(Collectors.toSet());
+        this.postTags = Stream.of(postTags).collect(Collectors.toSet());
     }
 
+    public void setPostTags(Set<PostTag> postTags) {
+
+        for(PostTag bookPublisher : postTags) {
+            bookPublisher.setPost(this);
+        }
+
+        this.postTags =  postTags;
+    }
 
     public Long getId() {
         return id;
