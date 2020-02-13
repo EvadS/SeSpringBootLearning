@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "post_tag")
-@IdClass(PostTagId.class)
+//@IdClass(PostTagId.class)
 public class PostTag implements Serializable {
 
     @Id

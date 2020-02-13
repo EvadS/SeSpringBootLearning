@@ -23,8 +23,8 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
     private TagRepository tagRepository;
 
-    @Autowired
-    private PostTagRepository postTagRepository;
+//    @Autowired
+//    private PostTagRepository postTagRepository;
 
     public PostServiceImpl(@Autowired PostRepository postRepository,
                            @Autowired TagRepository tagRepository
