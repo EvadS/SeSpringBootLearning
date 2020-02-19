@@ -2,17 +2,19 @@ package com.se.sample.service;
 
 import com.se.sample.helper.ThreadHelper;
 import com.se.sample.helper.ThreadNameHeleper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Decrement implements Runnable {
 
+    private final Logger logger = LoggerFactory.getLogger(Decrement.class);
+
     private ReentrantLock locker;
     private Counter counter;
     private ThreadNameHeleper threadNameHeleper;
     private String name;
-
-
     /**
      *
      * @param counter
@@ -32,39 +34,23 @@ public class Decrement implements Runnable {
     @Override
     public void run() {
         try {
-            while (this.counter.continueProducing) {
-                if (ThreadHelper.checkBreakCondition(locker, name, this.counter.continueProducing))
+            while (true) {
+                if (ThreadHelper.checkBreakCondition(locker, name, this.counter.getContinueProducing()))
                     break;
 
                 counter.decrement(counter.getDecrementValue(), this.name);
                 Thread.sleep(1000);
             }
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
-
+            logger.error(ex.getMessage(), ex.getStackTrace());
         } finally {
             if (locker.isLocked()) {
                 locker.unlock();
             }
 
-            System.out.println(String.format("%s  finished its job; terminating...",name ));
+            logger.info("{} finished its job; terminating...",name);
             threadNameHeleper.decreaseDecrement();
         }
 
-    }
-
-    private boolean checkBreakCondition() {
-
-        locker.lock();
-
-        if (!this.counter.continueProducing) {
-            System.out.println(String.format("Останавливаем в %s", name));
-            locker.unlock();
-
-            return true;
-        }
-
-        locker.unlock();
-        return false;
     }
 }

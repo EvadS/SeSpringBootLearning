@@ -2,10 +2,14 @@ package com.se.sample.service;
 
 import com.se.sample.helper.ThreadHelper;
 import com.se.sample.helper.ThreadNameHeleper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Increment implements  Runnable {
+
+    private final Logger logger = LoggerFactory.getLogger(Increment.class);
 
     private Counter counter;
     private String name;
@@ -32,7 +36,7 @@ public class Increment implements  Runnable {
         try {
             while (true) {
 
-                if (ThreadHelper.checkBreakCondition(locker, name, this.counter.continueProducing))
+                if (ThreadHelper.checkBreakCondition(locker, name, this.counter.getContinueProducing()))
                     break;
 
                 counter.increment(counter.getIncrementValue(), this.name);
@@ -40,8 +44,7 @@ public class Increment implements  Runnable {
             }
 
         } catch (InterruptedException ex) {
-            ex.printStackTrace();
-
+            logger.error(ex.getMessage(), ex.getStackTrace());
         } finally {
             // situation when we got exception from counter
             // or exception from  ThreadHelper
@@ -49,7 +52,7 @@ public class Increment implements  Runnable {
                 locker.unlock();
             }
 
-            System.out.println(String.format("%s  finished its job; terminating...",name ));
+            logger.info("{} finished its job; terminating...",name);
             threadNameHeleper.decreaseDecrement();
         }
     }
