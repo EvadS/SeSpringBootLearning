@@ -18,13 +18,13 @@ services:
       timeout: 20s
       retries: 10
 
-  book-manager-app:
+  app:
       restart: on-failure
       build: ./
       expose:
-        - "10222"
+        - "8000"
       ports:
-        - 10222:10222
+        - 8000:8000
       environment:
         WAIT_HOSTS: mysql:3306
         DB_PASSWORD: 31323334

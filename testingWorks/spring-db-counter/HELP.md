@@ -20,12 +20,16 @@ The following guides illustrate how to use some features concretely:
 
 mvn clean package
 
+
+mvn clean package -DskipTests
+
 docker-compose build
 
 Run Application With docker-compose
 
 
-
+ sudo rm -rf my-sql
+ 
       docker container stop $(docker container ls -aq)
       
        docker container rm $(docker container ls -aq)

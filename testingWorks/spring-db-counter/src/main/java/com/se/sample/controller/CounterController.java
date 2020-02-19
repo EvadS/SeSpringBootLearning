@@ -1,13 +1,11 @@
 package com.se.sample.controller;
 
-import com.se.sample.config.AppConfig;
+import com.se.sample.config.CounterExecutor;
 import com.se.sample.helper.ThreadNameHeleper;
 
 import com.se.sample.service.Counter;
 import com.se.sample.service.Decrement;
 import com.se.sample.service.Increment;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-@RestController
-public class MyController {
+@RestController("/counter")
+public class CounterController {
 
-    private AppConfig executorService;
+    private CounterExecutor executorService;
 private ThreadNameHeleper threadNameHeleper;
 
 
@@ -28,11 +26,13 @@ private ThreadNameHeleper threadNameHeleper;
     private Counter counter = new Counter();
 
     @Autowired
-    public MyController(@Autowired AppConfig executorService, @Autowired ThreadNameHeleper threadNameHeleper) {
+    public CounterController(@Autowired CounterExecutor executorService, @Autowired ThreadNameHeleper threadNameHeleper) {
 
         this.executorService = executorService;
         this.threadNameHeleper = threadNameHeleper;
     }
+
+
 
     @GetMapping("/add-increment")
     public ResponseEntity increaseProducer(){

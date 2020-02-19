@@ -22,10 +22,7 @@ import java.sql.SQLException;
 @Component
 public class DataSourceConfigCloud {
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(DataSourceConfigCloud.class);
-
-
+    // TODO: remove
     @PostConstruct
     public void init() {
         System.out.println("--------------------=* DB_HOST  " + System.getenv("DB_HOST"));
@@ -41,7 +38,6 @@ public class DataSourceConfigCloud {
     public DataSource getDataSource() {
         return DataSourceBuilder
                 .create()
-                //jdbc:mysql://localhost:6033/db
                 .url("jdbc:mysql://" + System.getenv("DB_HOST")
                         + "/"
                         + System.getenv("DB_NAME"))

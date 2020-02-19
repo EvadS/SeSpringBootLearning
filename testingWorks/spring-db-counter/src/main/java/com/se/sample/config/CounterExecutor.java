@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Component
-public class AppConfig {
+public class CounterExecutor {
     private ExecutorService executorService;
 
 
