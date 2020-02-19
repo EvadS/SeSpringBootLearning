@@ -1,0 +1,30 @@
+version: '2'
+services:
+  app:
+    build:
+        context: ./
+        dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8087:8086"
+      - "5005:5005"
+    depends_on:
+      - postgres
+    environment:
+      - DB_HOST=postgres
+      - DB_USER=root
+      - DB_PASSWORD=31323334
+      - DB_NAME=rewardpoolDb
+  postgres:
+    image: "mysql:5.7"
+    container_name: rewardpoolDb
+    restart: always
+    ports:
+      - "6033:3306"
+    volumes:
+      - ./data:/var/lib/mysql/data
+    environment:
+      - MYSQL_DATABASE=rewardpoolDb
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=31323334
+      - MYSQL_ROOT_PASSWORD=31323334

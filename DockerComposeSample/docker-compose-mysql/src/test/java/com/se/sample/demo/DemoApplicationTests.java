@@ -1,11 +1,10 @@
-package com.se.sample;
+package com.se.sample.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.Profile;
 
-//@SpringBootTest
-class SpringDbCounterApplicationTests {
+@SpringBootTest
+class DemoApplicationTests {
 
     @Test
     void contextLoads() {

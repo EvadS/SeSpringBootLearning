@@ -44,10 +44,8 @@ docker image prune
 
 ### Удалить все 
 ``` 
-docker rm $(docker image ls )
-
+docker rmi $(docker image ls )
 ```
-
 
 You'll be prompted to continue, use the -f or --force flag to bypass the prompt
 
