@@ -27,24 +27,27 @@ public class DataSourceConfigCloud {
 
 
     @PostConstruct
-    public void init(){
-        System.out.println("--------------------=* DB_NAME + " + System.getenv("DB_NAME"));
+    public void init() {
+        System.out.println("--------------------=* DB_HOST  " + System.getenv("DB_HOST"));
+        System.out.println("--------------------=* DB_NAME  " + System.getenv("DB_NAME"));
+        System.out.println("--------------------=* DB_USER  " + System.getenv("DB_USER"));
+        System.out.println("--------------------=* DB_PASSWORD+ " + System.getenv("DB_PASSWORD"));
 
     }
 
-//    @ConfigurationProperties(prefix = "spring.datasource")
-//    @Bean
-//    @Primary
-//    public DataSource getDataSource() {
-//        return DataSourceBuilder
-//                .create()
-//                //jdbc:mysql://localhost:6033/db
-//                .url("jdbc:mysql://" + System.getenv("DB_HOST")
-//                        + "/"
-//                        + System.getenv("DB_NAME"))
-//                .username(System.getenv("DB_USER"))
-//                .password(System.getenv("DB_PASSWORD"))
-//                .driverClassName("com.mysql.cj.jdbc.Driver")
-//                .build();
-//    }
+    @ConfigurationProperties(prefix = "spring.datasource")
+    @Bean
+    @Primary
+    public DataSource getDataSource() {
+        return DataSourceBuilder
+                .create()
+                //jdbc:mysql://localhost:6033/db
+                .url("jdbc:mysql://" + System.getenv("DB_HOST")
+                        + "/"
+                        + System.getenv("DB_NAME"))
+                .username(System.getenv("DB_USER"))
+                .password(System.getenv("DB_PASSWORD"))
+                .driverClassName("com.mysql.cj.jdbc.Driver")
+                .build();
+    }
 }

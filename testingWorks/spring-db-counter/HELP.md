@@ -25,9 +25,9 @@ docker-compose build
 Run Application With docker-compose
 
 
-Now we will apply some commands to run our application. I think we have already downloaded project from the above link. We will go to the project root directory. To run the application we will use following commands:
 
- docker-compose up — This will execute Dockerfile commands and will run services defined in the docker-compose file.
- docker-compose down — This will stop and remove all containers that were running by docker-compose file.
- docker-compose up --build — If we do an update on the Dockerfile, the war/jar file, or the docker-compose file, then we have to execute this command to get updated data on the Docker machine.
-So, I think after running docker-compose up, It runs the application with all services in the Docker machine. Ignore some initial exception logs for database communication. To check whether it runs or not, we can check http://localhost:10222/book. We can see the list of books here. 
+      docker container stop $(docker container ls -aq)
+      
+       docker container rm $(docker container ls -aq)
+       
+docker rmi $(docker images -a -q)

@@ -30,7 +30,6 @@ public class SpringDbCounterApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        logger.info("* DB_PASSWORD : {}", env.getProperty("DB_PASSWORD"));
 
         int a =0;
     }
