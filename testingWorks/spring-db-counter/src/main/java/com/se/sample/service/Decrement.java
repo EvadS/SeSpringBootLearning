@@ -15,8 +15,8 @@ public class Decrement implements Runnable {
     private Counter counter;
     private ThreadNameHeleper threadNameHeleper;
     private String name;
+
     /**
-     *
      * @param counter
      * @param locker
      * @param threadNameHeleper
@@ -38,8 +38,8 @@ public class Decrement implements Runnable {
                 if (ThreadHelper.checkBreakCondition(locker, name, this.counter.getContinueProducing()))
                     break;
 
-                counter.decrement(counter.getDecrementValue(), this.name);
-                Thread.sleep(1000);
+                counter.decrement(ThreadHelper.DECREMENT_VALUE, this.name);
+                Thread.sleep(ThreadHelper.DECREMENT_DELAY_MS);
             }
         } catch (InterruptedException ex) {
             logger.error(ex.getMessage(), ex.getStackTrace());
@@ -48,9 +48,8 @@ public class Decrement implements Runnable {
                 locker.unlock();
             }
 
-            logger.info("{} finished its job; terminating...",name);
+            logger.info("{} finished its job; terminating...", name);
             threadNameHeleper.decreaseDecrement();
         }
-
     }
 }

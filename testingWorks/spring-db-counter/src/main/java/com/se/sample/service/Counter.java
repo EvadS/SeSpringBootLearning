@@ -1,5 +1,8 @@
 package com.se.sample.service;
 
+import com.se.sample.entity.RequestInfo;
+import com.se.sample.enums.TaskType;
+import com.se.sample.helper.ThreadHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -9,53 +12,54 @@ public class Counter {
 
     private final Logger logger = LoggerFactory.getLogger(Counter.class);
 
-
-    private final Integer decrementValue = 3;
-    private final Integer incrementValue = 2;
-    private final int UPPER_LINE = 100;
-    private final int BOTTOM_LINE = 0;
+    private RequestInfoService requestInfoService;
 
     private volatile Boolean continueProducing = Boolean.TRUE;
     private AtomicInteger counter = new AtomicInteger(50);
 
+    public Counter(RequestInfoService requestInfoService) {
+        this.requestInfoService = requestInfoService;
+    }
+
     public synchronized int decrement(int value, String name) {
-        if (checkCounterValue(name))
+        if (checkNeedToStop(name, TaskType.Decrement))
             return counter.get();
 
-        logger.info("Decrement. Thread : {} ,Счетчик  : {}, уменьшаем на: {} ", name, counter.get(), decrementValue);
+        logger.info("Decrement. Thread : {} ,Counter  : {}, decrease : {} ", name, counter.get(), value);
 
         counter.updateAndGet(i -> i - value);
-        logger.info("==  {} Счетчик уменьшен на  : %s. Значение счетчика    : %s", name, value, counter);
+        logger.info("==  {} Counter Decrease: {}. Counter value  : {}", name, value, counter);
 
-        if (checkCounterValue(name))
+        if (checkNeedToStop(name, TaskType.Decrement))
             return counter.get();
 
         return counter.get();
     }
 
-    public synchronized int increment(Integer value, String name) {
+    public synchronized int increment(int value, String name) {
 
-        if (checkCounterValue(name))
+        if (checkNeedToStop(name, TaskType.Increment))
             return counter.get();
 
-        logger.info("Increment. Thread : {} ,  Счетчик  : {}, увеличиваем на : {}", name, counter.get(), incrementValue);
+        logger.info("Increment. Thread : {} ,  Counter  : {}, increase: {}", name, counter.get(), value);
         counter.updateAndGet(i -> i + value);
 
-        logger.info(name + "== Счетчик увеличен на : {}. Значение счетчика   : {} ", value, counter);
+        logger.info(name + "== Counter decrease: {}. Counter value: {} ", value, counter);
 
-        if (checkCounterValue(name))
+        if (checkNeedToStop(name, TaskType.Increment))
             return counter.get();
 
         return counter.get();
     }
 
-    private synchronized boolean checkCounterValue(String name) {
+    private synchronized boolean checkNeedToStop(String name, TaskType taskType) {
         if (!continueProducing) {
-            return false;
+            return true;
         }
 
-        if (counter.get() < BOTTOM_LINE || counter.get() > UPPER_LINE) {
-            logger.info("Вышли за пределы в : %s, счетчик: %s", name, counter);
+        if (counter.get() < ThreadHelper.BOTTOM_LINE || counter.get() > ThreadHelper.UPPER_LINE) {
+            storeToDataBase(name, counter.get(), taskType);
+            logger.info("Went beyond in  : {}, counter value : {}", name, counter);
 
             continueProducing = Boolean.FALSE;
             return true;
@@ -64,30 +68,24 @@ public class Counter {
         return false;
     }
 
-
-    public int getDecrementValue() {
-        return decrementValue;
+    private void storeToDataBase(String name, int counter, TaskType taskType) {
+        RequestInfo requestInfo = new RequestInfo(name, counter, taskType);
+        requestInfoService.create(requestInfo);
     }
-
-    public int getIncrementValue() {
-        return incrementValue;
-    }
-
-
-    public int getCounterValue(){
-        return counter.intValue();
-    }
-
 
     public void setCounter(int counter) {
         this.counter.set(counter);
     }
 
-    public void enableContinueProducing(){
+    public void enableContinueProducing() {
         continueProducing = Boolean.TRUE;
     }
 
     public Boolean getContinueProducing() {
         return continueProducing;
+    }
+
+    public int getCounterValue() {
+        return counter.intValue();
     }
 }

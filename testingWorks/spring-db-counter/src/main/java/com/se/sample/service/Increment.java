@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-public class Increment implements  Runnable {
+public class Increment implements Runnable {
 
     private final Logger logger = LoggerFactory.getLogger(Increment.class);
 
@@ -17,12 +17,11 @@ public class Increment implements  Runnable {
     private ThreadNameHeleper threadNameHeleper;
 
     /**
-     *
      * @param counter
      * @param locker
      * @param threadNameHeleper
      */
-    public Increment( Counter counter, ReentrantLock locker,   ThreadNameHeleper threadNameHeleper) {
+    public Increment(Counter counter, ReentrantLock locker, ThreadNameHeleper threadNameHeleper) {
         this.locker = locker;
         this.counter = counter;
         this.threadNameHeleper = threadNameHeleper;
@@ -39,8 +38,8 @@ public class Increment implements  Runnable {
                 if (ThreadHelper.checkBreakCondition(locker, name, this.counter.getContinueProducing()))
                     break;
 
-                counter.increment(counter.getIncrementValue(), this.name);
-                Thread.sleep(1000);
+                counter.increment(ThreadHelper.INCREMENT_VALUE, this.name);
+                Thread.sleep(ThreadHelper.INCREMENT_DELAY_MS);
             }
 
         } catch (InterruptedException ex) {
@@ -52,8 +51,8 @@ public class Increment implements  Runnable {
                 locker.unlock();
             }
 
-            logger.info("{} finished its job; terminating...",name);
-            threadNameHeleper.decreaseDecrement();
+            logger.info("{} finished its job; terminating...", name);
+            threadNameHeleper.decreaseIncrement();
         }
     }
 }

@@ -1,35 +1,31 @@
 package com.se.sample.config;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
+import com.se.sample.service.Counter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
-import org.springframework.context.annotation.*;
-import org.springframework.stereotype.Component;
-
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
-import java.net.URISyntaxException;
-import java.sql.SQLException;
 
 @Configuration
 @Component
 public class DataSourceConfigCloud {
 
-    // TODO: remove
+    private final Logger logger = LoggerFactory.getLogger(Counter.class);
+
+
     @PostConstruct
     public void init() {
-        System.out.println("--------------------=* DB_HOST  " + System.getenv("DB_HOST"));
-        System.out.println("--------------------=* DB_NAME  " + System.getenv("DB_NAME"));
-        System.out.println("--------------------=* DB_USER  " + System.getenv("DB_USER"));
-        System.out.println("--------------------=* DB_PASSWORD+ " + System.getenv("DB_PASSWORD"));
-
+        logger.info("DB_HOST: ", System.getenv("DB_HOST"));
+        logger.info("DB_NAME: ", System.getenv("DB_NAME"));
+        logger.info("DB_USER: ", System.getenv("DB_USER"));
+        logger.info("DB_PASSWORD: ", System.getenv("DB_PASSWORD"));
     }
 
     @ConfigurationProperties(prefix = "spring.datasource")

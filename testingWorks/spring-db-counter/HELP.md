@@ -1,37 +1,77 @@
 # Getting Started
 
-### Reference Documentation
-For further reference, please consider the following sections:
+## Requirements
+There are should be installed :  
+* docker(https://docs.docker.com/install/)
+check 
+```bash
+ docker -v
+```
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/maven-plugin/)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/2.2.4.RELEASE/reference/htmlsingle/#using-boot-devtools)
+* docker-compose(https://docs.docker.com/compose/) 
+```bash
+docker-compose --version
+```
 
-### Guides
-The following guides illustrate how to use some features concretely:
+##How to run 
 
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+### step 1. Build maven project 
 
-mvn clean package
-
-
+```bash
 mvn clean package -DskipTests
+```
 
-docker-compose build
+### step 2. Build docker image 
+```bash
+    docker build .   
+```
+### step 3. Run docker -compose
+```bash    
+    docker-compose up
+```
 
-Run Application With docker-compose
+### step 3. Check 
 
+backend 
+```http request
+http://localhost:8000/swagger-ui.html
+```
 
+data base:
+
+| param     | value                       | 
+| ---       | :----                        | 
+| `url`     | jdbc:mysql://localhost:6033 | 
+| `user`    | root                        | 
+| `pass`    | 31323334                    | 
+
+### Additional 
+#### docker command for rebuild (update, only debug as quick as possible)
+
+* clean volumes 
+```bash
  sudo rm -rf my-sql
- 
-      docker container stop $(docker container ls -aq)
-      
-       docker container rm $(docker container ls -aq)
-       
+```
+
+* stop all containers 
+```bash
+docker container stop $(docker container ls -aq)
+```
+* remove all containers
+```bash
+docker container rm $(docker container ls -aq)
+```
+* remove all images 
+```bash
 docker rmi $(docker images -a -q)
+```
+
+### Debug on IDE 
+#### Development 
+ use **local** environment  (application-local.properties)
+ need to comment Bean DataSource(I have no time for setting up profiles)
+#### remove debug 
+port 5005
+
+
+
