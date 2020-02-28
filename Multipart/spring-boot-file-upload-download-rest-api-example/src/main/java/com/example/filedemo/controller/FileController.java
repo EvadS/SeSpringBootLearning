@@ -2,13 +2,13 @@ package com.example.filedemo.controller;
 
 import com.example.filedemo.payload.UploadFileResponse;
 import com.example.filedemo.service.FileStorageService;
+import com.example.filedemo.payload.ImageUriResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,10 +43,7 @@ public class FileController {
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
 
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
+        String fileDownloadUri = getDownloadUrtiString(fileName);
 
         return new UploadFileResponse(fileName, fileDownloadUri,
                 file.getContentType(), file.getSize());
@@ -83,6 +79,33 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
+    }
+
+
+    @RequestMapping(value = "/downloadFiles", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ImageUriResponse> downloadFile(HttpServletRequest request) {
+
+        // Load file as Resource
+        //TODO: fo test
+        String fileName = "noname";
+        String fileName2 = "noname2";
+        String fileName3 = "noname3";
+
+        List downloadUriList = Stream.of(
+                getDownloadUrtiString(fileName),
+                getDownloadUrtiString(fileName2),
+                getDownloadUrtiString(fileName3)
+        ).collect(Collectors.toList());
+
+        ImageUriResponse imageDownloadListResponse = new ImageUriResponse(downloadUriList);
+        return ResponseEntity.ok().body(imageDownloadListResponse);
+    }
+
+    private String getDownloadUrtiString(String fileName) {
+        return ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
     }
 
     @RequestMapping(value = "/test")
