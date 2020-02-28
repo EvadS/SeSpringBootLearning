@@ -38,6 +38,37 @@
                 </div>
             </div>
         </div>
+            <div id="ItemPreview">
+
+            </div>
+        <div id="ItemPreview2">
+            <img id="mmmg" src="">
+        </div>
+        <div>
+
+        </div>
         <script src="/js/main.js" ></script>
+
+    <script>
+
+         var yourByteArrayAsBase64 = "LS1pY2VjcmVhbQ0KQ29udGVudC1UeXBlOiBpbWFnZS9wbmcNCkNvbnRlbnQtTGVuZ3RoOiA4MDYNCg0KiVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAACXBIWXMAAA7zAAAO8wEcU5k6AAAAEXRFWHRUaXRsZQBQREYgQ3JlYXRvckFevCgAAAATdEVYdEF1dGhvcgBQREYgVG9vbHMgQUcbz3cwAAAALXpUWHREZXNjcmlwdGlvbgAACJnLKCkpsNLXLy8v1ytISdMtyc/PKdZLzs8FAG6fCPGXryy4AAACY0lEQVQokQXB24qVZRgA4Hf3ff+/djNMy3CokTTUdFmaYgRt6NBIiKgL6DzobsQr8Ar0zNADSdEOJERFcBTUJsexRbNibf5v875vz4O/XLpDlgC9UFuwZ+ZRu4YMwEopoQ0VrBgBBamlBaUM1UjNKrqypSHlEa9A/yvotR12FrVEpn4pLhK1ZlJwlOCEwshWvXRFqwZyAXcnYEREsMBerWBoJHiv1GpgYKYVvF1boQPmUJdDW4Fqb9A/dOTw81cv50tN3kiwkMAgNupGgkCScopsrIvJ1vjc5MNjJzYTwJWru9vdMlMrhkkgq1Zz7CHK8q+tNTn28Udnz36xLjDbftlfLJrBYPf1a8exaxWjZcsKXk3xkw+2vpkcPH5kvaPwbA7Xbt7/9vTR0Az2plmtnys2rCLoBPDl55+dPz3eEBgZqOUbv999tDP78fsL7w5AHZ7vLZM3QoxWhBSb/npsRp5BBB7v7F/77XZvtP7zTxc2IiDAHGF7bwqIoBkJxYj+nefrN+/c0umZyftv9xejzcM/fHdqDCA6BwaB4d7bqaoJi7lSipCgeujl+M6Dp28Obb138etTGwDsAMBQLRrM/v6HfWAWwU2yaRMlpYLcJq9IcmAAf95/Gtc2Th49ELT3ZneBLqkSRo7YCVcSZGRZGQD1H76YGe7cu/uk8ODMp5OLX20+mXYLYhJx8lodf738R8nJASFwJUBErUjYqFXmNF7jklcpYbGoqoFZupyEidxMSwQq6oFjsY6JwHF/loRQSw1MTEjoghFNixCwAps1lgLOi0OGtjgzAC7zsGlSrRxiKul/QpJhVkxUNm4AAAAASUVORK5CYII="
+
+         var binary = '';
+         var bytes = new Uint8Array( yourByteArrayAsBase64 );
+         var len = bytes.byteLength;
+         for (var i = 0; i < len; i++) {
+             binary += String.fromCharCode( bytes[ i ] );
+         }
+         var el2 =   document.getElementById("mmmg").src = "data:image/png;base64," + binary;
+
+
+         //----------------------------------
+        // var link = "http://www.testtrackinglink.com/nginx-logo.png"
+        //
+        // var img = document.createElement('img');
+        // img.src = link;
+        // document.getElementById('ItemPreview').appendChild(img);
+
+    </script>
     </body>
 </html>

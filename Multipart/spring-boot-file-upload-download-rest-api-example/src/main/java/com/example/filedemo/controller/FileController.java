@@ -18,14 +18,19 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.IOUtils;
+import reactor.core.publisher.Flux;
 
 @RestController
 public class FileController {
@@ -88,12 +93,12 @@ public class FileController {
             Path zipPath = fileStorageService.getPath("noname");
 
             //String zioPath
-                File file = new File(zipPath.toString());
-                response.setHeader("Content-Length", String.valueOf(file.length()));
-                response.setHeader("Content-Disposition", "attachment; filename=\"" +System.currentTimeMillis() + ".zip" + "\"");
-                InputStream is = new FileInputStream(file);
-                FileCopyUtils.copy(IOUtils.toByteArray(is), response.getOutputStream());
-                response.flushBuffer();
+            File file = new File(zipPath.toString());
+            response.setHeader("Content-Length", String.valueOf(file.length()));
+            response.setHeader("Content-Disposition", "attachment; filename=\"" +System.currentTimeMillis() + ".zip" + "\"");
+            InputStream is = new FileInputStream(file);
+            FileCopyUtils.copy(IOUtils.toByteArray(is), response.getOutputStream());
+            response.flushBuffer();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -218,16 +223,16 @@ public class FileController {
      * @author JavaDigest
      */
     @RequestMapping(value = "/test-zip")
-   public void testZip(HttpServletRequest request, HttpServletResponse response)
-                throws ServletException, IOException {
+    public void testZip(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-            // Set the content type based to zip
-            response.setContentType("Content-type: text/zip");
-            response.setHeader("Content-Disposition",
-                    "attachment; filename=mytest.zip");
+        // Set the content type based to zip
+        response.setContentType("Content-type: text/zip");
+        response.setHeader("Content-Disposition",
+                "attachment; filename=mytest.zip");
 
-            // List of files to be downloaded
-            List<File> files = new ArrayList();
+        // List of files to be downloaded
+        List<File> files = new ArrayList();
         Path zipPath = fileStorageService.getPath("noname");
         Path zipPath2 = fileStorageService.getPath("noname2");
         Path zipPath3 = fileStorageService.getPath("noname3");
@@ -237,43 +242,82 @@ public class FileController {
         files.add(new File(zipPath3.toString()));
 
         ServletOutputStream out = response.getOutputStream();
-            ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(out));
+        ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(out));
 
-            for (File file : files) {
+        for (File file : files) {
 
-                System.out.println("Adding file " + file.getName());
-                zos.putNextEntry(new ZipEntry(file.getName()));
+            System.out.println("Adding file " + file.getName());
+            zos.putNextEntry(new ZipEntry(file.getName()));
 
-                // Get the file
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(file);
+            // Get the file
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
 
-                } catch (FileNotFoundException fnfe) {
-                    // If the file does not exists, write an error entry instead of
-                    // file
-                    // contents
-                    zos.write(("ERROR: Could not find file " + file.getName())
-                            .getBytes());
-                    zos.closeEntry();
-                    System.out.println("Could not find file "
-                            + file.getAbsolutePath());
-                    continue;
-                }
-
-                BufferedInputStream fif = new BufferedInputStream(fis);
-
-                // Write the contents of the file
-                int data = 0;
-                while ((data = fif.read()) != -1) {
-                    zos.write(data);
-                }
-                fif.close();
-
+            } catch (FileNotFoundException fnfe) {
+                // If the file does not exists, write an error entry instead of
+                // file
+                // contents
+                zos.write(("ERROR: Could not find file " + file.getName())
+                        .getBytes());
                 zos.closeEntry();
-                System.out.println("Finished adding file " + file.getName());
+                System.out.println("Could not find file "
+                        + file.getAbsolutePath());
+                continue;
             }
 
-            zos.close();
+            BufferedInputStream fif = new BufferedInputStream(fis);
+
+            // Write the contents of the file
+            int data = 0;
+            while ((data = fif.read()) != -1) {
+                zos.write(data);
+            }
+            fif.close();
+
+            zos.closeEntry();
+            System.out.println("Finished adding file " + file.getName());
         }
+
+        zos.close();
+    }
+
+
+    @GetMapping(value = "/stream")
+    ResponseEntity<Flux<byte[]>> streamObjects() {
+        Flux<byte[]> flux = Flux.fromStream(fetchImageFrame()).delayElements(Duration.ofSeconds(5));
+        HttpHeaders headers = HttpHeaders.writableHttpHeaders(HttpHeaders.EMPTY);
+        headers.add("Content-Type", "multipart/x-mixed-replace; boundary=--icecream");
+
+        return new ResponseEntity<>(flux, headers, HttpStatus.OK);
+    }
+
+    private Stream<byte[]> fetchImageFrame() {
+      Stream stream  =  Stream.of(
+              //  load("noname"),
+               load("noname2"),
+                load("noname3")
+              );
+
+        return  stream;
+
+    }
+
+    private byte[] load(String name) {
+        try {
+            Path path = fileStorageService.getPath(name);
+
+            byte[] raw = Files.readAllBytes(path);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            String headers =
+                    "--icecream\r\n" +
+                            "Content-Type: image/png\r\n" +
+                            "Content-Length: " + raw.length + "\r\n\r\n";
+            bos.write(headers.getBytes());
+            bos.write(raw);
+            return bos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
