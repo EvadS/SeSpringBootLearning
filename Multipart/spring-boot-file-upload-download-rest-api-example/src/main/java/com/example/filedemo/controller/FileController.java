@@ -23,6 +23,7 @@ import java.nio.file.Path;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -305,7 +306,6 @@ public class FileController {
         zos.close();
     }
 
-
     @GetMapping(value = "/stream")
     ResponseEntity<Flux<byte[]>> streamObjects() {
         Flux<byte[]> flux = Flux.fromStream(fetchImageFrame()).delayElements(Duration.ofSeconds(5));
@@ -325,7 +325,6 @@ public class FileController {
         return  stream;
 
     }
-
     private byte[] load(String name) {
         try {
             Path path = fileStorageService.getPath(name);
@@ -343,4 +342,28 @@ public class FileController {
             throw new RuntimeException(e);
         }
     }
+
+    //------------------------------------------
+    private String loadBase(String name) {
+        try {
+            Path path = fileStorageService.getPath(name);
+
+            byte[] raw = Files.readAllBytes(path);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            String headers =
+                    "--icecream\r\n" +
+                            "Content-Type: image/png\r\n" +
+                            "Content-Length: " + raw.length + "\r\n\r\n";
+            bos.write(headers.getBytes());
+            bos.write(raw);
+            ;
+
+            return  Base64.getEncoder().encodeToString( bos.toByteArray());
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }
