@@ -39,3 +39,26 @@ Chrome removed support for multipart/x-mixed-replace documents. We should too
 ```html
 https://lists.mozilla.org/pipermail/dev-platform/2015-March/008976.html
 ```
+
+---------------------------------
+## Additional 
+some functional doesn't have web interface 
+
+### There is hard link 
+you have to upload this files or change this code 
+
+   Path zipPath = fileStorageService.getPath("noname");
+        Path zipPath2 = fileStorageService.getPath("noname2");
+        Path zipPath3 = fileStorageService.getPath("noname3");
+        
+### Download mixed content 
+```http request
+http://localhost:8080/test-mixed
+```
+
+### Download 3 file in zip  
+```http request
+http://localhost:8080/test-zip
+```
+
+More api you can find in FileController
