@@ -1,0 +1,28 @@
+## Sitution 1 
+docker-compose up
+ERROR: Couldn't connect to Docker daemon at http+docker://localunixsocket - is it running?
+
+### solutions 
+
+```bash 
+sudo service docker status
+```
+
+```
+	sudo usermod -aG docker ${USER}
+```
+if stopped
+``` bash
+	sudo service docker start
+```
+
+``` bash
+docker info
+```
+if got result 
+
+Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.39/info: dial unix /var/run/docker.sock: connect: permission denied
+fix : 
+``` bash
+	sudo chown $USER /var/run/docker.sock
+```
