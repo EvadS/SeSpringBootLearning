@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-
 @ComponentScan
 public class WebConfigurer implements WebMvcConfigurer {
 
