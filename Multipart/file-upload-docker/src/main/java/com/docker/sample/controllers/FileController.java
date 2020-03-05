@@ -1,7 +1,7 @@
-package com.example.fileuploadergradle.controllers;
+package com.docker.sample.controllers;
 
-import com.example.fileuploadergradle.commons.FileResponse;
-import com.example.fileuploadergradle.storage.StorageService;
+import com.docker.sample.commons.FileResponse;
+import com.docker.sample.storage.StorageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;

@@ -1,0 +1,16 @@
+version: '2'
+services:
+  app:
+    #    image: app
+    build:
+       context: .
+       dockerfile: Dockerfile
+    container_name: file-service
+    restart: always
+    ports:
+      - "9000:9000"
+      - "8000:8000"
+    #depends_on:docker
+    #      - postgres
+    volumes:
+      - ./data:/uploads
