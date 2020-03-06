@@ -17,3 +17,23 @@
 * `io.apptizer.api.errors.codes` - больше как заготовка. интерес представляет enum с фиксированным списком возможных ошибок 
 * `se.aop.exceptionhandling` обработка на основе аспектов. 
 
+## HabrexceptionApplication
+самый простой и базовый вариант
+Корректный вызов
+``` http request
+http://localhost:8080/user/1
+```
+
+incorrect 
+```http request
+ http://localhost:8080/user/4
+```
+будет сгенерено ThereIsNoSuchUserException (status : 404 )
+## ExceptionLoggerPointCut
+This quick lesson in AOP will explore you can use Spring's implementation of aspect-oriented programming to handle exceptions.
+
+Running the Application
+To run the application, run the following command:
+```
+gradle bootRun 
+```
