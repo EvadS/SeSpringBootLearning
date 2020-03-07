@@ -1,13 +1,22 @@
 package com.example.filedemo.validator;
 
+import org.springframework.http.HttpStatus;
+
+import java.util.List;
+
 public class ApiError {
     private String message;
 
-    private int n1;
+    private int status ;
 
     public ApiError(String message,  int n1) {
         this.message = message;
-        this.n1 = n1;
+        this.status  = n1;
+    }
+
+    public ApiError(HttpStatus badRequest, String localizedMessage, List<String> errors) {
+        this.message= localizedMessage;
+        this.status  =badRequest.value();
     }
 
     public String getMessage() {
@@ -20,11 +29,11 @@ public class ApiError {
 
 
     public int getN1() {
-        return n1;
+        return status ;
     }
 
     public void setN1(int n1) {
-        this.n1 = n1;
+        this.status  = n1;
     }
 }
 

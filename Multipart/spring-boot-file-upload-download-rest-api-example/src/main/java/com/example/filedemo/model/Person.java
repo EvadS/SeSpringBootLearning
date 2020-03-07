@@ -1,6 +1,7 @@
 package com.example.filedemo.model;
 
 import com.example.filedemo.validator.ValidImage;
+import org.springframework.lang.NonNull;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Digits;
@@ -15,6 +16,7 @@ public class Person {
     @PersonAgeConstraint
     private Integer age;
 
+    @NonNull
     @ValidImage
     private MultipartFile file;
 
