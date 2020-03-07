@@ -3,12 +3,14 @@ package com.example.filedemo.controller;
 import com.example.filedemo.payload.UploadFileResponse;
 import com.example.filedemo.service.FileStorageService;
 import com.example.filedemo.payload.ImageUriResponse;
+import com.example.filedemo.validator.FileValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -390,6 +392,28 @@ public class FileController {
             throw new RuntimeException(ex);
         }
     }
+
+    @Autowired
+    FileValidator fileValidator;
+
+    @PostMapping("/upload-valid-file")
+    public UploadFileResponse uploadValidFile(@RequestParam("file") MultipartFile file) {
+
+
+        String contentType = file.getContentType();
+
+
+        fileStorageService.validate(file);
+
+
+        String fileName = fileStorageService.storeFile(file);
+
+        String fileDownloadUri = getDownloadUrtiString(fileName);
+
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
+    }
+
 
 
 }

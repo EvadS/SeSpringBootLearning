@@ -5,6 +5,12 @@ var singleFileUploadInput = document.querySelector('#singleFileUploadInput');
 var singleFileUploadError = document.querySelector('#singleFileUploadError');
 var singleFileUploadSuccess = document.querySelector('#singleFileUploadSuccess');
 
+var singleUploadForm2 = document.querySelector('#singleUploadForm2');
+var singleFileUploadInput2 = document.querySelector('#singleFileUploadInput2');
+var singleFileUploadError2 = document.querySelector('#singleFileUploadError2');
+var singleFileUploadSuccess2 = document.querySelector('#singleFileUploadSuccess2');
+
+///---------------------------------------------------------------------------------------
 var multipleUploadForm = document.querySelector('#multipleUploadForm');
 var multipleFileUploadInput = document.querySelector('#multipleFileUploadInput');
 var multipleFileUploadError = document.querySelector('#multipleFileUploadError');
@@ -32,6 +38,32 @@ function uploadSingleFile(file) {
 
     xhr.send(formData);
 }
+//------------------------------------------------------
+
+function uploadSingleFile2(file) {
+    var formData = new FormData();
+    formData.append("file", file);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/upload-valid-file");
+
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        var response = JSON.parse(xhr.responseText);
+        if(xhr.status == 200) {
+            singleFileUploadError2.style.display = "none";
+            singleFileUploadSuccess2.innerHTML = "<p>File Uploaded Successfully.</p><p>DownloadUrl : <a href='" + response.fileDownloadUri + "' target='_blank'>" + response.fileDownloadUri + "</a></p>";
+            singleFileUploadSuccess2.style.display = "block";
+        } else {
+            singleFileUploadSuccess2.style.display = "none";
+            singleFileUploadError2.innerHTML = (response && response.message) || "Some Error Occurred";
+        }
+    }
+
+    xhr.send(formData);
+}
+//--------------------------------
+
 
 function uploadMultipleFiles(files) {
     var formData = new FormData();
@@ -69,6 +101,16 @@ singleUploadForm.addEventListener('submit', function(event){
         singleFileUploadError.style.display = "block";
     }
     uploadSingleFile(files[0]);
+    event.preventDefault();
+}, true);
+
+singleUploadForm2.addEventListener('submit', function(event){
+    var files = singleFileUploadInput2.files;
+    if(files.length === 0) {
+        singleFileUploadError2.innerHTML = "Please select a file";
+        singleFileUploadError2.style.display = "block";
+    }
+    uploadSingleFile2(files[0]);
     event.preventDefault();
 }, true);
 

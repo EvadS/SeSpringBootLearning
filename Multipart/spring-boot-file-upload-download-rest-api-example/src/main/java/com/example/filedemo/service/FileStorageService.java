@@ -15,11 +15,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class FileStorageService {
 
     private final Path fileStorageLocation;
+
+    private int minSize = 10;//kb
+    private int maxSize = 8;
+
+    private List<String> correctImageFormat= Arrays.asList("JPG", "JPEG", "PNG", "BMP");
 
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
@@ -69,5 +76,8 @@ public class FileStorageService {
         } catch (MalformedURLException ex) {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
         }
+    }
+
+    public void validate(MultipartFile file) {
     }
 }

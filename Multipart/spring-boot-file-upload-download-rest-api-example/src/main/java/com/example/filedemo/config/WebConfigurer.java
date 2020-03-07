@@ -1,7 +1,10 @@
 package com.example.filedemo.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -37,17 +40,18 @@ public class WebConfigurer implements WebMvcConfigurer {
                     .addResourceLocations("file:"+path);
         }
 
-        registry
-                .addResourceHandler("/images/33/**")
-                .addResourceLocations("file:"+uploadDirectory+"33/");
-
-        registry
-                .addResourceHandler("/images/34/**")
-                .addResourceLocations("file:"+uploadDirectory+"34/");
-
-        registry
-                .addResourceHandler("/images/35/**")
-                .addResourceLocations("file:"+uploadDirectory+"35/");
+        // TODO: for testing
+//        registry
+//                .addResourceHandler("/images/33/**")
+//                .addResourceLocations("file:"+uploadDirectory+"33/");
+//
+//        registry
+//                .addResourceHandler("/images/34/**")
+//                .addResourceLocations("file:"+uploadDirectory+"34/");
+//
+//        registry
+//                .addResourceHandler("/images/35/**")
+//                .addResourceLocations("file:"+uploadDirectory+"35/");
 
         int aaa =10;
         // работает
@@ -56,21 +60,13 @@ public class WebConfigurer implements WebMvcConfigurer {
 //                .addResourceHandler("/images2/**")
 //                .addResourceLocations("file:"+uploadDirectory+"33/");
 
-
-//http://localhost:8080/images/33/123456
-//        registry
-//                .addResourceHandler("/images/**")
-//                .addResourceLocations("file:"+uploadDirectory+"//");
+        // home/images
+        registry
+                .addResourceHandler("/images/**")
+                .addResourceLocations("file:"+uploadDirectory);
     }
 
-    /***
-     This should list subdirectories under the root directory you provide.
-     //Not tested
-     ***/
-    /***
-     This should list subdirectories under the root directory you provide.
-     //Not tested
-     ***/
+
     private String[] listDirectories(String root){
         File file = new File(root);
         String[] directories = file.list(new FilenameFilter() {
@@ -83,6 +79,5 @@ public class WebConfigurer implements WebMvcConfigurer {
 
         return  directories;
     }
-
 
 }
