@@ -63,4 +63,7 @@ http://localhost:8080/test-zip
 
 More api you can find in FileController
 
-## You have to have  */images/stiker* image in System users forlder  
+## You have to have  */images/stiker* image in System users forlder 
+
+----------------------
+http://localhost:8080/images/33/123456

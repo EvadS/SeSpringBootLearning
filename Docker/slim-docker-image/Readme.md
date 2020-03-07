@@ -89,6 +89,10 @@ current size : 58
 docker history  my-server:1.0.3
 
 
+# Логи 
+docker logs CONTAINER_NAME
+
+
 
 
 
