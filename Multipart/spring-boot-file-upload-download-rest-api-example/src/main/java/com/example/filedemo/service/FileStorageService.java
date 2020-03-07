@@ -27,6 +27,7 @@ public class FileStorageService {
     private int maxSize = 8;
 
     private List<String> correctImageFormat= Arrays.asList("JPG", "JPEG", "PNG", "BMP");
+    private static final List<String> contentTypes = Arrays.asList("image/png", "image/jpeg", "image/gif");
 
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
@@ -79,5 +80,6 @@ public class FileStorageService {
     }
 
     public void validate(MultipartFile file) {
+
     }
 }

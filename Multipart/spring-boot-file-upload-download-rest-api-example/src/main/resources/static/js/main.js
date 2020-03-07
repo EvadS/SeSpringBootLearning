@@ -9,6 +9,11 @@ var singleUploadForm2 = document.querySelector('#singleUploadForm2');
 var singleFileUploadInput2 = document.querySelector('#singleFileUploadInput2');
 var singleFileUploadError2 = document.querySelector('#singleFileUploadError2');
 var singleFileUploadSuccess2 = document.querySelector('#singleFileUploadSuccess2');
+//------------------------------------------------------------------------------------------
+var singleUploadForm3 = document.querySelector('#singleUploadForm3');
+var singleFileUploadInput3 = document.querySelector('#singleFileUploadInput3');
+var singleFileUploadError3 = document.querySelector('#singleFileUploadError3');
+var singleFileUploadSuccess3 = document.querySelector('#singleFileUploadSuccess3');
 
 ///---------------------------------------------------------------------------------------
 var multipleUploadForm = document.querySelector('#multipleUploadForm');
@@ -64,6 +69,30 @@ function uploadSingleFile2(file) {
 }
 //--------------------------------
 
+//------------------------------------------------------
+
+function uploadSingleFile3(file) {
+    var formData = new FormData();
+    formData.append("file", file);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/upload-valid-file-model");
+
+    xhr.onload = function() {
+        console.log(xhr.responseText);
+        var response = JSON.parse(xhr.responseText);
+        if(xhr.status == 200) {
+            singleFileUploadError3.style.display = "none";
+            singleFileUploadSuccess3.innerHTML = "<p>File Uploaded Successfully.</p><p>DownloadUrl : <a href='" + response.fileDownloadUri + "' target='_blank'>" + response.fileDownloadUri + "</a></p>";
+            singleFileUploadSuccess3.style.display = "block";
+        } else {
+            singleFileUploadSuccess3.style.display = "none";
+            singleFileUploadError3.innerHTML = (response && response.message) || "Some Error Occurred";
+        }
+    }
+
+    xhr.send(formData);
+}
 
 function uploadMultipleFiles(files) {
     var formData = new FormData();
@@ -109,6 +138,16 @@ singleUploadForm2.addEventListener('submit', function(event){
     if(files.length === 0) {
         singleFileUploadError2.innerHTML = "Please select a file";
         singleFileUploadError2.style.display = "block";
+    }
+    uploadSingleFile2(files[0]);
+    event.preventDefault();
+}, true);
+
+singleUploadForm3.addEventListener('submit', function(event){
+    var files = singleFileUploadInput3.files;
+    if(files.length === 0) {
+        singleFileUploadError3.innerHTML = "Please select a file";
+        singleFileUploadError3.style.display = "block";
     }
     uploadSingleFile2(files[0]);
     event.preventDefault();
