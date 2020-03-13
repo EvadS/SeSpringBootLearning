@@ -1,4 +1,4 @@
-package com.example.filedemo.validator;
+package com.example.filedemo.constraint;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

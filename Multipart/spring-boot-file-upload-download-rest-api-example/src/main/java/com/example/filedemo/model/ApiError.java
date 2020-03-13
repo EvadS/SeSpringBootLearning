@@ -1,4 +1,4 @@
-package com.example.filedemo.validator;
+package com.example.filedemo.model;
 
 import org.springframework.http.HttpStatus;
 

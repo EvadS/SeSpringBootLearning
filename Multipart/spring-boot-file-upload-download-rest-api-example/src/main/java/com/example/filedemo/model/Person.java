@@ -1,7 +1,11 @@
 package com.example.filedemo.model;
 
-import com.example.filedemo.validator.ValidImage;
+import com.example.filedemo.constraint.PersonAgeConstraint;
+import com.example.filedemo.constraint.ValidImage;
 import org.springframework.lang.NonNull;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Digits;
@@ -48,4 +52,6 @@ public class Person {
     public void setFile(MultipartFile file) {
         this.file = file;
     }
+
+
 }

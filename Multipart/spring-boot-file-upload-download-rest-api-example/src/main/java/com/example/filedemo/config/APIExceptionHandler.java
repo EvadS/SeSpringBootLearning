@@ -1,6 +1,6 @@
 package com.example.filedemo.config;
 
-import com.example.filedemo.validator.ApiError;
+import com.example.filedemo.model.ApiError;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -86,14 +86,15 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
        return null;
 }
 
-    @ExceptionHandler({ Exception.class })
-    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
-     int aaa =10;
-        ApiError apiError = new ApiError(
-                HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), Collections.singletonList("error occurred"));
-        return new ResponseEntity<Object>(
-                apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST/*apiError.getStatus()*/);
-    }
+// HANDLE ALL EXCEPTIONS
+//    @ExceptionHandler({ Exception.class })
+//    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
+//     int aaa =10;
+//        ApiError apiError = new ApiError(
+//                HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), Collections.singletonList("error occurred"));
+//        return new ResponseEntity<Object>(
+//                apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST/*apiError.getStatus()*/);
+//    }
 
 
     @ExceptionHandler({ UnexpectedTypeException.class })

@@ -1,12 +1,9 @@
-package com.example.filedemo.validator;
+package com.example.filedemo.constraint;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Objects;
 
 public class ImageFileValidator implements ConstraintValidator<ValidImage, MultipartFile> {
 

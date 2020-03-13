@@ -67,3 +67,7 @@ More api you can find in FileController
 
 ----------------------
 http://localhost:8080/images/33/123456
+
+#Constraint 
+Валидаторы на мультипарт не работают (ValidImage )
+поколько мешает встроенный маппинг
