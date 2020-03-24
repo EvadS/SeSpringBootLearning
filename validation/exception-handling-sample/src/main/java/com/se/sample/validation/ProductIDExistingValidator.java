@@ -15,6 +15,8 @@ public class ProductIDExistingValidator implements ConstraintValidator<ProductID
 
     @Override
     public boolean isValid(Long productId, ConstraintValidatorContext context) {
-        return Objects.isNull(productId) || productService.findById(productId).isPresent();
+
+        return false;
+     //   return Objects.isNull(productId) || productService.findById(productId).isPresent();
     }
 }
