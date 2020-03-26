@@ -6,28 +6,25 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class ResizeImageToSquareAlgoritm {
-    public static final String input_img = "E:\\Temp\\img\\test.jpg";
-    // public static final String input_img = "E:\\Temp\\img\\1.jpg";
-    static int width = 200;
-    static int height = 200;
+public class ResizeImageToFixedWidthAlgoritm {
+   // public static final String input_img = "E:\\Temp\\img\\test.jpg";
+   public static final String input_img = "E:\\Temp\\img\\1d.png";
 
+    //    public static final String input_img = "E:\\Temp\\img\\1.jpg";
+//    String outPutfileName = "E:\\Temp\\img\\res\\scaled_with_proportion.jpg";
+   private static final String outputFileName = "E:\\Temp\\img\\res\\WITH_proportion__3.jpg";
+
+
+    static int width = 200;
+
+    static int recomendedHeight =200;
     public static void main(String... args) throws Exception {
 
         Dimension originalDimention = getImageDim(input_img);
         Dimension scallableSize = getSize(originalDimention.width, originalDimention.height, width);
 
-        // for test
-//       Dimension scallableSize = getSize(200,100,width);
-//       Dimension scallableSize2 = getSize(100,200,width);
-//       Dimension scallableSize3 = getSize(200,200,width);
-
-        String outPutfileName = "E:\\Temp\\img\\res\\scaled_with_proportion.jpg";
-        String outputFileName = "E:\\Temp\\img\\res\\scaled_with_proportion2.jpg";
-
         File input = new File(input_img);
         BufferedImage image = ImageIO.read(input);
-
 
         int dx = 0;
         int dy = 0;
@@ -42,34 +39,70 @@ public class ResizeImageToSquareAlgoritm {
             // preview_width = width - width/ 2;
         }
 
-        if (scallableSize.height > height) {
-            int diffHeight = scallableSize.height - height;
+        if (scallableSize.height > recomendedHeight) {
+            int diffHeight = scallableSize.height - recomendedHeight;
             dy = diffHeight / 2;
-            //preview_height =  height - height/ 2;
+            // здесь мы обрезаем
+            //preview_height =  recomendedHeight;
+
+            cropImage(outputFileName,
+                    input,
+                    preview_width,
+                    preview_height,
+                    recomendedHeight,
+                    width,
+                    dx, dy);
+        }
+        else if(recomendedHeight > scallableSize.height  ){
+            preview_height =  scallableSize.height;
+
+            cropImage(outputFileName,
+                    input,
+                    preview_width,
+                    preview_height,
+                    preview_height,
+                    width,
+                    dx, dy);
+        }
+        else{
+            // w == h
+            cropImage(outputFileName,
+                    input,
+                    preview_width,
+                    preview_height,
+                    recomendedHeight,
+                    width,
+                    dx, dy);
         }
 
-//         correct working
-        cropImage(outPutfileName, outputFileName, input,
-                preview_width,
-                preview_height,
-                height,
-                width,
-                dx, dy);
+        //correct working
 
-
-        //ResizeImageExample.resize(image,  200,  200,  outPutfileName);
-        int a = 0;
+        System.out.println("Completed: Result file path : " + outputFileName);
     }
 
-    private static void cropImage(String outPutfileName, String outputFileName,
+    /**
+     *
+     * @param outputFilePath
+     * @param input
+     * @param preview_width
+     * @param preview_height
+     * @param destHeight
+     * @param destWidth
+     * @param dx
+     * @param dy
+     * @throws IOException
+     */
+    private static void cropImage(String outputFilePath,
                                   File input, int preview_width, int preview_height,
                                   int destHeight, int destWidth,
                                   int dx, int dy)
             throws IOException {
         BufferedImage img = ImageIO.read(input);
         BufferedImage resized = mresize(img, preview_height, preview_width);
-        File output = new File(outPutfileName);
-        ImageIO.write(resized, "png", output);
+        File output = new File(outputFilePath);
+
+        // TODO for test
+        //  ImageIO.write(resized, "png", output);
 
         // Crop
         BufferedImage croppedImage = resized.getSubimage(
@@ -77,7 +110,8 @@ public class ResizeImageToSquareAlgoritm {
                 dy,
                 destWidth, // widht
                 destHeight); // height
-        output = new File(outputFileName);
+
+        output = new File(outputFilePath);
         ImageIO.write(croppedImage, "png", output);
     }
 
@@ -94,24 +128,10 @@ public class ResizeImageToSquareAlgoritm {
         float destWidth = currWidth;
         float destHeigth = currHeight;
 
-        float ratio = 1;
+        float ratio = size / destWidth;
 
-        boolean isWidthBiggest = true;
-
-        if (currHeight > currWidth) {
-            isWidthBiggest = false;
-        }
-
-        if (isWidthBiggest) {
-            ratio = size / destHeigth;
-            destHeigth = size;
-            destWidth = currWidth * ratio;
-        } else {
-            ratio = size / destWidth;
-            destWidth = size;
-            destHeigth = currHeight * ratio;
-        }
-
+        destWidth = size;
+        destHeigth = currHeight * ratio;
         return new Dimension((int) destWidth, (int) destHeigth);
     }
 
@@ -128,10 +148,5 @@ public class ResizeImageToSquareAlgoritm {
             // TODO :
             return new Dimension(0, 0);
         }
-    }
-
-    private BufferedImage cropImage(BufferedImage src, Rectangle rect) {
-        BufferedImage dest = src.getSubimage(0, 0, rect.width, rect.height);
-        return dest;
     }
 }
