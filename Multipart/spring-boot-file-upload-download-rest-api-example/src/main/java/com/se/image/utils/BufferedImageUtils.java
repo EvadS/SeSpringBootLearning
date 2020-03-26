@@ -2,38 +2,25 @@ package com.se.image.utils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class BufferedImageUtils {
 
     private final int width = 200;
     private  final  int recomendedHeight =200;
 
+    public static BufferedImage cropImage(BufferedImage img,
+                                          ResizeModel resizeModel)  {
 
-    /**
-     *
-     * @param img
-     * @param resizedWidth
-     * @param resizedHeight
-     * @param destWidth
-     * @param destHeight
-     * @param dx
-     * @param dy
-     * @return
-     */
-    private static BufferedImage cropImage(BufferedImage img,
-                                           int resizedWidth, int resizedHeight,
-                                           int destWidth, int destHeight,
-                                           int dx, int dy)  {
-
-        BufferedImage resized = resizeBufferedImage(img, resizedWidth, resizedHeight);
+        // change size
+        BufferedImage resized = resizeBufferedImage(img, resizeModel.getPreviewWidth(), resizeModel.getPreviewHeight());
 
         // Crop
         BufferedImage croppedImage = resized.getSubimage(
-                dx,
-                dy,
-                destWidth, // widht
-                destHeight); // height
+                resizeModel.getDx(),
+                resizeModel.getDy(),
+                resizeModel.getCroppedWidth()
+                , // widht
+                resizeModel.getCroppedHeight()); // height
 
         return croppedImage;
     }

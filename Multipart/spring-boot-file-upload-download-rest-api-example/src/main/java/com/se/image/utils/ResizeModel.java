@@ -5,7 +5,7 @@ public class ResizeModel {
     private int dy;
     private int previewWidth;
     private int previewHeight;
-    private  int coppedWidth;
+    private int croppedWidth;
     private int croppedHeight;
 
     public ResizeModel() {
@@ -17,7 +17,7 @@ public class ResizeModel {
         this.dy = dy;
         this.previewWidth = previewWidth;
         this.previewHeight = previewHeight;
-        this.coppedWidth = coppedWidth;
+        this.croppedWidth = coppedWidth;
         this.croppedHeight = croppedHeight;
     }
 
@@ -57,12 +57,12 @@ public class ResizeModel {
         this.previewHeight = previewHeight;
     }
 
-    public int getCoppedWidth() {
-        return coppedWidth;
+    public int getCroppedWidth() {
+        return croppedWidth;
     }
 
-    public void setCoppedWidth(int coppedWidth) {
-        this.coppedWidth = coppedWidth;
+    public void setCroppedWidth(int croppedWidth) {
+        this.croppedWidth = croppedWidth;
     }
 
     public int getCroppedHeight() {

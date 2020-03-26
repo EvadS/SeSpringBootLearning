@@ -1,5 +1,8 @@
 package com.se.image;
 
+import com.se.image.utils.BufferedImageUtils;
+import com.se.image.utils.ResizeModel;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -7,17 +10,22 @@ import java.io.File;
 import java.io.IOException;
 
 public class ResizeImageToFixedWidthAlgoritm {
-   // public static final String input_img = "E:\\Temp\\img\\test.jpg";
-   public static final String input_img = "E:\\Temp\\img\\1d.png";
+     //public static final String input_img = "E:\\Temp\\img\\1226_768.jpg";
 
-    //    public static final String input_img = "E:\\Temp\\img\\1.jpg";
+    public static final String input_img = "E:\\Temp\\img\\test.jpg";
+//   public static final String input_img = "E:\\Temp\\img\\1d.png";
+
 //    String outPutfileName = "E:\\Temp\\img\\res\\scaled_with_proportion.jpg";
-   private static final String outputFileName = "E:\\Temp\\img\\res\\WITH_proportion__3.jpg";
+   private static final String outputFileName = "E:\\Temp\\img\\res\\WITH_proportion_0.jpg";
+   private static final String outputFileName2 = "E:\\Temp\\img\\res\\WITH_proportion_0_ref.jpg";
 
 
     static int width = 200;
-
     static int recomendedHeight =200;
+
+    private static  void test(String originalName, String destNames){
+
+    }
     public static void main(String... args) throws Exception {
 
         Dimension originalDimention = getImageDim(input_img);
@@ -75,9 +83,22 @@ public class ResizeImageToFixedWidthAlgoritm {
                     dx, dy);
         }
 
-        //correct working
-
         System.out.println("Completed: Result file path : " + outputFileName);
+
+
+        //test refactored version
+        ResizeModel resizeModel =  BufferedImageUtils.buildResizeModelByCurrentSize(originalDimention.width ,
+                originalDimention.height, width,recomendedHeight);
+
+        File refInput = new File(input_img);
+        BufferedImage refImage = ImageIO.read(input);
+
+
+        BufferedImage refdbf =   BufferedImageUtils.cropImage(refImage , resizeModel);
+        File output = new File(outputFileName2);
+        ImageIO.write(refdbf, "png", output);
+
+        System.out.println("refactored version completed: Result file path : " + outputFileName2);
     }
 
     /**
