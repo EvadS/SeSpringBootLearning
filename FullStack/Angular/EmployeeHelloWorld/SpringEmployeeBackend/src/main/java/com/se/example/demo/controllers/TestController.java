@@ -1,6 +1,7 @@
 package com.se.example.demo.controllers;
 
 import com.se.example.demo.model.Employee;
+import com.se.example.demo.model.User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,5 +56,11 @@ public class TestController {
     @GetMapping
     public List<Employee> firstPage() {
         return employees;
+    }
+
+    @GetMapping(produces = "application/json")
+    @RequestMapping({ "/validateLogin" })
+    public User validateLogin() {
+        return new User("User successfully authenticated");
     }
 }

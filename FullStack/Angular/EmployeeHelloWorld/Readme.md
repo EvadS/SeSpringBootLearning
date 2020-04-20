@@ -44,4 +44,4 @@ ng generate service service/authGaurd
  ```
 ## Login 
 user name:  javainuse 
-pass 	 :   
+pass 	 :   password
