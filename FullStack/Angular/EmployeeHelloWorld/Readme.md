@@ -12,7 +12,7 @@ using the following command.It wll get us the latest version of angular cli.
 ```	
 
 
-We can check the angular cli version -
+We can check the angular cli version 
 ```bash
 	ng version
 ```
@@ -27,6 +27,21 @@ start project
 ng serve
 ```
 
+## Componente
+ng generate component login
+
+ng generate component logout
+
 ## services
 
 ng generate service service/httpClient
+
+ng generate service service/AuthenticationService
+
+activate a particular route only if the user is logged in.
+```bash
+ng generate service service/authGaurd
+ ```
+## Login 
+user name:  javainuse 
+pass 	 :   
