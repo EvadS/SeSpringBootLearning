@@ -20,38 +20,16 @@ export class HttpClientService {
     private httpClient: HttpClient
   ) {
   }
-
   getEmployees() {
-    const username = 'javainuse';
-    const password = 'password';
-
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ':' + password)});
-    return this.httpClient.get<Employee[]>('http://localhost:8080/employees', {headers});
-
-//    return this.httpClient.get<Employee[]>('http://localhost:8080/employees');
+    return this.httpClient.get<Employee[]>('http://localhost:8080/employees');
   }
 
   public deleteEmployee(employee) {
-
-    const username = 'javainuse';
-    const password = 'password';
-
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ':' + password)});
-    return this.httpClient.delete<Employee>('http://localhost:8080/employees' + '/ ' + employee.empId, {headers});
-
-    //  return this.httpClient.delete<Employee>('http://localhost:8080/employees' + '/' + employee.empId);
+    return this.httpClient.delete<Employee>('http://localhost:8080/employees' + '/' + employee.empId);
   }
 
   public createEmployee(employee) {
-    const username = 'javainuse';
-    const password = 'password';
-
-    const headers = new HttpHeaders({Authorization: 'Basic ' + btoa(username + ':' + password)});
-    return this.httpClient.post<Employee>('http://localhost:8080/employees', employee, {headers});
-
-
-    // return this.httpClient.post<Employee>('http://localhost:8080/employees/', employee);
+    return this.httpClient.post<Employee>('http://localhost:8080/employees', employee);
   }
-
 }
 

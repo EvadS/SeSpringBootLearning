@@ -40,8 +40,15 @@ ng generate service service/AuthenticationService
 
 activate a particular route only if the user is logged in.
 ```bash
+  ng generate service service/BasicAuthHtppInterceptorService 
+ ```
+
+
+```bash
 ng generate service service/authGaurd
  ```
+
+
 ## Login 
 user name:  javainuse 
 pass 	 :   password
