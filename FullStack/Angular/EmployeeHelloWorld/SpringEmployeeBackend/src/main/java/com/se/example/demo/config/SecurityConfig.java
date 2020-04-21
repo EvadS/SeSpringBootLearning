@@ -11,33 +11,34 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable().
-                authorizeRequests()
-                    .antMatchers(HttpMethod.OPTIONS, "/**")
-                    .permitAll()
-                .anyRequest().
-                    authenticated()
-                .and()
-                    .httpBasic();
-    }
+public class SecurityConfig //extends WebSecurityConfigurerAdapter
+ {
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http.csrf()
+//                .disable().
+//                authorizeRequests()
+//                    .antMatchers(HttpMethod.OPTIONS, "/**")
+//                    .permitAll()
+//                .anyRequest().
+//                    authenticated()
+//                .and()
+//                    .httpBasic();
+//    }
+//
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth.inMemoryAuthentication()
+//                .withUser("javainuse")
+//                .password("{noop}password")
+//                .roles("USER");
+//    }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("javainuse")
-                .password("{noop}password")
-                .roles("USER");
-    }
 
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
 
 //    @Autowired
 //    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
