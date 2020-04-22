@@ -77,3 +77,9 @@ docker image rm 75835a67d134 2a4cca5ac898
 ``` 
 docker network ls
 ```
+
+## Docker compose 
+Removes stopped service containers.
+``` bash 
+docker-compose rm
+```
