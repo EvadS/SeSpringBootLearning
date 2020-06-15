@@ -11,6 +11,8 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = IDExistingValidator.class)
 public @interface IDExisting {
     String message() default "{IDExisting}";
-    Class<?>[] groups() default { };
-    Class<? extends Payload>[] payload() default { };
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

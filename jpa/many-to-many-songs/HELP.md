@@ -17,3 +17,14 @@
 ## Db 
 
 ![Alt text](Db_scheme.jpg "Title")
+
+[Mapstruct – Custom mapping methods](
+http://javadevcorner.com/mapstruct-custom-mapping-rest-operations)
+
+
+
+http://localhost:8080/users/updateUser
+{
+    "name": "Elton Winsley",
+    "role": "STAFF"
+}

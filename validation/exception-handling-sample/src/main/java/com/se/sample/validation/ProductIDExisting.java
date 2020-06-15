@@ -11,6 +11,8 @@ import java.lang.annotation.*;
 @Constraint(validatedBy = ProductIDExistingValidator.class)
 public @interface ProductIDExisting {
     String message() default "{ProductIDExisting}";
-    Class<?>[] groups() default { };
-    Class<? extends Payload>[] payload() default { };
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

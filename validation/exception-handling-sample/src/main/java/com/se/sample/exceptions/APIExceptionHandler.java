@@ -40,9 +40,9 @@ public class APIExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.badRequest().body(responseDTO);
     }
 
-    @ExceptionHandler(value = { IllegalArgumentException.class, IllegalStateException.class })
+    @ExceptionHandler(value = {IllegalArgumentException.class, IllegalStateException.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException ex, WebRequest request) {
         String bodyOfResponse = "This should be application specific";
-        return handleExceptionInternal(ex, bodyOfResponse,                new HttpHeaders(), HttpStatus.CONFLICT, request);
+        return handleExceptionInternal(ex, bodyOfResponse, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 }
