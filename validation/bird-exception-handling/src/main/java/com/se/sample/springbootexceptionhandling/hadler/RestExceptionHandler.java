@@ -1,6 +1,6 @@
 package com.se.sample.springbootexceptionhandling.hadler;
 
-import  com.se.sample.springbootexceptionhandling.apierror.ApiError;
+import com.se.sample.springbootexceptionhandling.apierror.ApiError;
 import com.se.sample.springbootexceptionhandling.apierror.ApiValidationError;
 import com.se.sample.springbootexceptionhandling.exception.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
@@ -70,21 +70,22 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(javax.validation.ConstraintViolationException.class)
     public final ResponseEntity<Object> handleConstraintViolationException(Exception ex, WebRequest request) {
-     //My constraint
+        //My constraint
         log.error(ex.getMessage(), ex);
 
         ApiError apiError = new ApiError(NOT_FOUND);
         apiError.setMessage(ex.getMessage());
 
-        return buildResponseEntity( apiError);
-     }
-// constraint HERE !!!
+        return buildResponseEntity(apiError);
+    }
+
+    // constraint HERE !!!
     @Override
     protected ResponseEntity handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         log.error(ex.getMessage(), ex);
 
         FieldError fieldError = ex.getBindingResult().getFieldError();
-        ApiValidationError  apiValidationError =  ApiValidationError.builder()
+        ApiValidationError apiValidationError = ApiValidationError.builder()
                 .field(fieldError.getField())
                 .message(fieldError.getDefaultMessage())
                 .rejectedValue(fieldError.getRejectedValue())
@@ -95,7 +96,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         apiError.setMessage(fieldError.getDefaultMessage());
         apiError.setSubErrors(Arrays.asList(apiValidationError));
 
-        return buildResponseEntity( apiError);
+        return buildResponseEntity(apiError);
 
     }
 

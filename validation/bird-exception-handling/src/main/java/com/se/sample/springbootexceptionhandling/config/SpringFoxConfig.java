@@ -17,8 +17,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableSwagger2
 @EnableWebMvc
-public class SpringFoxConfig  implements  WebMvcConfigurer  {
-    private String mediaRootLocation ="../uploads";
+public class SpringFoxConfig implements WebMvcConfigurer {
+    private String mediaRootLocation = "../uploads";
 
     @Bean
     public Docket api() {
@@ -50,6 +50,7 @@ public class SpringFoxConfig  implements  WebMvcConfigurer  {
         registry.addResourceHandler("/images/**")
                 .addResourceLocations("file:" + mediaRootLocation + "/");
     }
+
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();

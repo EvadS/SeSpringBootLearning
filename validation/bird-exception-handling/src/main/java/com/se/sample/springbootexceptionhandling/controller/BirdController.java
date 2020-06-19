@@ -1,7 +1,6 @@
 package com.se.sample.springbootexceptionhandling.controller;
 
 
-
 import com.se.sample.springbootexceptionhandling.entity.Bird;
 import com.se.sample.springbootexceptionhandling.exception.EntityNotFoundException;
 import com.se.sample.springbootexceptionhandling.model.BirdCollection;
@@ -38,8 +37,8 @@ public class BirdController {
     }
 
     @GetMapping(value = "/constraint-error/{id}")
-    public Bird getBirdRequestParamError( @PathVariable  (value = "id")  @IDExisting Long id)  {
-       //
+    public Bird getBirdRequestParamError(@PathVariable(value = "id") @IDExisting Long id) {
+        //
         return birdService.getBird(id);
     }
 

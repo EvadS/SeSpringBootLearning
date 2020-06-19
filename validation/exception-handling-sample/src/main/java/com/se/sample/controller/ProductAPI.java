@@ -75,7 +75,7 @@ public class ProductAPI {
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDTO> delete(
             @ApiParam(value = "product Id from which productobject will delete from database table", required = true)
-            @PathVariable  (value = "id")  @ProductIDExisting Long id) {
+            @PathVariable(value = "id") @ProductIDExisting Long id) {
         productService.deleteById(id);
 
         ResponseDTO responseDTO = ResponseDTO.builder()
