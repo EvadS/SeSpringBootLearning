@@ -9,10 +9,11 @@ import org.springframework.cloud.aws.messaging.listener.annotation.SqsListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.cloud.aws.messaging.config.annotation.EnableSqs;
 
 import javax.validation.Valid;
 
+@EnableSqs
 @RestController
 @RequestMapping("/sqs")
 public class SqsController {
