@@ -1,4 +1,4 @@
-package com.se.example.service.errors;
+package com.se.specification.example.service.errors;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

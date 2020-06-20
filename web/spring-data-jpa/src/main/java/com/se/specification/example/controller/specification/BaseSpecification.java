@@ -1,4 +1,4 @@
-package com.se.example.controller.specification;
+package com.se.specification.example.controller.specification;
 
 /**
  * @author Evgeniy Skiba on 20.06.2020

@@ -1,4 +1,4 @@
-package com.se.example;
+package com.se.maual.pagging;
 
 /**
  * @author Evgeniy Skiba on 20.06.2020
@@ -8,9 +8,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpecificationExampleApplication {
+public class PagingApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpecificationExampleApplication.class, args);
+        SpringApplication.run(PagingApplication .class, args);
     }
 }

@@ -1,4 +1,4 @@
-package com.se.example.domain;
+package com.se.specification.example.domain;
 
 /**
  * @author Evgeniy Skiba on 20.06.2020
@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sys_user")
@@ -19,21 +20,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class User {
 
+    @OneToMany(mappedBy = "user")
+    public List<Address> addresses;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     @Column
     private String email;
-
     @Column
     private String firstName;
-
     @Column
     private String lastName;
-
-//        @OneToMany(mappedBy = "user")
-//        public List<Address> addresses;
-
 
 }

@@ -1,10 +1,10 @@
-package com.se.example.controller;
+package com.se.specification.example.controller;
 
 /**
  * @author Evgeniy Skiba on 20.06.2020
  * @project spring-data-jpa
  */
-import com.se.example.service.errors.ErrorResponse;
+import com.se.specification.example.service.errors.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 
 public class BaseController {

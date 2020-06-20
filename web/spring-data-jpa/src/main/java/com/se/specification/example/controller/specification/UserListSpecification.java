@@ -1,19 +1,21 @@
-package com.se.example.controller.specification;
+package com.se.specification.example.controller.specification;
 
 /**
  * @author Evgeniy Skiba on 20.06.2020
  * @project spring-data-jpa
  */
 
-import com.se.example.controller.dto.UserListRequest;
-import com.se.example.domain.User;
+import com.se.specification.example.controller.dto.UserListRequest;
+import com.se.specification.example.domain.Address;
+import com.se.specification.example.domain.User;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
+
+import static org.springframework.data.jpa.domain.Specification.where;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.ListJoin;
 
-import static org.springframework.data.jpa.domain.Specification.where;
 
 @Component
 public class UserListSpecification extends BaseSpecification<User, UserListRequest> {
@@ -27,8 +29,8 @@ public class UserListSpecification extends BaseSpecification<User, UserListReque
                             .or(lastNameContains(request.search))
                             .or(emailContains(request.search))
             )
-               //     .and(streetContains(request.street))
-               //     .and(cityContains(request.city))
+                    .and(streetContains(request.street))
+                    .and(cityContains(request.city))
                     .toPredicate(root, query, cb);
         };
 
@@ -59,26 +61,26 @@ public class UserListSpecification extends BaseSpecification<User, UserListReque
         };
     }
 
-//    private Specification<User> cityContains(String city) {
-//        return addressAttributeContains("city", city);
-//    }
-//
-//    private Specification<User> streetContains(String street) {
-//        return addressAttributeContains("street", street);
-//    }
+    private Specification<User> cityContains(String city) {
+        return addressAttributeContains("city", city);
+    }
 
-//    private Specification<User> addressAttributeContains(String attribute, String value) {
-//        return (root, query, cb) -> {
-//            if(value == null) {
-//                return null;
-//            }
-//
-//            ListJoin<User, Address> addresses = root.joinList("addresses", JoinType.INNER);
-//
-//            return cb.like(
-//                    cb.lower(addresses.get(attribute)),
-//                    containsLowerCase(value)
-//            );
-//        };
-//    }
+    private Specification<User> streetContains(String street) {
+        return addressAttributeContains("street", street);
+    }
+
+    private Specification<User> addressAttributeContains(String attribute, String value) {
+        return (root, query, cb) -> {
+            if(value == null) {
+                return null;
+            }
+
+            ListJoin<User, Address> addresses = root.joinList("addresses", JoinType.INNER);
+
+            return cb.like(
+                    cb.lower(addresses.get(attribute)),
+                    containsLowerCase(value)
+            );
+        };
+    }
 }

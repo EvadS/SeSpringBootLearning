@@ -1,4 +1,4 @@
-package com.se.example.controller.dto;
+package com.se.specification.example.controller.dto;
 
 /**
  * @author Evgeniy Skiba on 20.06.2020
@@ -9,6 +9,7 @@ public class UserListRequest {
     public String search;
     public String street;
     public String city;
+    private String email;
 
     public String getSearch() {
         return search;
