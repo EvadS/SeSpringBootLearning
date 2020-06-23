@@ -68,4 +68,5 @@ The following guide illustrates how to use some features concretely:
 
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
-Made with ♥ by johnjvester.
+## The next step 
+* [Spring: Advanced search & filtering](https://medium.com/@milan.brankovic/spring-advanced-search-filtering-5ee850f9458c)
