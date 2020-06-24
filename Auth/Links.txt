@@ -1,0 +1,6 @@
+
+Регистрация и авторизация с помощью Spring Security на примере простого приложения
+https://habr.com/ru/post/482552/
+---
+Войти в систему используя социальную сеть с OAuth2 в Spring Boot
+https://o7planning.org/ru/11823/social-login-with-oauth2-in-spring-boot
