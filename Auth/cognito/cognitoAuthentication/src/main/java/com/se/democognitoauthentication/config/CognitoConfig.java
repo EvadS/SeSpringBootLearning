@@ -2,11 +2,11 @@ package com.se.democognitoauthentication.config;
 
 public class CognitoConfig {
 
-    String clientId = "";
-    String userPoolId = "";
-    String region = "";
-    String identityPoolId = "";
-    String endpoint = "";
+    String clientId = "3kipo3pal7lr67tdrso392r82s";
+    String userPoolId = "us-west-2_E82Y8UlDe";
+    String region = "us-west-2";
+    String identityPoolId = "us-west-2:140384f3-0c16-4aaa-bd1e-79d2f66138d";
+    String endpoint = "cognito-idp.eu-west-2.amazonaws.com";
 
 
     public String getClientId() {
