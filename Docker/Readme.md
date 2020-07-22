@@ -29,8 +29,10 @@ docker images
 
 ### запускаем 
 ```bash
-    docker run -p 8801:8801 --name my-server-docker  my-server:1.0.0
+    docker run -p 8801:8802 --name my-server-docker  my-server:1.0.0
  ```
+* 8802 внутренний порт 
+* 8801 внешний порт
 
 Теперь проанализируем, сколько занимает установленный туда JDK 13.0.2:
 ```bash

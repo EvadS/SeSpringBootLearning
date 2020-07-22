@@ -1,5 +1,6 @@
 package com.se.many.relationship.controller;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import springfox.documentation.annotations.ApiIgnore;
@@ -17,4 +18,6 @@ public class IndexController {
     public String index() {
         return "redirect:swagger-ui.html";
     }
+
+
 }
