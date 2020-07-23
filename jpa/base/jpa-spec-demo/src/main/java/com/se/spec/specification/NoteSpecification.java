@@ -71,4 +71,10 @@ public class NoteSpecification extends BaseSpecification<Note, NoteRequest> {
             return cb.lessThanOrEqualTo(root.get(attribute), value);
         };
     }
+
+    public Specification<Note> calledBetween(String attribute, LocalDateTime start, LocalDateTime end) {
+        return (root, query, cb) ->{
+           return  cb.between(root.get(attribute), start, end);
+        };
+    }
 }
