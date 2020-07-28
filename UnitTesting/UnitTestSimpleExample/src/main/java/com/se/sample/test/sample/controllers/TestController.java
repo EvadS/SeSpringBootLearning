@@ -1,7 +1,7 @@
-package com.se.sample.unittestsample.controllers;
+package com.se.sample.test.sample.controllers;
 
 
-import com.se.sample.unittestsample.model.Employee;
+import com.se.sample.test.sample.model.Employee;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

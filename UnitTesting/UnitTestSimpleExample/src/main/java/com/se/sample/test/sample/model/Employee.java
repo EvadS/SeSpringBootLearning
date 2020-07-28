@@ -1,4 +1,4 @@
-package com.se.sample.unittestsample.model;
+package com.se.sample.test.sample.model;
 
 
 public class Employee {
