@@ -28,8 +28,8 @@ public class TestSpringApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        bookRepository.deleteAllInBatch();
-        createBook();
+//        bookRepository.deleteAllInBatch();
+       createBook();
 
         createTransaction();
     }
