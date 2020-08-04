@@ -20,10 +20,10 @@ public class Comment  {
     private String text;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post_id", nullable = false)
+    @JoinColumn(name = "post_item_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    private Post post;
+    private PostItem post;
 
     // Getters and Setters (Omitted for brevity)
 
@@ -47,13 +47,11 @@ public class Comment  {
         this.text = text;
     }
 
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
+    public void setPost(PostItem post) {
         this.post = post;
     }
+
+
 
     @Override
     public String toString() {

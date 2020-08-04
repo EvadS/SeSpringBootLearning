@@ -6,10 +6,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.util.UUID;
 
-@Entity(name = "Transaction")
-@Table(name = "transaction")
+@Entity(name = "TransactionUUID")
+@Table(name = "TransactionUUID")
 
-public class Transaction {
+public class TransactionUUID {
     // TODO: this method doesn't work!!
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -19,7 +19,7 @@ public class Transaction {
 
     private String message;
 
-    public Transaction() {
+    public TransactionUUID() {
     }
 
     public String getTransactionId() {

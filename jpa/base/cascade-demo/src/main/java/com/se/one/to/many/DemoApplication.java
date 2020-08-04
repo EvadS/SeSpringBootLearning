@@ -3,7 +3,7 @@ package com.se.one.to.many;
 import com.se.one.to.many.entity.Child;
 import com.se.one.to.many.entity.Comment;
 import com.se.one.to.many.entity.Parent;
-import com.se.one.to.many.entity.Post;
+import com.se.one.to.many.entity.PostItem;
 import com.se.one.to.many.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -117,7 +117,7 @@ public class DemoApplication implements CommandLineRunner {
         commentRepository.deleteAllInBatch();
         postRepository.deleteAllInBatch();
 
-        Post post = new Post();
+        PostItem post = new PostItem();
         post.setTitle("first post title");
         postRepository.save(post);
 

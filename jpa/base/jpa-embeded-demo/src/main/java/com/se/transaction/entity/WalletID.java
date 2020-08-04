@@ -4,10 +4,10 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 @Embeddable
-public class WalletID   implements Serializable {
+public class WalletID implements Serializable {
 
    private String walletCurrency;
- private String userID;
+   private long userID;
 
     public WalletID() {
     }
@@ -20,11 +20,11 @@ public class WalletID   implements Serializable {
         this.walletCurrency = walletCurrency;
     }
 
-    public String getUserID() {
+    public long getUserID() {
         return userID;
     }
 
-    public void setUserID(String userID) {
+    public void setUserID(long userID) {
         this.userID = userID;
     }
 }

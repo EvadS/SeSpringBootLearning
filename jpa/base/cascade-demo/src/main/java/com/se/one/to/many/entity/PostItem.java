@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "posts")
-public class Post {
+public class PostItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,7 +17,7 @@ public class Post {
     @Column(unique = true)
     private String title;
 
-    public Post() {
+    public PostItem() {
     }
 
     public Long getId() {

@@ -1,9 +1,8 @@
 package com.se.additional;
 
 import com.se.additional.entity.Book;
-import com.se.additional.entity.Transaction;
+import com.se.additional.entity.TransactionUUID;
 import com.se.additional.repo.BookRepository;
-import com.se.enums.mapping.repository.TransactionRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +36,10 @@ public class TestSpringApplication implements CommandLineRunner {
     private void createTransaction() {
 
         try {
-            Transaction transaction = new Transaction();
-            transaction.setMessage("Message ");
+            TransactionUUID transactionUUID = new TransactionUUID();
+            transactionUUID.setMessage("Message ");
 
-            transactionRepo.save(transaction);
+            transactionRepo.save(transactionUUID);
         }
         catch (JpaSystemException ex){
             // java.sql.SQLException: Field 'transactionid' doesn't have a default value

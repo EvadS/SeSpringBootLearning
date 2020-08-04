@@ -1,13 +1,7 @@
 package com.se.one.to.one;
 
-import com.se.one.to.one.entity.Auto;
-import com.se.one.to.one.entity.Passport;
-import com.se.one.to.one.entity.Person;
-import com.se.one.to.one.entity.RegistrationNumber;
-import com.se.one.to.one.repository.AutoRepository;
-import com.se.one.to.one.repository.PassportRepository;
-import com.se.one.to.one.repository.PersonRepository;
-import com.se.one.to.one.repository.RegistrationNumberRepository;
+import com.se.one.to.one.entity.*;
+import com.se.one.to.one.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -49,7 +43,7 @@ public class DemoApplication implements CommandLineRunner {
         numberRepository.deleteAllInBatch();
         autoRepository.deleteAllInBatch();
 
-        System.out.println("One-to-one cascae all demo");
+        System.out.println("One-to-one cascade all demo");
 
         Passport passport = new Passport();
         passport.setNumber("Passport number");

@@ -31,24 +31,24 @@ public class JpaEmbededDemoApplication  implements CommandLineRunner {
       //  testAccount();
 
         //@Covert annotation not honored when used with @IdClass composite key
-
-        try {
-            FooBar fooBar = new FooBar();
-
-            PrimaryKey primaryKey = new PrimaryKey();
-            primaryKey.setFooBarType(FooBarType.Bar);
-            primaryKey.setId("STRING_ID");
-
-            fooBar.setCompositeKey(primaryKey);
-            fooBar.setValue(10000);
-
-            fooBarRepository.save(fooBar);
-
-            int bb = 10;
-        }
-        catch (Exception ex){
-            ex.printStackTrace();
-        }
+//
+//        try {
+//            FooBar fooBar = new FooBar();
+//
+//            PrimaryKey primaryKey = new PrimaryKey();
+//            primaryKey.setFooBarType(FooBarType.Bar);
+//            primaryKey.setId("STRING_ID");
+//
+//            fooBar.setCompositeKey(primaryKey);
+//            fooBar.setValue(10000);
+//
+//            fooBarRepository.save(fooBar);
+//
+//            int bb = 10;
+//        }
+//        catch (Exception ex){
+//            ex.printStackTrace();
+//        }
     }
 
     private void testAccount() {

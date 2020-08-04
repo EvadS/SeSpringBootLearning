@@ -1,68 +1,46 @@
 package com.se.transaction.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.se.transaction.enums.SystemType;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-@Entity
+import javax.persistence.*;
+import java.util.UUID;
+
+//@Entity(name = "Transaction")
+//@Table(name = "transaction")
+@EntityListeners(AuditingEntityListener.class)
 public class Transaction {
     @Id
-    private String id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(name = "id", updatable = false, nullable = false)
+    private UUID transactionId;
 
-    private String to ;
-    private String from ;
-    private double amount ;
-    private double fee;
-    private double payment;
-
+    private SystemType systemType;
 
     public Transaction() {
     }
 
-    public String getId() {
-        return id;
+    //@M`in(0)
+    @Column(name = "wallet_amount")
+    private double walletAmount;
+
+    public UUID getTransactionId() {
+        return transactionId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setTransactionId(UUID transactionId) {
+        this.transactionId = transactionId;
     }
 
-    public String getTo() {
-        return to;
+    public double getWalletAmount() {
+        return walletAmount;
     }
 
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public double getFee() {
-        return fee;
-    }
-
-    public void setFee(double fee) {
-        this.fee = fee;
-    }
-
-    public double getPayment() {
-        return payment;
-    }
-
-    public void setPayment(double payment) {
-        this.payment = payment;
+    public void setWalletAmount(double walletAmount) {
+        this.walletAmount = walletAmount;
     }
 }
