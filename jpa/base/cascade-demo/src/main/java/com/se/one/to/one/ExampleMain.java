@@ -52,7 +52,6 @@ public class ExampleMain {
         CompositeTaskId cti = new CompositeTaskId(1L, 100L);
         Task task = new Task(cti, e);
         task.setTaskName("coding");
-        task.setDate(new Date());
 
         em.getTransaction().begin();
         em.persist(e);

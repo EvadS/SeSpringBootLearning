@@ -1,25 +1,29 @@
-package com.se.one.to.one.entity;
+package com.se.task.demo.entity;
 
-import javax.persistence.*;
+//mport javax.persistence.Entity;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.OneToOne;
 import java.util.Date;
 
 @Entity
+@IdClass(CompositeTaskId.class)
 public class Task {
-    @EmbeddedId
-    private CompositeTaskId taskId;
-
-    @MapsId("employeeKey2")
+    @Id
+    private long taskId;
+    @Id
     @OneToOne
     private Employee employee;
-
     private String taskName;
+    private Date date;
 
     public Task() {
     }
 
-    public Task(CompositeTaskId taskId, Employee employee) {
-        this.taskId = taskId;
+    public Task(Employee employee, long taskId) {
         this.employee = employee;
+        this.taskId = taskId;
     }
 
     public String getTaskName() {
@@ -30,7 +34,13 @@ public class Task {
         this.taskName = taskName;
     }
 
+    public Date getDate() {
+        return date;
+    }
 
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     @Override
     public String toString() {
@@ -38,6 +48,7 @@ public class Task {
                 "taskId=" + taskId +
                 ", employee=" + employee +
                 ", taskName='" + taskName + '\'' +
+                ", date=" + date +
                 '}';
     }
 }

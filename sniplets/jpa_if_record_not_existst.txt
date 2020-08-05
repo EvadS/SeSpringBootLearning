@@ -1,0 +1,5 @@
+* changes relation between data base structure 
+* added account service 
+ - accont with wallets 
+ - check wallet balance 
+ - change status wallet (admin can block / unblock wallet ) 
