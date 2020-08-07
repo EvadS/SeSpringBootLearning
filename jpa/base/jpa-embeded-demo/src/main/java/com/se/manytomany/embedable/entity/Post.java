@@ -39,6 +39,12 @@ public class Post {
         tag.getPosts().add(postTag);
     }
 
+    // TODO: one  directional  step 1
+//    public void addTag(Tag tag) {
+//        PostTag postTag = new PostTag(this, tag);
+//        tags.add(postTag);
+//    }
+
     public void removeTag(Tag tag) {
         for (Iterator<PostTag> iterator = tags.iterator();
              iterator.hasNext(); ) {

@@ -1,5 +1,7 @@
 package com.se.demo.trans.entity;
 
+import org.hibernate.mapping.Map;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +12,18 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//
-//    //@OneToMany
-//    @ManyToMany
-//    private List<Wallet> wallet = new ArrayList<>();
-
+    private String currencyType;
 
     public Account() {
     }
+
+//    @OneToMany
+//            (
+//            mappedBy = "Wallet.a"
+//    )
+
+    @OneToMany(mappedBy = "walletID.accountId", fetch = FetchType.EAGER)
+    private List<Wallet> walletList = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -27,4 +33,19 @@ public class Account {
         this.id = id;
     }
 
+    public String getCurrencyType() {
+        return currencyType;
+    }
+
+    public void setCurrencyType(String currencyType) {
+        this.currencyType = currencyType;
+    }
+
+    public List<Wallet> getWalletList() {
+        return walletList;
+    }
+
+    public void setWalletList(List<Wallet> walletList) {
+        this.walletList = walletList;
+    }
 }

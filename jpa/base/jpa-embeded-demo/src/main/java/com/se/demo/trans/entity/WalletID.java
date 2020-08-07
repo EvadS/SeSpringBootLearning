@@ -8,7 +8,7 @@ import java.util.Objects;
 public class WalletID implements Serializable {
 
    private String walletCurrency;
-   private long employeeKey;
+   private long accountId;
 
     public WalletID() {
     }
@@ -21,12 +21,12 @@ public class WalletID implements Serializable {
         this.walletCurrency = walletCurrency;
     }
 
-    public long getEmployeeKey() {
-        return employeeKey;
+    public long getAccountId() {
+        return accountId;
     }
 
-    public void setEmployeeKey(long employeeKey) {
-        this.employeeKey = employeeKey;
+    public void setAccountId(long employeeKey) {
+        this.accountId = employeeKey;
     }
 
     @Override
@@ -34,12 +34,12 @@ public class WalletID implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WalletID walletID = (WalletID) o;
-        return employeeKey == walletID.employeeKey &&
+        return accountId == walletID.accountId &&
                 Objects.equals(walletCurrency, walletID.walletCurrency);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(walletCurrency, employeeKey);
+        return Objects.hash(walletCurrency, accountId);
     }
 }

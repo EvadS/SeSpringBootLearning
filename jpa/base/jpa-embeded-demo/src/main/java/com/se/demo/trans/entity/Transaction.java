@@ -19,26 +19,25 @@ public class Transaction {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID transactionId;
 
-    private String name3;
+    private  String name;
 
-
-
-//    @AttributeOverrides({
-//            @AttributeOverride(
-//                    name = "walletID.employeeKey",
-//                    column = @Column(name = "EMBEDDED1_SOMEENUM")
-//            )
-//    })
-
-    @MapsId("employeeKey")
+    @MapsId("accountId")
     @ManyToOne
-    private Wallet walletSender;
+    private Wallet walletFrom;
 
-    @MapsId("employeeKey")
+    @MapsId("accountId")
     @ManyToOne
-    private Wallet walletRecepient;
+    private Wallet walletTo;
 
     public Transaction() {
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public UUID getTransactionId() {
@@ -47,13 +46,5 @@ public class Transaction {
 
     public void setTransactionId(UUID transactionId) {
         this.transactionId = transactionId;
-    }
-
-    public String getName() {
-        return name3;
-    }
-
-    public void setName(String name) {
-        this.name3 = name;
     }
 }
