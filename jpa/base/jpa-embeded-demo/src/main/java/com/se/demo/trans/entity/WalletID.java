@@ -13,6 +13,11 @@ public class WalletID implements Serializable {
     public WalletID() {
     }
 
+    public WalletID(String walletCurrency, long accountId) {
+        this.walletCurrency = walletCurrency;
+        this.accountId = accountId;
+    }
+
     public String getWalletCurrency() {
         return walletCurrency;
     }
