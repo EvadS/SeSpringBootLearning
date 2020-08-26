@@ -56,7 +56,7 @@ public class Message {
         this.tag = tag;
     }
 
-    public String authorName(){
-        return  author.getUsername();
+    public String get_AuthorName() {
+        return author != null ? author.getUsername() : "<none>";
     }
 }
