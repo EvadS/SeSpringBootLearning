@@ -1,6 +1,7 @@
 package com.se.demobase.controller;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.http.ResponseEntity;
@@ -42,4 +43,19 @@ public class FileUploadController {
 
         return  ResponseEntity.ok(multipartFile.getOriginalFilename());
     }
+    @ApiOperation(value = "upload files base .", nickname = "upload",
+            notes = "Upload multi parts files array.", tags = {})
+    @PostMapping("/multi-file-upload")
+    public ResponseEntity multipleUploadFile(
+            @RequestPart(value = "images")       @ApiParam(value = "images")  MultipartFile[] multipartFiles) {
+
+        for(MultipartFile multipartFile : multipartFiles) {
+            log.info("Received multipart file - original filename: " + multipartFile.getOriginalFilename());
+            log.info("content-type: " + multipartFile.getContentType());
+            log.info("size: " + multipartFile.getSize());
+        }
+
+        return  ResponseEntity.ok().build();
+    }
+
 }
