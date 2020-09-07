@@ -95,3 +95,6 @@ local.properties
 
 
 hs_err_pid*
+
+aplication.properties
+/src/main/resources/application.properties
