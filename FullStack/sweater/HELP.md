@@ -52,3 +52,11 @@ https://temp-mail.org/ru/
 ### recaptcha
 https://www.google.com/u/1/recaptcha/admin/site/432591918/setup
 ###
+
+### testing 
+```
+create table sweater-test
+```
+
+У кого не видит @TestPropertySource("/application-test.properties") сделайте следущее: Intellij Idea - 
+File - Project Structure - Modules - src - test - java - resources - mark resources as "Test Resources"
