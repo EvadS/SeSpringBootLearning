@@ -23,6 +23,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+
 @Controller
 public class MainController {
     @Autowired
@@ -37,16 +42,21 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Message> messages;
+    public String main(
+            @RequestParam(required = false, defaultValue = "") String filter,
+            Model model,
+            @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        Page<Message> page;
 
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            page = messageRepo.findByTag(filter, pageable);
         } else {
-            messages = messageRepo.findAll();
+            page = messageRepo.findAll(pageable);
         }
 
-        model.addAttribute("messages", messages);
+        model.addAttribute("page", page);
+        model.addAttribute("url", "/main");
         model.addAttribute("filter", filter);
 
         return "main";
@@ -82,22 +92,44 @@ public class MainController {
     }
 
 
+//    @GetMapping("/user-messages/{user}")
+//    public String userMessages(
+//            @AuthenticationPrincipal User currentUser,
+//            @PathVariable User user,
+//            Model model,
+//            @RequestParam(required = false) Message message
+//    ) {
+//        Set<Message> messages = user.getMessages();
+//
+//        model.addAttribute("userChannel", user);
+//        model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
+//        model.addAttribute("subscribersCount", user.getSubscribers().size());
+//        model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
+//        model.addAttribute("messages", messages);
+//        model.addAttribute("message", message);
+//        model.addAttribute("isCurrentUser", currentUser.equals(user));
+//        return "userMessages";
+//    }
+
     @GetMapping("/user-messages/{user}")
     public String userMessges(
             @AuthenticationPrincipal User currentUser,
             @PathVariable User user,
             Model model,
-            @RequestParam(required = false) Message message
+            @RequestParam(required = false) Message message,
+            @PageableDefault(sort = { "id" }, direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        Set<Message> messages = user.getMessages();
+        Page<Message> page = messageRepo.findAll(pageable);;
 
         model.addAttribute("userChannel", user);
         model.addAttribute("subscriptionsCount", user.getSubscriptions().size());
         model.addAttribute("subscribersCount", user.getSubscribers().size());
         model.addAttribute("isSubscriber", user.getSubscribers().contains(currentUser));
-        model.addAttribute("messages", messages);
+        model.addAttribute("page", page);
         model.addAttribute("message", message);
         model.addAttribute("isCurrentUser", currentUser.equals(user));
+        model.addAttribute("url", "/user-messages/" + user.getId());
+
         return "userMessages";
     }
 

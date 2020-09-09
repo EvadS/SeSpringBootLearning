@@ -1,6 +1,9 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
+
+
+
     <h3>${userChannel.username}</h3>
     <#if !isCurrentUser>
         <#if isSubscriber>
