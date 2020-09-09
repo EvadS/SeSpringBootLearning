@@ -1,7 +1,6 @@
 SET SQL_SAFE_UPDATES=0;
-DELETE FROM `sweater-test`.`user_role`
-DELETE FROM `sweater-test`.`usr`
-
+DELETE FROM `sweater-test`.`user_role`;
+DELETE FROM `sweater-test`.`usr`;
 
 insert into usr(id, username, password, active) values
 (1, 'dru', '$2a$08$fNUHI3FnO3cbT6VAcClJOOsIq93f2101ud2RAKiZFAh7Y2h.oFRzC', true),
