@@ -17,7 +17,7 @@ public enum PaymentMethod {
 
     public static PaymentMethod of(String code) {
         return Stream.of(PaymentMethod.values())
-                .filter(p -> p.getName() == code)
+                .filter(p -> p.getName().equals(code))
                 .findFirst().orElseThrow(() -> new IllegalStateException(String.format("Unsupported type %s.", code)));
     }
 

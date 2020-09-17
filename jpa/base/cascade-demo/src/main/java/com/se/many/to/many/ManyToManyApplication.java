@@ -4,11 +4,15 @@ import com.se.many.to.many.entity.Post;
 import com.se.many.to.many.entity.Student;
 import com.se.many.to.many.entity.Tag;
 import com.se.many.to.many.entity.University;
+import com.se.many.to.many.entity.def.Searcher;
+import com.se.many.to.many.entity.def.SkillsScore;
 import com.se.many.to.many.repo.PostRepository;
 import com.se.many.to.many.repo.StudentRepository;
 import com.se.many.to.many.repo.TagRepository;
 import com.se.many.to.many.repo.UniversityRepository;
 
+import com.se.many.to.many.repo.def.SearcherRepository;
+import com.se.many.to.many.repo.def.SkillsScoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -33,6 +37,13 @@ public class ManyToManyApplication implements CommandLineRunner {
     @Autowired
     private PostRepository postRepository;
 
+
+    @Autowired
+    private SkillsScoreRepository skillsScoreRepo;
+
+    @Autowired
+    private SearcherRepository searcherRepo;
+
     public static void main(String[] args) {
         SpringApplication.run(ManyToManyApplication.class, args);
     }
@@ -40,8 +51,73 @@ public class ManyToManyApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
       //  testStudentUniversity();
+      //  testPostsTags();
+        testSearcher();
 
 
+    }
+
+    private void testSearcher() {
+
+        searcherRepo.deleteAllInBatch();
+        skillsScoreRepo.deleteAllInBatch();
+
+        Searcher searcher = new Searcher();
+        searcher.setName("searcher 1 ");
+        searcherRepo.save(searcher);
+
+        Searcher searcher2 = new Searcher();
+        searcher2.setName("searcher 2 ");
+        searcherRepo.save(searcher2);
+
+        Searcher searcher3 = new Searcher();
+        searcher3.setName("searcher 3.");
+        searcherRepo.save(searcher3);
+
+        SkillsScore skillsScore = new SkillsScore();
+        skillsScore.setName("skill 1");
+        skillsScore.setSearchers(Arrays.asList(searcher));
+        skillsScore.setSearchers(Arrays.asList(searcher2));
+        skillsScoreRepo.save(skillsScore);
+
+        SkillsScore skillsScore2 = new SkillsScore();
+        skillsScore2.setName("skill 2");
+        skillsScoreRepo.save(skillsScore2);
+
+
+        skillsScore2.addSearcher(searcher);
+        skillsScoreRepo.save(skillsScore2);
+
+        List<Searcher> searchers = skillsScore2.getSearchers();
+
+        for(Searcher s : searchers){
+            skillsScore2.removeBook(s);
+            skillsScoreRepo.save(skillsScore2);
+        }
+
+        skillsScore2.addSearcher(searcher);
+        skillsScore2.addSearcher(searcher2);
+        skillsScoreRepo.save(skillsScore2);
+
+
+        // edit
+
+//
+//        searcher2.setName("searcher 21.");
+//        searcher2.setSkillsScore();
+//        searcherRepo.save(searcher2);
+
+
+
+
+
+
+
+
+
+    }
+
+    private void testPostsTags() {
         // Cleanup the tables
         postRepository.deleteAllInBatch();
         tagRepository.deleteAllInBatch();
