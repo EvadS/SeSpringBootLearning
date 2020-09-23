@@ -1,0 +1,4 @@
+  private boolean isCodeNotExpired(VerificationToken verificationToken) {
+        Calendar calendar = Calendar.getInstance();
+        return (verificationToken.getExpiryDate().getTime() - calendar.getTime().getTime()) <= 0;
+    }

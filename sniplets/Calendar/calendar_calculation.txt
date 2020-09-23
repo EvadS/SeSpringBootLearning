@@ -1,0 +1,10 @@
+    
+   this.expiryDate = calculateExpiryDate(EXPIRATION_MINUTES);
+
+private Date calculateExpiryDate(int expiryTimeInMinutes) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Timestamp(calendar.getTime().getTime()));
+        calendar.add(Calendar.MINUTE, expiryTimeInMinutes);
+        return new Date(calendar.getTime().getTime());
+    }
