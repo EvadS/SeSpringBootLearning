@@ -1,0 +1,12 @@
+     
+
+URI thirdPartyApi = new URI("http", null, sessionMSHost, Integer.parseInt(sessionMSPort),
+                    AuthConstant.LOAD_URL, null, null);
+
+            logger.debug("Send load user from : {} ", thirdPartyApi);
+
+           String url = thirdPartyApi.toString()+ "/{email}";
+           Map<String, String> vars = new HashMap<>();
+           vars.put("email", userEmail);
+
+           return  restTemplate.getForObject(url, CustomUserDetails.class, vars);
