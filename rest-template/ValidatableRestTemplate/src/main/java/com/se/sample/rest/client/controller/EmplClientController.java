@@ -46,6 +46,7 @@ public class EmplClientController {
             EmployeeRequest empl = new EmployeeRequest("email.com", "firstName", "lastName");
             ResponseEntity<EmployeeResponse> result = restTemplate.postForEntity(emplUrl, empl, EmployeeResponse.class);
 
+
             logger.info("response: " + result.getBody());
             return result;
 

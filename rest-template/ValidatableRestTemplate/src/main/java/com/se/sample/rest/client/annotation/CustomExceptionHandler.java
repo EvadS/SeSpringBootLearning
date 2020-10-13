@@ -1,9 +1,12 @@
 package com.se.sample.rest.client.annotation;
 
 
+import com.se.sample.rest.client.controller.EmplClientController;
 import com.se.sample.rest.client.exception.RecordNotFoundException;
 import com.se.sample.rest.client.exception.TokenRefreshException;
 import com.se.sample.rest.client.model.error.ErrorResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,8 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -23,6 +28,10 @@ import java.util.List;
 @ControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 {
+
+    private final Logger logger = LoggerFactory.getLogger(CustomExceptionHandler.class);
+
+
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         List<String> details = new ArrayList<>();
@@ -58,6 +67,18 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 
         ErrorResponse error = new ErrorResponse("SIncorrect request model.", details);
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(HttpClientErrorException.class)
+    public String handleXXException(HttpClientErrorException e) {
+        logger.error("*** log HttpClientErrorException: ", e);
+        return "HttpClientErrorException_message";
+    }
+
+    @ExceptionHandler(HttpServerErrorException.class)
+    public String handleXXException(HttpServerErrorException e) {
+        logger.error("***log HttpServerErrorException: ", e);
+        return "HttpServerErrorException_message";
     }
 
 

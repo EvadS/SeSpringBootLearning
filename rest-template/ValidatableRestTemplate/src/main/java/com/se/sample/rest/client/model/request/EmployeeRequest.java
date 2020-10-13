@@ -7,8 +7,9 @@ import javax.validation.constraints.NotEmpty;
 
 public class EmployeeRequest {
 
-    @NotEmpty(message = "email must not be empty")
-    @Email(message = "email should be a valid email")
+    // TODO: simulate constraint exception on server
+   // @NotEmpty(message = "email must not be empty")
+  //  @Email(message = "email should be a valid email")
     @ApiModelProperty(value = "User registered email", required = true, allowableValues = "mail@mail.com")
     private String email;
 
@@ -25,7 +26,7 @@ public class EmployeeRequest {
 
 
     public EmployeeRequest(@NotEmpty(message = "email must not be empty")
-                    @Email(message = "email should be a valid email") String email,
+                           String email,
                            @NotEmpty(message = "first name must not be empty") String firstName,
                            @NotEmpty(message = "last name must not be empty") String lastName) {
         this.email = email;

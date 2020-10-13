@@ -1,6 +1,7 @@
 package com.se.sample.rest.client.config;
 
 
+import com.se.sample.rest.client.component.RestTemplateResponseErrorHandler;
 import com.se.sample.rest.client.component.ValidatableRestTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
