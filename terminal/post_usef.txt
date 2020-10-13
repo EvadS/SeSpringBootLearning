@@ -1,0 +1,8 @@
+
+unix 
+
+To do this, you need to do two commands in the terminal 
+
+sudo lsof -i tcp:8080
+
+kill -15 PID 

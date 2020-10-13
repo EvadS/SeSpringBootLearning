@@ -36,9 +36,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     //TODO:
-   /*
-    @Override
 
+    @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> details = new ArrayList<>();
         for(ObjectError error : ex.getBindingResult().getAllErrors()) {
@@ -48,6 +47,5 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
        // return ResponseEntity.ok(error);
     }
-    *
-    */
+
 }

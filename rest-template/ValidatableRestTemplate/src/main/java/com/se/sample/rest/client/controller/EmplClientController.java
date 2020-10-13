@@ -25,6 +25,8 @@ import javax.validation.Valid;
 public class EmplClientController {
 
     private static final String emplUrl = "http://localhost:8001/empl/add";
+    private static final String emplUrl2 = "http://localhost:8001/empl/add2";
+
     private final Logger logger = LoggerFactory.getLogger(EmplClientController.class);
     @Autowired
     RestTemplate restTemplate;
@@ -44,7 +46,7 @@ public class EmplClientController {
     public ResponseEntity<EmployeeResponse> addEmployee(@Valid @RequestBody EmployeeRequest employeeRequest) {
       //  try {
             EmployeeRequest empl = new EmployeeRequest("email.com", "firstName", "lastName");
-            ResponseEntity<EmployeeResponse> result = restTemplate.postForEntity(emplUrl, empl, EmployeeResponse.class);
+            ResponseEntity<EmployeeResponse> result = restTemplate.postForEntity(emplUrl, employeeRequest, EmployeeResponse.class);
 
 
             logger.info("response: " + result.getBody());
@@ -66,5 +68,15 @@ public class EmplClientController {
 //            return null;
 //
 //        }
+    }
+
+    @PostMapping(value = "/add-exception")
+    public ResponseEntity<EmployeeResponse> addEmployee2(@Valid @RequestBody EmployeeRequest employeeRequest) {
+        //  try {
+       ResponseEntity<EmployeeResponse> result = restTemplate.postForEntity(emplUrl2, employeeRequest, EmployeeResponse.class);
+
+
+        logger.info("response: " + result.getBody());
+        return result;
     }
 }

@@ -51,18 +51,6 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
             default:
                 throw new RestClientException("Unknown status code [" + statusCode + "]");
         }
-//
-//        if (clienthttpresponse.getStatusCode() != HttpStatus.OK) {
-//            logger.info("Status code: " + clienthttpresponse.getStatusCode());
-//            logger.info("Response" + clienthttpresponse.getStatusText());
-//            logger.info(""+clienthttpresponse.getBody());
-//
-//            if (clienthttpresponse.getStatusCode() == HttpStatus.FORBIDDEN) {
-//                logger.info("Call returned a error 403 forbidden resposne ");
-//                return true;
-//            }
-//        }
-//        return false;
     }
 
     private Charset getCharset(ClientHttpResponse response) {

@@ -6,6 +6,9 @@ import java.util.List;
 
 public class ErrorResponse
 {
+    public ErrorResponse() {
+    }
+
     public ErrorResponse(String message, List<String> details) {
         super();
         this.message = message;

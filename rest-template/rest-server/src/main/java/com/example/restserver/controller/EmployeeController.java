@@ -33,6 +33,7 @@ public class EmployeeController {
         return new ResponseEntity<EmployeeVO>(employee, HttpStatus.OK);
     }
 
+    // correct result
     @PostMapping(value = "/add")
     public ResponseEntity<EmployeeVO> addEmployee(@Valid @RequestBody Employee employee) {
 
@@ -44,5 +45,15 @@ public class EmployeeController {
         EmployeeVO res = employeeService.addEmployee(ent);
 
         return  ResponseEntity.ok(res);
+    }
+
+    /**
+     * simulate incorrect logic
+     * @param employee
+     * @return
+     */
+    @PostMapping(value = "/add2")
+    public ResponseEntity<EmployeeVO> addEmployeeBad(@Valid @RequestBody Employee employee) {
+        throw new RecordNotFoundException("Invalid employee id : " +  0l );
     }
 }

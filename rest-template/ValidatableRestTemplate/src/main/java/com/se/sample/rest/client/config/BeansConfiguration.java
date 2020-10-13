@@ -17,7 +17,7 @@ public class BeansConfiguration {
     RestTemplate restTemplate(Validator validator) {
 
         ValidatableRestTemplate validatableRestTemplate = new ValidatableRestTemplate(validator);
-        validatableRestTemplate.setErrorHandler(new RestTemplateResponseErrorHandler());
+       // validatableRestTemplate.setErrorHandler(new RestTemplateResponseErrorHandler());
 
         return validatableRestTemplate;
     }
