@@ -8,7 +8,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 public class RestServerException extends RuntimeException {
 
+    private ErrorResponse errorResponse;
     public RestServerException(ErrorResponse errorResponse) {
         super(errorResponse.getMessage());
+        this.errorResponse = errorResponse;
+    }
+
+    public ErrorResponse getErrorResponse() {
+        return errorResponse;
     }
 }

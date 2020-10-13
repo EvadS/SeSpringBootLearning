@@ -1,8 +1,7 @@
 package com.se.sample.rest.client.annotation;
 
 
-import com.se.sample.rest.client.controller.EmplClientController;
-import com.se.sample.rest.client.exception.RecordNotFoundException;
+import com.se.sample.rest.client.exception.ResourceUnavailableException;
 import com.se.sample.rest.client.exception.RestServerException;
 import com.se.sample.rest.client.exception.TokenRefreshException;
 import com.se.sample.rest.client.model.error.ErrorResponse;
@@ -41,8 +40,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
         return new ResponseEntity(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(RecordNotFoundException.class)
-    public final ResponseEntity<Object> handleUserNotFoundException(RecordNotFoundException ex, WebRequest request) {
+    @ExceptionHandler(ResourceUnavailableException.class)
+    public final ResponseEntity<Object> handleUserNotFoundException(ResourceUnavailableException ex, WebRequest request) {
         List<String> details = new ArrayList<>();
         details.add(ex.getLocalizedMessage());
         ErrorResponse error = new ErrorResponse("Record Not Found", details);
@@ -60,9 +59,13 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(RestServerException.class)
     public final ResponseEntity<Object> handleRestServerException(RestServerException ex, WebRequest request) {
+
         List<String> details = new ArrayList<>();
-        details.add(ex.getLocalizedMessage());
-        ErrorResponse error = new ErrorResponse("Incorrect param.", details);
+        for(String error : ex.getErrorResponse().getDetails()) {
+            details.add(error);
+        }
+
+        ErrorResponse error = new ErrorResponse("Incorrect request model from server.", details);
         return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
     }
 
@@ -71,7 +74,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler
     public final ResponseEntity<Object> handleTokenRefreshException(ConstraintViolationException ex, WebRequest request) {
         List<String> details = new ArrayList<>();
 
-        ex.getConstraintViolations();
         for(ConstraintViolation error :  ex.getConstraintViolations()) {
             details.add(error.getMessage());
         }

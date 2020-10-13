@@ -61,13 +61,6 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
         return ((ResponseEntity) response).getBody().toString().getBytes();
     }
 
-//    private Object getCharset(ClientHttpResponse response) {
-//        return "charset";
-//    }
-//
-//    private char[] getResponseBody(ClientHttpResponse response) {
-//            return ((ResponseEntity) response).getBody().toString().toCharArray();
-//    }
 
     private HttpStatus getHttpStatusCode(ClientHttpResponse clienthttpresponse) throws IOException {
         return  clienthttpresponse.getStatusCode();

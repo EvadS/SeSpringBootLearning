@@ -2,7 +2,7 @@ package com.se.sample.rest.client.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.se.sample.rest.client.exception.RecordNotFoundException;
+import com.se.sample.rest.client.exception.ResourceUnavailableException;
 import com.se.sample.rest.client.exception.RestServerException;
 import com.se.sample.rest.client.model.error.ErrorResponse;
 import org.springframework.http.HttpMethod;
@@ -12,7 +12,6 @@ import org.springframework.web.client.*;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
-import java.io.*;
 import java.net.URI;
 import java.util.Set;
 
@@ -46,51 +45,27 @@ public class ValidatableRestTemplate extends RestTemplate {
             if (violations.isEmpty()) {
                 return response;
             }
-
-
             throw new ConstraintViolationException("Invalid response", violations);
-        }catch (ResourceAccessException e)
-        {
-            //TODO: Here check server error
-            int a =0;
-         throw  new RecordNotFoundException(e.getMessage());
-        }catch (HttpStatusCodeException ex) {
+        } catch (ResourceAccessException e) {
+            throw new ResourceUnavailableException(e.getMessage());
+        } catch (HttpStatusCodeException ex) {
 
             ObjectMapper objectMapper = new ObjectMapper();
             String json = ex.getResponseBodyAsString();
             ErrorResponse errorResponse = null;
             try {
-                //This is WORK
                 errorResponse = objectMapper.readValue(json, ErrorResponse.class);
+                // Have no time to use logger
                 System.out.println("Error response: " + errorResponse);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
 
-            Object response = new ResponseEntity<String>(ex.getResponseBodyAsString(), ex.getResponseHeaders(), ex.getStatusCode());
-            // TODO: have no time to components binding
-            System.out.println("Response : " +  response);
-
             // TODO: throw my exception wit correct message from errorResponse
-           throw  new RestServerException(errorResponse);
+            throw new RestServerException(errorResponse);
         }
     }
 
-    /* Serialize the object to byte array */
-    private static byte[] getByteArray(Object obj) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try (ObjectOutputStream os = new ObjectOutputStream(bos)) {
-            os.writeObject(obj);
-        }
-        return bos.toByteArray();
-    }
-
-    /* De serialize the byte array to object */
-    private static Object getObject(byte[] byteArr) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(byteArr);
-        ObjectInput in = new ObjectInputStream(bis);
-        return in.readObject();
-    }
 
 }
 

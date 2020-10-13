@@ -4,6 +4,7 @@ package com.se.sample.rest.client.controller;
 import com.se.sample.rest.client.exception.TokenRefreshException;
 import com.se.sample.rest.client.model.request.EmployeeRequest;
 import com.se.sample.rest.client.model.response.EmployeeResponse;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,8 @@ import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/empl")
+@RequestMapping("/empl-client")
+@Api(value = "Controller for communicate with Rest Template")
 public class EmplClientController {
 
     private static final String emplUrl = "http://localhost:8001/empl/add";

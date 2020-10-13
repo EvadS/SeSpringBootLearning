@@ -13,8 +13,7 @@ public class EmployeeRequest {
     @ApiModelProperty(value = "User registered email", required = true, allowableValues = "mail@mail.com")
     private String email;
 
-    @NotEmpty(message = "first name must not be empty")
-    @ApiModelProperty(value = "First name", required = true, allowableValues = "first name")
+    @ApiModelProperty(value = "First name", required = false, allowableValues = "first name")
     private String firstName;
 
     @NotEmpty(message = "last name must not be empty")
