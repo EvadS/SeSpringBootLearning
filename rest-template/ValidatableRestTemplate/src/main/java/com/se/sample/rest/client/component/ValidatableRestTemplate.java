@@ -2,6 +2,8 @@ package com.se.sample.rest.client.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.se.sample.rest.client.exception.RecordNotFoundException;
+import com.se.sample.rest.client.exception.RestServerException;
 import com.se.sample.rest.client.model.error.ErrorResponse;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -50,9 +52,8 @@ public class ValidatableRestTemplate extends RestTemplate {
         }catch (ResourceAccessException e)
         {
             //TODO: Here check server error
-
             int a =0;
-           return null;
+         throw  new RecordNotFoundException(e.getMessage());
         }catch (HttpStatusCodeException ex) {
 
             ObjectMapper objectMapper = new ObjectMapper();
@@ -69,7 +70,9 @@ public class ValidatableRestTemplate extends RestTemplate {
             Object response = new ResponseEntity<String>(ex.getResponseBodyAsString(), ex.getResponseHeaders(), ex.getStatusCode());
             // TODO: have no time to components binding
             System.out.println("Response : " +  response);
-           return null;
+
+            // TODO: throw my exception wit correct message from errorResponse
+           throw  new RestServerException(errorResponse);
         }
     }
 
