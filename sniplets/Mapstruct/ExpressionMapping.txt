@@ -1,0 +1,35 @@
+
+
+// Entity 
+
+/**
+ * User of applications.
+ */
+@Entity(name = "Users")
+@Table(name = "Users")
+public class User extends DateAudit {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;   
+   
+    public boolean isFirstLogin() {
+        return  this.getUpdatedAt() !=null;
+    }
+}
+//-------------------------------------------------------------
+
+public class MonstaUserDetails {
+    private  Long id;
+
+    private boolean isfirstLogin;
+.....
+}
+
+    @Mappings({  
+            @Mapping(target = "id", source = "id"),
+            @Mapping(target = "isfirstLogin", expression = "java( user.isFirstLogin() )")
+    })
+    MonstaUserDetails UserToMonstaUserDetails(User user);
+
+

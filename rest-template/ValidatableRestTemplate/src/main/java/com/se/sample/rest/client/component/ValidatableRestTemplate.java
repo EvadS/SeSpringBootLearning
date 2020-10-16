@@ -29,7 +29,6 @@ public class ValidatableRestTemplate extends RestTemplate {
 
         try {
 
-
             final T response = super.doExecute(url, method, requestCallback, responseExtractor);
 
             Object body;
@@ -65,7 +64,5 @@ public class ValidatableRestTemplate extends RestTemplate {
             throw new RestServerException(errorResponse);
         }
     }
-
-
 }
 
