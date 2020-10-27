@@ -1,4 +1,4 @@
-package com.se.server;
+package com.se.server.listerner;
 
 
 import com.netflix.discovery.shared.Applications;
@@ -20,7 +20,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * For example: for monitoring eureka service down notification
  *
  * @author hrabbit
- * @date 2018-09-13
  */
 @Configuration
 @EnableScheduling

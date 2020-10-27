@@ -1,5 +1,6 @@
 spring:
   application:
+ # Need to specify spring.application.name, this is very important, this is generally based on this name when calling each other between services
     name: spring-cloud-eureka-client
 server:
   port: 0
@@ -9,3 +10,5 @@ eureka:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
   instance:
     preferIpAddress: true
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
