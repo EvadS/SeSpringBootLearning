@@ -2,7 +2,7 @@ databaseChangeLog:
   - logicalFilePath: db/changelog/db.changelog-master.yaml
   - changeSet:
       id: 1
-      author: aleks_usharovskii
+      author: skiEA
       changes:
         - createTable:
             tableName: users
