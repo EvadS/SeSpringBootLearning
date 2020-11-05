@@ -8,7 +8,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -33,6 +33,15 @@ public class User implements Serializable {
 
     @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "alias")
+    private String alias;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public User() {
     }
@@ -85,6 +94,4 @@ public class User implements Serializable {
         this.email = email;
     }
 
-    // Далее конструктор по умолчанию, геттеры и сеттеры
-    // Или можете использовать Lombok
 }
