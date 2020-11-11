@@ -1,7 +1,6 @@
 ## Jwt-Spring-Security-JPA ##
 
-![Travis (.org)](https://img.shields.io/travis/isopropylcyanide/Jwt-Spring-Security-JPA)
-![GitHub](https://img.shields.io/github/license/isopropylcyanide/Jwt-Spring-Security-JPA?color=blue)
+####  Email notifiaction with ftl template 
 
 #### A demo project explaining the backend authentication using JWT (Json Web Token) authentication using Spring Security &amp; MySQL JPA.
 There's support for the following features:
