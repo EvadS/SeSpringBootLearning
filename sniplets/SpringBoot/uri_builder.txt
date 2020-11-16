@@ -1,0 +1,2 @@
+ URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").build(createdAddress.getId());
+  

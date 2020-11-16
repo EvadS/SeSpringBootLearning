@@ -1,0 +1,17 @@
+
+
+-------------
+
+select n.nspname as schema_name,
+       t.relname as table_name,
+       c.conname as constraint_name
+from pg_constraint c
+  join pg_class t on c.conrelid = t.oid
+  join pg_namespace n on t.relnamespace = n.oid
+where t.relname = 'your_table_name';
+
+------------------
+
+ALTER TABLE your_table DROP CONSTRAINT constraint_name;
+
+
