@@ -1,6 +1,7 @@
 package com.se.account.model;
 
-import com.se.user.service.model.enums.AddressType;
+import com.se.account.model.base.BaseEntity;
+import com.se.account.model.enums.AddressType;
 
 import javax.persistence.*;
 

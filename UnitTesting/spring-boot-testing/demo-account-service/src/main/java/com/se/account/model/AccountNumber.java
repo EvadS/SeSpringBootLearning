@@ -28,13 +28,14 @@ public class AccountNumber {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof com.se.user.service.model.AccountNumber))
+        if (!(o instanceof AccountNumber))
             return false;
 
-        com.se.user.service.model.AccountNumber that = (com.se.user.service.model.AccountNumber) o;
+        AccountNumber that = (AccountNumber) o;
 
         return getAccountNumber() != null ? getAccountNumber().equals(
                 that.getAccountNumber()) : that.getAccountNumber() == null;
+
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.se.account.model;
+package com.se.account.model.base;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;

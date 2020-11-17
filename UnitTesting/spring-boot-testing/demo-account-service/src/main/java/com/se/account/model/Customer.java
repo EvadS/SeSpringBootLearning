@@ -1,5 +1,8 @@
 package com.se.account.model;
 
+
+import com.se.account.model.base.BaseEntity;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,13 +16,13 @@ public class Customer extends BaseEntity {
 
     private String email;
 
-    private com.se.user.service.model.Account account;
+    private Account account;
 
     public Customer() {
     }
 
     public Customer(String firstName, String lastName, String email,
-                    com.se.user.service.model.Account account) {
+                    Account account) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -61,11 +64,11 @@ public class Customer extends BaseEntity {
     }
 
     @OneToOne(cascade = CascadeType.ALL)
-    public com.se.user.service.model.Account getAccount() {
+    public Account getAccount() {
         return account;
     }
 
-    public void setAccount(com.se.user.service.model.Account account) {
+    public void setAccount(Account account) {
         this.account = account;
     }
 

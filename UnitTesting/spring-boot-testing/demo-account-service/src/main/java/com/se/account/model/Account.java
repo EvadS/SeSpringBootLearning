@@ -1,5 +1,8 @@
 package com.se.account.model;
 
+
+import com.se.account.model.base.BaseEntity;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,7 +14,7 @@ public class Account extends BaseEntity {
 
     private String username;
 
-    private com.se.user.service.model.AccountNumber accountNumber;
+    private String accountNumber;
 
     private Boolean defaultAccount;
 
@@ -25,19 +28,13 @@ public class Account extends BaseEntity {
         this.defaultAccount = false;
     }
 
-    public Account(String username, com.se.user.service.model.AccountNumber accountNumber) {
+    public Account(String username, String accountNumber) {
         this();
         this.username = username;
         this.accountNumber = accountNumber;
         this.defaultAccount = false;
     }
 
-    public Account(String username, String accountNumber) {
-        this();
-        this.username = username;
-        this.accountNumber = new com.se.user.service.model.AccountNumber(accountNumber);
-        this.defaultAccount = false;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -57,11 +54,11 @@ public class Account extends BaseEntity {
         this.username = username;
     }
 
-    public com.se.user.service.model.AccountNumber getAccountNumber() {
-        return this.accountNumber;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAccountNumber(com.se.user.service.model.AccountNumber accountNumber) {
+    public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
     }
 

@@ -1,6 +1,8 @@
 package com.se.account.model;
 
 
+import com.se.account.model.base.BaseEntity;
+
 import javax.persistence.*;
 import java.security.Principal;
 
