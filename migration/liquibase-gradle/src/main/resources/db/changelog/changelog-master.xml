@@ -27,5 +27,6 @@
         </createTable>
     </changeSet>
 
+    <include  file="20201117134420_changelog"/>
 
 </databaseChangeLog>
