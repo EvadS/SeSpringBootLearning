@@ -4,7 +4,9 @@
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
-    <changeSet author="evgeniy_skiba (generated)" id="1605609268039-1">
+
+
+    <changeSet author="evgeniy_skiba (generated)" id="1605613125523-1">
         <createTable tableName="book">
             <column autoIncrement="true" name="id" type="BIGINT">
                 <constraints primaryKey="true" primaryKeyName="bookPK"/>
@@ -14,25 +16,23 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="evgeniy_skiba (generated)" id="1605609268039-2">
-        <createTable tableName="customer">
+
+    <changeSet author="evgeniy_skiba (generated)" id="1605613283313-1">
+        <createTable tableName="movie">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="customerPK"/>
+                <constraints primaryKey="true" primaryKeyName="moviePK"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="timestamp" type="datetime"/>
+            <column name="genre" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
-    <changeSet author="evgeniy_skiba (generated)" id="1605610180188-1">
-        <createTable tableName="book">
+    <changeSet author="evgeniy_skiba (generated)" id="1605613316148-1">
+        <createTable tableName="movie">
             <column autoIncrement="true" name="id" type="BIGINT">
-                <constraints primaryKey="true" primaryKeyName="bookPK"/>
+                <constraints primaryKey="true" primaryKeyName="moviePK"/>
             </column>
-            <column name="name" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="genre" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
