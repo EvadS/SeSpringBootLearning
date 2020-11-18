@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.se</groupId>
-    <artifactId>base-server</artifactId>
+    <artifactId>base-http-server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>demo-base-server</name>
     <description>Base server side project to test http rest template client</description>
