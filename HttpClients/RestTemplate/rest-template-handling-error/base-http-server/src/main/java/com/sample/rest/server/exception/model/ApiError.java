@@ -19,15 +19,12 @@ import java.util.List;
 import java.util.Set;
 
 
-//@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
-//@JsonTypeIdResolver(LowerCaseClassNameResolver.class)
+@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
+@JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 public class ApiError {
 
     private HttpStatus status;
 
-//   @JsonSerialize(using = LocalDateTimeSerializer.class)
-//   @DateTimeFormat(iso = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))
-//   @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 
    @JsonSerialize(using = LocalDateTimeSerializer.class)
    @JsonFormat(pattern = "yyyy.MM.dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)

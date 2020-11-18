@@ -18,8 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 
-//@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
-//@JsonTypeIdResolver(LowerCaseClassNameResolver.class)
+
 public class ApiError {
 
     private HttpStatus status;
