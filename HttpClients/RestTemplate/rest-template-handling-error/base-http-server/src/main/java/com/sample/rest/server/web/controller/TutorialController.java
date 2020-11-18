@@ -14,7 +14,10 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityNotFoundException;
 
 import static javax.servlet.http.HttpServletResponse.SC_OK;
 
@@ -57,13 +60,13 @@ public class TutorialController {
     @GetMapping("/{id}")
     public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
         Tutorial tutorial = tutorialRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Not found Tutorial with id = " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Not found Tutorial with id = " + id));
 
         return new ResponseEntity<>(tutorial, HttpStatus.OK);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
+    public ResponseEntity<Tutorial> createTutorial(@RequestBody @Validated  Tutorial tutorial) {
         Tutorial _tutorial = tutorialRepository.save(new Tutorial(tutorial.getTitle(), tutorial.getDescription(), false));
         return new ResponseEntity<>(_tutorial, HttpStatus.CREATED);
     }

@@ -1,6 +1,8 @@
 package com.sample.rest.server.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tutorials")
@@ -10,9 +12,11 @@ public class Tutorial {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    @NotBlank
     @Column(name = "title")
     private String title;
 
+    @Size(min = 10)
     @Column(name = "description")
     private String description;
 
