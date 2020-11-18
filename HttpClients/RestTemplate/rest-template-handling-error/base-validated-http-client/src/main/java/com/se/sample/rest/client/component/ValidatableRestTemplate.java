@@ -3,6 +3,11 @@ package com.se.sample.rest.client.component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.se.sample.rest.client.exception.ResourceUnavailableException;
+import com.se.sample.rest.client.exception.RestServerException;
+import com.se.sample.rest.client.exception.RestTemplateException;
+import com.se.sample.rest.client.model.error.ApiError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.*;
@@ -14,12 +19,15 @@ import java.net.URI;
 import java.util.Set;
 
 public class ValidatableRestTemplate extends RestTemplate {
+    private final Logger logger = LoggerFactory.getLogger(ValidatableRestTemplate.class);
+    private final ObjectMapper objectMapper;
     private final Validator validator;
 
-    public ValidatableRestTemplate(Validator validator) {
-        this.validator = validator;
-    }
 
+    public ValidatableRestTemplate(Validator validator, ObjectMapper objectMapper) {
+        this.validator = validator;
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     protected <T> T doExecute(URI url, HttpMethod method, RequestCallback requestCallback,
@@ -45,19 +53,19 @@ public class ValidatableRestTemplate extends RestTemplate {
             throw new ResourceUnavailableException(e.getMessage());
         } catch (HttpStatusCodeException ex) {
 
-            ObjectMapper objectMapper = new ObjectMapper();
             String json = ex.getResponseBodyAsString();
-            ErrorResponse errorResponse = null;
+            ApiError errorResponse = null;
             try {
-                errorResponse = objectMapper.readValue(json, ErrorResponse.class);
+                errorResponse = objectMapper.readValue(json, ApiError.class);
                 // Have no time to use logger
-                System.out.println("Error response: " + errorResponse);
+                throw new RestTemplateException(errorResponse);
+
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
 
             // TODO: throw my exception wit correct message from errorResponse
-            throw new RestServerException(errorResponse);
+            throw new RestServerException(json);
         }
     }
 }

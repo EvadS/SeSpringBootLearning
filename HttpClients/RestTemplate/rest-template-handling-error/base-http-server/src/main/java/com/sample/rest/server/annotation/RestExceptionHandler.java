@@ -1,4 +1,4 @@
-package com.sample.rest.server;
+package com.sample.rest.server.annotation;
 
 
 import com.sample.rest.server.exception.model.ApiError;
@@ -108,18 +108,6 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
         return buildResponseEntity(apiError);
     }
 
-    /**
-     * Handles EntityNotFoundException. Created to encapsulate errors with more detail than javax.persistence.EntityNotFoundException.
-     *
-     * @param ex the EntityNotFoundException
-     * @return the ApiError object
-     */
-//    @ExceptionHandler(EntityNotFoundException.class)
-//    protected ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex) {
-//        ApiError apiError = new ApiError(NOT_FOUND);
-//        apiError.setMessage(ex.getMessage());
-//        return buildResponseEntity(apiError);
-//    }
 
     /**
      * Handle HttpMessageNotReadableException. Happens when request JSON is malformed.
@@ -176,7 +164,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      */
     @ExceptionHandler(javax.persistence.EntityNotFoundException.class)
     protected ResponseEntity<Object> handleEntityNotFound(javax.persistence.EntityNotFoundException ex) {
-        return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex));
+           return buildResponseEntity(new ApiError(HttpStatus.NOT_FOUND, ex));
     }
 
     /**

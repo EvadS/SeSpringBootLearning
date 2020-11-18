@@ -1,4 +1,4 @@
-package com.sample.rest.server.exception.model;
+package com.se.sample.rest.client.model.error;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -7,13 +7,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.hibernate.validator.internal.engine.path.PathImpl;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+
 import javax.validation.ConstraintViolation;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -25,13 +24,9 @@ public class ApiError {
 
     private HttpStatus status;
 
-//   @JsonSerialize(using = LocalDateTimeSerializer.class)
-//   @DateTimeFormat(iso = DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"))
-//   @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
-
-   @JsonSerialize(using = LocalDateTimeSerializer.class)
-   @JsonFormat(pattern = "yyyy.MM.dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
-    private LocalDateTime timestamp;
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy.MM.dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
+    private LocalDateTime timestamp = LocalDateTime.now();
 
     private String message;
 

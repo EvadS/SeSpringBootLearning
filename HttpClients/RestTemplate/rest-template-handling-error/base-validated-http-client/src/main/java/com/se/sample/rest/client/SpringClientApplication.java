@@ -17,27 +17,5 @@ public class SpringClientApplication {
         SpringApplication.run(SpringClientApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner startup(RestTemplate restTemplate) {
-        return args -> {
-//            final ResponseEntity<Post> entity = restTemplate.exchange("https://jsonplaceholder.typicode.com/posts/1", HttpMethod.GET, null, Post.class);
-//            System.out.println(entity.getBody());
-        };
-    }
-
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    public static class Post {
-        @Min(2) // change to '1' and constraint violation will disappear
-        private Long id;
-        private Long userId;
-        private String title;
-        private String body;
-
-        @Override
-        public String toString() {
-            return String.format("Post{id=%d, userId=%d, title='%s', body='%s'}", id, userId, title, body);
-        }
-    }
-
 
 }
