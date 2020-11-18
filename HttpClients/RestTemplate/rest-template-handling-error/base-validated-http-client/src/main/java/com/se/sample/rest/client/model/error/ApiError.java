@@ -29,8 +29,6 @@ public class ApiError {
 
     private String message;
 
-    private String debugMessage;
-
     private List<ApiSubError> subErrors;
 
     public ApiError() {
@@ -46,14 +44,12 @@ public class ApiError {
         this();
         this.status = status;
         this.message = "Unexpected error";
-        this.debugMessage = ex.getLocalizedMessage();
     }
 
     public ApiError(HttpStatus status, String message, Throwable ex) {
         this();
         this.status = status;
         this.message = message;
-        this.debugMessage = ex.getLocalizedMessage();
     }
 
     private void addSubError(ApiSubError subError) {
@@ -132,14 +128,6 @@ public class ApiError {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
     }
 
     public List<ApiSubError> getSubErrors() {

@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Set;
 
 
-@JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.CUSTOM, property = "error", visible = true)
-@JsonTypeIdResolver(LowerCaseClassNameResolver.class)
 public class ApiError {
 
     private HttpStatus status;
@@ -31,8 +29,6 @@ public class ApiError {
     private LocalDateTime timestamp;
 
     private String message;
-
-    private String debugMessage;
 
     private List<ApiSubError> subErrors;
 
@@ -49,14 +45,12 @@ public class ApiError {
         this();
         this.status = status;
         this.message = "Unexpected error";
-        this.debugMessage = ex.getLocalizedMessage();
     }
 
     public ApiError(HttpStatus status, String message, Throwable ex) {
         this();
         this.status = status;
         this.message = message;
-        this.debugMessage = ex.getLocalizedMessage();
     }
 
     private void addSubError(ApiSubError subError) {
@@ -135,14 +129,6 @@ public class ApiError {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
     }
 
     public List<ApiSubError> getSubErrors() {
