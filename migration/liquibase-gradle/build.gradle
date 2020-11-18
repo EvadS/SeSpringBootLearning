@@ -63,6 +63,7 @@ dependencies {
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    liquibaseRuntime "org.yaml:snakeyaml:1.23"
 }
 
 diff.dependsOn compileJava
@@ -75,7 +76,15 @@ test {
 
 project.ext.diffChangelogFile = 'src/main/resources/db/changelog/' + new Date().format('yyyyMMddHHmmss') + '_changelog.xml'
 
-liquibase {
+project.ext.a = 10
+task helloWorld {
+    doLast {
+        println 'Welcome to JCG Gradle Tutorial: ' + a
+        println '================================================='
+    }
+}
+
+liquibase() {
     activities {
         main {
             driver 'com.mysql.cj.jdbc.Driver'
@@ -97,7 +106,7 @@ liquibase {
             url 'jdbc:mysql://127.0.0.1:3306/test?useSSL=false&allowPublicKeyRetrieval=true'
             username 'root'
             password '31323334'
-            changeLogFile project.ext.diffChangelogFile
+            changeLogFile  project.ext.diffChangelogFile
             referenceUrl 'hibernate:spring:com.se.sample' +
                     '?dialect=' +
                     'org.hibernate.dialect.MySQL5Dialect' +

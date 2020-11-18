@@ -29,4 +29,13 @@
 
     <include  file="20201117134420_changelog"/>
 
+    <changeSet author="evgeniy_skiba (generated)" id="1605613720311-1">
+        <createTable tableName="movie2">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="movie2PK"/>
+            </column>
+            <column name="genre" type="VARCHAR(255)"/>
+            <column name="title" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
