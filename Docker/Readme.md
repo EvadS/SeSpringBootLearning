@@ -15,6 +15,7 @@ ENTRYPOINT ["java","-jar","/jar/app.jar"]
 ```bash
 docker build --file=Dockerfile \
      --tag=my-server:1.0.0 .
+
 ```
 
 ## check
@@ -30,7 +31,8 @@ docker images
 ### запускаем 
 ```bash
     docker run -p 8801:8802 --name my-server-docker  my-server:1.0.0
- ```
+
+
 * 8802 внутренний порт 
 * 8801 внешний порт
 
