@@ -1,0 +1,25 @@
+
+create table if not exists
+(
+    id              varchar(255) not null
+        constraint  my_fixture_pkey primary key,
+    name            varchar(255),
+    league          varchar(255),
+    sport_id        bigint  references sport,
+    event_date      timestamp,
+    country         varchar(255),
+    event_timestamp bigint       not null
+);
+
+alter table my_fixture
+    owner to postgres;
+
+INSERT INTO my_fixture
+SELECT id,
+       name,
+       league,
+       sport_id,
+       event_date,
+       country,
+       event_timestamp
+FROM fixture;

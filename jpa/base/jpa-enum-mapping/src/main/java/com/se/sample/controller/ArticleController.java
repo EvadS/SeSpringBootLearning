@@ -37,12 +37,12 @@ public class ArticleController {
 
     @PutMapping("/article/{id}")
     @ApiOperation(value = "Update article.", nickname = "update-article",
-            notes = "Update article.",
-            tags = {})
+            notes = "Update article.",             tags = {})
     public ResponseEntity<?> updateArticle(
                                            @ApiParam(value = "ID of article", required = true, example = "123")
                                            @PathVariable(value = "id") @NotNull Long articleId,
-                                          @Valid @RequestBody ArticleRequest articleRequest) {
+                                           @ApiParam(value = "Article details for update", required = true)
+                                           @Valid @RequestBody ArticleRequest articleRequest) {
         ArticleResponse articleResponse = articleService.updateArticle(articleId, articleRequest);
         return new ResponseEntity<>(articleResponse, HttpStatus.ACCEPTED);
     }

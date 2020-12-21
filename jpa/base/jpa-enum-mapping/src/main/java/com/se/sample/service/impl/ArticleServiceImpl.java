@@ -1,5 +1,6 @@
 package com.se.sample.service.impl;
 
+import com.se.sample.exception.ResourceNotFoundException;
 import com.se.sample.mapper.ArticleMapper;
 import com.se.sample.model.domain.Article;
 import com.se.sample.model.request.ArticleRequest;
@@ -42,7 +43,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleResponse getById(Long articleId) {
-        return null;
+        Article article =  articleRepository.findById(articleId)
+                .orElseThrow(() -> new ResourceNotFoundException("Article", "id", articleId));
+        return ArticleMapper.INSTANCE.ArticleToArticleResponse(article);
     }
 
     @Override
