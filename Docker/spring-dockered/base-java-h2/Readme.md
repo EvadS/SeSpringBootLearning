@@ -18,11 +18,11 @@
 ### запускаем 
 собрать и запустить 
 ```bash
-    docker run -p 8001:8000 --name base-spring-h2-server spring-h2-server:1.0.0
+  docker run -p 8001:8000 --name spring-h2-container myk8sapp
 ```
 простой запуск
 ```bash
- docker start  base-spring-h2-server
+   docker start spring-h2-container
 ```
 
 ### докер хаб 
@@ -33,7 +33,7 @@ docker login
 ```
 переименовываем image
 ```bash
- docker tag myk8sapp:1.0.0 sevad/springh2k8s:latest
+ docker tag myk8sapp sevad/springh2k8s:latest
 ```
 
 закидываем
