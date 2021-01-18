@@ -5,7 +5,6 @@ package com.se.sample.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "books")
 public class BookEntity {
 
     @Id
