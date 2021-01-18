@@ -1,6 +1,0 @@
-
-FROM java:8
-
-RUN echo ">>"
-RUN ls -la
-RUN echo "<<"

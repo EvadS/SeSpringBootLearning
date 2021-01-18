@@ -1,8 +1,6 @@
 
 # Check 
-``` http request
-http://localhost:8802/hello?name=Rostyslav
-```
+
 
 ## base dockerfile 
 FROM openjdk:13.0.2-slim-buster
