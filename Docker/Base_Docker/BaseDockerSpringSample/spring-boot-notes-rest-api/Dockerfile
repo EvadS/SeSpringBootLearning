@@ -18,3 +18,6 @@ ADD ${JAR_FILE} app.jar
 
 # Run the jar file
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+
+# TO debug port 
+#ENTRYPOINT ["java", "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} -Xms1024M -Xmx1536M", "-jar", "app.jar"]
