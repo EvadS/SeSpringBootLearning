@@ -1,0 +1,38 @@
+version: "3"
+services:
+  db-postgres:
+    image: postgres:latest
+    network_mode: bridge
+    container_name: postgres_container
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 15432
+    ports:
+      - 15432:5432
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=testdb
+    restart: unless-stopped
+  # APP*****************************************
+  springbootapp:
+    image: springbootapp:latest
+    network_mode: bridge
+    container_name: skiea-springbootapp
+
+    expose:
+      - 18080
+    ports:
+      - 18080:8000
+    restart: unless-stopped
+    depends_on:
+      - db-postgres
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_container:5432/testdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+    links:
+      - db-postgres
+volumes:
+  postgres-data:

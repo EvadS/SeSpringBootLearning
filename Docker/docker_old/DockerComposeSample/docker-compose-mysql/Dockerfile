@@ -14,7 +14,7 @@ EXPOSE 8099
 # указываем, где в нашем приложении лежит джарник
 ARG JAR_FILE=target/app.jar
 
-# добавляем джарник в образ под именем rebounder-chain-backend.jar
+# добавляем джарник в образ
 ADD ${JAR_FILE} app.jar
 
 # команда запуска джарника
