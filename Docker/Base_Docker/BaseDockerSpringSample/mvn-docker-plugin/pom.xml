@@ -88,12 +88,12 @@
                 </dependencies>
 
                 <configuration>
-
                     <!--REPLACE WITH YOUR  your docker id -->
                     <username></username>
                     <password></password>
-                    <repository>sevad/spring-boot-easy-notes-demo</repository>
                     <!-- <- REPLACE WIH YOUR DOCKER ID -->
+                    <repository>sevad/spring-boot-easy-notes-demo</repository>
+
 
                     <tag>${project.version}</tag>
                     <buildArgs>
