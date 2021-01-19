@@ -1,8 +1,9 @@
 # SeSpringBootLearning
+
 Several Boot skeletons samples.
 ## Git recomendations 
 
-Правила комментария к коммиту
+Git commit text rules 
 
 1. Отделяйте заголовок от тела пустой строкой
 2. Ограничивайте заголовок 50 символами
