@@ -1,0 +1,15 @@
+
+werf
+Быстро и просто деплоим в Kubernetes с помощью werf
+https://ru.werf.io/applications_guide_ru/
+---------------------------------------------------
+ Основы Kubernetes
+
+https://www.youtube.com/watch?v=q_nj340pkQo&list=PLg5SS_4L6LYvN1RqaVesof8KAf-02fJSi-
+-----------------------------------------------------
+
+Hello, Kubernetes Spring Boot
+https://medium.com/better-programming/hello-kubernetes-spring-boot-a20e47d57872
+
+
+
