@@ -19,6 +19,9 @@ docker run -p 9000:9000 sevad/hello-gradle-spring
   docker push sevad/hello-gradle-spring
 ```
 --------------
+# СЕЙЧАС НЕ РАБОТАЕТ
+
+## kuber 
 Файл манифеста K8s тоже простой. Он состоит из развертывания (Deployment) и сервиса (Service):
 
 base-spring-kuber-deployment.yaml

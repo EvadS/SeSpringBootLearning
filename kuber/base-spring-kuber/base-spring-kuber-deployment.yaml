@@ -43,5 +43,7 @@ spec:
     app: polling-app-server   # The service exposes Pods with label `app=polling-app-server`
   ports:                      # Forward incoming connections on port 8080 to the target port 8080
     - name: http
+      protocol: TCP
       port: 9000
-      targetPort: 9000       #порт, на который перенаправляются входящие запросы.
+      targetPort: 9000
+      nodePort: 30009

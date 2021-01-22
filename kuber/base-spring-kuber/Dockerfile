@@ -15,3 +15,6 @@ WORKDIR /app
 
 #запуск приложения, используя результат предыдущего шага
 CMD java -jar build/libs/base-spring-kuber-0.0.1-SNAPSHOT.jar
+
+# Run the jar file
+#ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/codestatebkend.jar"]
