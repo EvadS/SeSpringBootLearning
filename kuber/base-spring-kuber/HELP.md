@@ -2,6 +2,11 @@
 Постое приложение на Spring Boot в Docker-контейнере в поде K8s, который управляется через K8s deployment
  и доступен через сервис
 
+## Technologies 
+
+* spring, gradle 
+* docker(FROM gradle:jdk10) 
+
 ## Docker 
 
 ### build image 
@@ -23,8 +28,9 @@ docker run -p 9000:9000 sevad/hello-gradle-spring
 
 ## kuber 
 Файл манифеста K8s тоже простой. Он состоит из развертывания (Deployment) и сервиса (Service):
-
-base-spring-kuber-deployment.yaml
+```yaml
+  base-spring-kuber-deployment.yaml
+```
 
 Deployment определяет две реплики пода, в которых будет выполняться контейнер, созданный из образа, указанного в атрибуте image.
 
@@ -45,3 +51,7 @@ Deployment определяет две реплики пода, в которы�
  
  зайти на под 
  kubectl exec -it hello-world-5bb87c95-6h4kh bash
+
+
+-------------------------------------
+https://medium.com/better-programming/hello-kubernetes-spring-boot-a20e47d57872

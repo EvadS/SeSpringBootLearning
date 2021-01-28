@@ -1,0 +1,18 @@
+
+
+create New scrip in pgAdmin and store in root directory 
+
+## download
+move from container to local folder
+---------
+docker cp pgadmin4:/var/lib/pgadmin/storage/anaxdema_gmail.com/pinpoint_template.sql /home/evgeniy_skiba/Documents/DUMP/pinpoint_template.sql
+----------
+
+зайди в сам контейнер
+```bash
+  docker exec -it pgadmin4 bash
+```
+
+
+docker cp контейнер: /[волюм]/[storage]/[user_login_in_pgAdmin]/[file_name]  / Собсно куда 
+

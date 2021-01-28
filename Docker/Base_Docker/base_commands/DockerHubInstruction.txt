@@ -1,0 +1,40 @@
+
+
+To build the image with the name spring-mvc-sample-image :
+```basn
+docker build . -t spring-mvc-sample-image
+```
+
+verify the image built correctly with
+```
+ docker images
+```
+
+bring up a container called **sample-mvc-sample-container** based on your image **spring-mvc-sample-image** .
+```bash
+docker run -t -p 8080:8080 --name sample-mvc-sample-container spring-mvc-sample-image
+```
+
+inside the container running your java application, command 
+```bash
+docker exec -it <container-id> /bin/bash
+```
+
+nally, tag and push the Image to the public Dockerhub
+First, list the image and find the one you built
+```
+$ docker images
+```
+
+REPOSITORY TAG IMAGE ID CREATED SIZE
+
+spring-mvc-sample-image latest 8fa27ad00edd 34 minutes ago 540MB
+
+Next, tag the image by grabbing the image id(8fa27ad00edd) and tagging it with your docker username a name of your choice. My docker username is gsweene2 and the name I tag it with is *gsweene2/spring-mvc-sample-image:0.1* . A docker tag consists of a name and a version , separated by a : .
+```
+docker tag 8fa27ad00edd gsweene2/spring-mvc-sample-image:0.1
+```
+Finally, push! Use the same name you tagged the image with, like gsweene2/spring-mvc-sample-image:0.1 .
+```
+docker push gsweene2/spring-mvc-sample-image:0.1
+```
