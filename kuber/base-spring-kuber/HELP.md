@@ -41,6 +41,11 @@ Deployment определяет две реплики пода, в которы�
    kubectl create -f k8s/depl.yaml
  ```
 
+## TODO:
+```
+kubectl create -f k8s/test.yaml 
+```~~~~
+
 #### удалить деплоймент
 ```yaml
  kubectl delete  deploy demo
@@ -54,7 +59,7 @@ Deployment определяет две реплики пода, в которы�
 
 ### expose the Spring Boot application, run below command
  ```yaml
- kubectl expose deployment/demo --type="NodePort" --port 8080
+ kubectl expose deployment demo --type="NodePort" --port 8080
 ```
 
 ### Check is  a new service now available
@@ -68,4 +73,16 @@ go to Services section within Dashboard
 ```
 
 192.168.49.2/greet/Docker
+
+## Kubernetes support
+ New yaml -> <ctrl> + <j>
  
+ <ctrl> + <F12> File Structure
+ ----------
+
+```
+kubectl create -f k8s/test.yaml 
+```~~~~
+---------
+check service address
+ minikube service hello-world  --url
