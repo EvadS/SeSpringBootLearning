@@ -80,9 +80,13 @@ go to Services section within Dashboard
  <ctrl> + <F12> File Structure
  ----------
 
-```
+# Part 2 
+
+test.yaml содержит минимальный деплоймент и сервис. Достаточно запустить 
+```bash
 kubectl create -f k8s/test.yaml 
-```~~~~
----------
-check service address
+```
+и получить адрес
+```bash
  minikube service hello-world  --url
+```
