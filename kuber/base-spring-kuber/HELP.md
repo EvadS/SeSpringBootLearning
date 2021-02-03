@@ -16,21 +16,20 @@ docker build -t sevad/hello-gradle-spring .
 
 Check docker image 
 ```bash
-docker run -p 9000:9000 sevad/hello-gradle-spring
+docker run -p 8080:8080 sevad/hello-gradle-spring
 ```
 
 ### push to docker hub 
 ```bash
   docker push sevad/hello-gradle-spring
 ```
---------------
-# СЕЙЧАС НЕ РАБОТАЕТ
+
 
 ## kuber 
 Файл манифеста K8s тоже простой. Он состоит из развертывания (Deployment) и сервиса (Service):
-```yaml
-  base-spring-kuber-deployment.yaml
-```
+
+kubectl create -f <yaml_file>
+
 
 Deployment определяет две реплики пода, в которых будет выполняться контейнер, созданный из образа, указанного в атрибуте image.
 
@@ -39,19 +38,34 @@ Deployment определяет две реплики пода, в которы�
  
  Создаем ресурсы в кластере:
  ```bash
-   kubectl create -f base-spring-kuber-deployment.yaml
+   kubectl create -f k8s/depl.yaml
  ```
 
+#### удалить деплоймент
+```yaml
+ kubectl delete  deploy demo
+```
 
- Внутри кластера
- 
- $ kubectl get pods
- 
- kubectl get svc
- 
- зайти на под 
- kubectl exec -it hello-world-5bb87c95-6h4kh bash
+### verify whether the deployment 
+```yaml
+  minikube dashboard
+```
 
 
--------------------------------------
-https://medium.com/better-programming/hello-kubernetes-spring-boot-a20e47d57872
+### expose the Spring Boot application, run below command
+ ```yaml
+ kubectl expose deployment/demo --type="NodePort" --port 8080
+```
+
+### Check is  a new service now available
+go to Services section within Dashboard
+
+![Image ](minikube_dashboard_1.jpg)
+  
+ ### Note the ip address of Minikube
+ ```bash
+ minikube ip
+```
+
+192.168.49.2/greet/Docker
+ 
