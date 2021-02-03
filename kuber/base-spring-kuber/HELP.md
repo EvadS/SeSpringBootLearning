@@ -16,8 +16,15 @@ docker build -t sevad/hello-gradle-spring .
 
 Check docker image 
 ```bash
-docker run -p 8080:8080 sevad/hello-gradle-spring
+docker container run -p 8080:8080  --name my_container sevad/hello-gradle-spring  
 ```
+
+open terminal in runed container 
+```bash
+docker exec -ti  sevad/hello-gradle-spring /bin/bash
+```
+
+
 
 ### push to docker hub 
 ```bash

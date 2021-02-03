@@ -14,7 +14,7 @@ RUN gradle build
 
 ENTRYPOINT ["sh", "-c"]
 #запуск приложения, используя результат предыдущего шага
-CMD java -jar build/libs/$APP_FILE
+CMD java -jar build/libs/base-spring-kuber-0.0.1-SNAPSHOT.jar
 #CMD ["exec java -jar $APP_FILE"]
 # Run the jar file
 #ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/codestatebkend.jar"]

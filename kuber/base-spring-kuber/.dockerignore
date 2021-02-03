@@ -139,4 +139,5 @@ ENV/
 .ropeproject
 
 minikube_dashboard_1.jpg
-HELP.nd
+HELP.md
+Dockerfile
