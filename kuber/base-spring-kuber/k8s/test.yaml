@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello-world
+  labels:
+    app: hello-world
+    visualize: "true"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: hello-world
+      labels:
+        app: hello-world
+    spec:
+      containers:
+        - name: hello-world-pod
+          image: sevad/hello-gradle-spring
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: hello-world
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    visualize: "true"
+    app: hello-world
+  name: hello-world
+spec:
+  type: NodePort # The service will be exposed by opening a Port on each node and proxying it
+  selector:
+    app: hello-world
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+      nodePort: 30000
+      protocol: TCP
