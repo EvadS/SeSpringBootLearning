@@ -1,0 +1,3 @@
+
+добавь GitHub в список авторизованных хостов:
+ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
