@@ -63,45 +63,16 @@ public class DemoApplication implements CommandLineRunner {
         ImageTagId imageTagId = new ImageTagId(imageFromBD.getId(), tagFromDb.getId() );
         ImageTag imgTagDB = imageTagRepo.findById(imageTagId).get();
 
+        System.out.println("== Found image tag :" + imgTagDB +"\n");
         try {
-            imageTagRepo.save(imgTagDB);
-            imageFromBD.removeImageTag(imgTagDB);
 
-            imgTagDB.setImage(null);
-            imgTagDB.setTag(null);
-            imageRepo.save(imageFromBD);
+            imageTagRepo.delete(imgTagDB);
+            int aftr = 0;
 
         }catch (Exception ex){
             ex.printStackTrace();
         }
-        //
-//        System.out.println(String.format("Found image with id: %s", imageFromBD.getId()));
-//
-//        List<ImageTag> imageTagsList = imageTagRepo.findAllByImageId(imageFromBD.getId());
-//        System.out.println(String.format("Found image tags, count: %s", imageTagsList.size()));
-//
-//        imageTagRepo.deleteAll(imageTagsList);
-//
-//
-//        ImageTag imgTag = new ImageTag(imageFromBD, tag11);
-//        ImageTag imgTag2 = new ImageTag(imageFromBD, tag21);
-//        ImageTag imgTag3 = new ImageTag(imageFromBD, tag31);
-//
-//        imageTagRepo.save(imgTag);
-//        imageTagRepo.save(imgTag2);
-//        imageTagRepo.save(imgTag3);
-////
-////        imageFromBD.addImageTag(imgTag);
-////        imageFromBD.addImageTag(imgTag2);
-////        imageFromBD.addImageTag(imgTag3);
-//
-//        try {
-//            imageRepo.save(imageFromBD);
-//        }catch (Exception ex){
-//            int  ss =0;
-//            ex.printStackTrace();
-//        }
-//        int a =0;
+
     }
 
     private void correctSaveImage(){
