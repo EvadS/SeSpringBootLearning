@@ -61,38 +61,47 @@ public class DemoApplication implements CommandLineRunner {
         imageFromBD.removeTag(tagFromDb);
 
         ImageTagId imageTagId = new ImageTagId(imageFromBD.getId(), tagFromDb.getId() );
-
-        ImageTag imgTagDB = imageTagRepo.getOne(imageTagId);
-        imageRepo.save(imageFromBD);
-
-
-        System.out.println(String.format("Found image with id: %s", imageFromBD.getId()));
-
-        List<ImageTag> imageTagsList = imageTagRepo.findAllByImageId(imageFromBD.getId());
-        System.out.println(String.format("Found image tags, count: %s", imageTagsList.size()));
-
-        imageTagRepo.deleteAll(imageTagsList);
-
-
-        ImageTag imgTag = new ImageTag(imageFromBD, tag11);
-        ImageTag imgTag2 = new ImageTag(imageFromBD, tag21);
-        ImageTag imgTag3 = new ImageTag(imageFromBD, tag31);
-
-        imageTagRepo.save(imgTag);
-        imageTagRepo.save(imgTag2);
-        imageTagRepo.save(imgTag3);
-//
-//        imageFromBD.addImageTag(imgTag);
-//        imageFromBD.addImageTag(imgTag2);
-//        imageFromBD.addImageTag(imgTag3);
+        ImageTag imgTagDB = imageTagRepo.findById(imageTagId).get();
 
         try {
+            imageTagRepo.save(imgTagDB);
+            imageFromBD.removeImageTag(imgTagDB);
+
+            imgTagDB.setImage(null);
+            imgTagDB.setTag(null);
             imageRepo.save(imageFromBD);
+
         }catch (Exception ex){
-            int  ss =0;
             ex.printStackTrace();
         }
-        int a =0;
+        //
+//        System.out.println(String.format("Found image with id: %s", imageFromBD.getId()));
+//
+//        List<ImageTag> imageTagsList = imageTagRepo.findAllByImageId(imageFromBD.getId());
+//        System.out.println(String.format("Found image tags, count: %s", imageTagsList.size()));
+//
+//        imageTagRepo.deleteAll(imageTagsList);
+//
+//
+//        ImageTag imgTag = new ImageTag(imageFromBD, tag11);
+//        ImageTag imgTag2 = new ImageTag(imageFromBD, tag21);
+//        ImageTag imgTag3 = new ImageTag(imageFromBD, tag31);
+//
+//        imageTagRepo.save(imgTag);
+//        imageTagRepo.save(imgTag2);
+//        imageTagRepo.save(imgTag3);
+////
+////        imageFromBD.addImageTag(imgTag);
+////        imageFromBD.addImageTag(imgTag2);
+////        imageFromBD.addImageTag(imgTag3);
+//
+//        try {
+//            imageRepo.save(imageFromBD);
+//        }catch (Exception ex){
+//            int  ss =0;
+//            ex.printStackTrace();
+//        }
+//        int a =0;
     }
 
     private void correctSaveImage(){
@@ -113,9 +122,12 @@ public class DemoApplication implements CommandLineRunner {
         tag3.addImageTag(imageTag);
         image.addImageTag(imageTag);
 
-        // HERE
-        //imageTagRepo.save(imageTag);
+
         imageRepo.saveAndFlush(image);
+
+        // HERE
+        imageTagRepo.save(imageTag);
+        int after = 0;
 //------------------------
     }
 
@@ -125,13 +137,17 @@ public class DemoApplication implements CommandLineRunner {
     private void storeImage() {
         Tag tag3= new Tag("tag3");
         Tag tagFromDb = tagRepo.findAllByTagLike("tag3").get();
+        Tag tagFromDb2= tagRepo.findAllByTagLike("tag2").get();
 
         Image image2 = new Image( "TEST_THIS_IMAGE2!!!!",  "path3",  "imageUr");
-
 
         ImageTag imageTag2 = new ImageTag(image2, tagFromDb);
         tagFromDb.addImageTag(imageTag2);
         image2.addImageTag(imageTag2);
+
+        ImageTag imageTag = new ImageTag(image2, tagFromDb2);
+        tagFromDb2.addImageTag(imageTag);
+        image2.addImageTag(imageTag);
 
         try {
             //image2.removeImageTag(imageTag2);
@@ -141,6 +157,10 @@ public class DemoApplication implements CommandLineRunner {
             ex.printStackTrace();
 
         }
+
+        imageTagRepo.save(imageTag);
+        imageTagRepo.save(imageTag2);
+
         System.out.println("--- The current image: ");
         imageRepo.findAll().stream().forEach(System.out::println);
         System.out.println("-----------------------------------");

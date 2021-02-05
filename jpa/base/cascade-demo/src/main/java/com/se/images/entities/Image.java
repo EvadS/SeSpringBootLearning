@@ -39,8 +39,8 @@ public class Image {
      * Image tags
      */
     @OneToMany(mappedBy = "image",
-            //cascade = {CascadeType.MERGE},
-            cascade = CascadeType.ALL,
+           cascade = {CascadeType.MERGE},
+           //  cascade = CascadeType.ALL,
             orphanRemoval = true,fetch = FetchType.EAGER)
     private Set<ImageTag> imageTags = new HashSet<>();
 
