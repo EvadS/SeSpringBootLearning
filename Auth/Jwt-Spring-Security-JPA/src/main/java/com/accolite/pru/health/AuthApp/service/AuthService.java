@@ -55,7 +55,10 @@ public class AuthService {
     private final PasswordResetTokenService passwordResetTokenService;
 
     @Autowired
-    public AuthService(UserService userService, JwtTokenProvider tokenProvider, RefreshTokenService refreshTokenService, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, EmailVerificationTokenService emailVerificationTokenService, UserDeviceService userDeviceService, PasswordResetTokenService passwordResetTokenService) {
+    public AuthService(UserService userService, JwtTokenProvider tokenProvider, RefreshTokenService refreshTokenService,
+                       PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager,
+                       EmailVerificationTokenService emailVerificationTokenService, UserDeviceService userDeviceService,
+                       PasswordResetTokenService passwordResetTokenService) {
         this.userService = userService;
         this.tokenProvider = tokenProvider;
         this.refreshTokenService = refreshTokenService;

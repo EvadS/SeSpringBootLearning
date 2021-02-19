@@ -1,0 +1,17 @@
+
+## show current headers
+
+        //----------------------------------------------------------- >>
+        // TODO: skiEA. BE-128 left for debug
+//        HttpServletRequest httpRequest = (HttpServletRequest) request;
+//        Enumeration<String> headerNames = httpRequest.getHeaderNames();
+
+//        logger.info("The current headers : --> ");
+//        if (headerNames != null) {
+//            while (headerNames.hasMoreElements()) {
+//                String headerName = headerNames.nextElement();
+//                logger.info(headerName +" : " +  httpRequest.getHeader(headerName));
+//            }
+//        }
+//
+//        logger.info("<== The current headers ");
