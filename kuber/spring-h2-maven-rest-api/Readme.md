@@ -62,11 +62,17 @@ build and run
 ### Using Spring Profiles
 ```bash
      docker run -e "SPRING_PROFILES_ACTIVE=dev" \
--p 19000:9000\
--p 5006:5006\
+-p 19000:9000 \
+-p 5006:5006 \
  --name=sping-h2-container\
- spring-h2-k8s
+ spring-h2-k8s:0.0.2
 ```
+
+how to run with the NEXT image tag 
+```bash
+ docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 19000:9000 -p 5006:5006 --name=sping-h2-container sevad/spring-h2-k8s:0.0.2
+```
+
 ### check container s list 
 ```bash
    docker ps
