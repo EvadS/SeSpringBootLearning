@@ -11,7 +11,7 @@ VOLUME /tmp
 EXPOSE 9000
 
 # The application's jar file
-ARG JAR_FILE=target/easy-notes-1.0.0.jar
+ARG JAR_FILE=target/spring-h2-maven-rest-api-1.0.0.jar
 
 # Add the application's jar to the container
 ADD ${JAR_FILE} app.jar

@@ -24,7 +24,7 @@ Build Restful CRUD API for a simple Note-Taking application using Spring Boot,H2
 ```
 
 ```bash
- java -jar target/easy-notes-1.0.0.jar
+ java -jar target/spring-h2-maven-rest-api-1.0.0.jar
 ```
 
 Alternatively, you can run the app directly without packaging it like so -
@@ -41,7 +41,7 @@ to check swagger page
 
 ### build the docker image
 ```bash
-$ docker build -t spring-boot-eazy-notes-demo .
+$ docker build -t spring-h2-k8s .
 ```
 
 ### list of all the docker images
@@ -52,19 +52,20 @@ $ docker build -t spring-boot-eazy-notes-demo .
 ### Running the docker image
 build and run 
 ```bash
-   docker run -p 19000:9000 --name=container-name spring-boot-eazy-notes-demo 
+   docker run -p 19000:9000 --name=sping-h2-container spring-h2-k8s 
 ```
 
 * 9000 container port  порт 
-* 1900 host port
+* 19000 host port
 -----
 
 ### Using Spring Profiles
 ```bash
      docker run -e "SPRING_PROFILES_ACTIVE=dev" \
 -p 19000:9000\
- --name=container-name\
- spring-boot-eazy-notes-demo
+-p 5006:5006\
+ --name=sping-h2-container\
+ spring-h2-k8s
 ```
 ### check container s list 
 ```bash
@@ -73,18 +74,18 @@ build and run
 
 ## when container was build we can just start 
 ```bash
- docker start container-name
+ docker start sping-h2-container
 ```
 
 ## Console in container 
 when container is running 
 ```bash
- docker exec -it container-name /bin/sh
+ docker exec -it sping-h2-container /bin/sh
 ```
 
 ## Stop container 
 ```bash
-  docker stop conatainer_name
+  docker stop sping-h2-container
 ```
 
 ## **_DockerHub_** instructions 
@@ -93,20 +94,38 @@ when container is running
 ```bash
   docker login
 ```
+create docker repo in docker hub
+in my case 
+```bash
+sevad/spring-h2-k8s
+```       
+
 ###To tag an image, we use the docker tag command 
 For example
 ```bash
 $ docker tag image username/repository:tag
 ```
 ### to check current tag 
-
+```bash
+ docker images
+```
 | REPOSITORY                  |TAG     |IMAGE ID      |CREATED        |SIZE   |
 |----                         |---     |---           |---            |---    |
-| spring-boot-eazy-notes-demo |latest  | 3a39a37afd71 |3  minutes ago |147MB  |
+| spring-h2-k8s               |latest  | 625f4a0bf556 |3  minutes ago |189MB  |
+
 ### change tag:
 ```bash
- docker tag spring-boot-eazy-notes-demo sevad/spring-boot-easy-notes-demo:0.0.1-SNAPSHOT
+  docker tag spring-h2-k8s sevad/spring-h2-k8s:0.0.2
 ```
+Дочитать 
+мы билдим в списке видим:
+spring-h2-k8s                  latest  
+посмле смены тега 
+
+REPOSITORY                     TAG                  IMAGE ID            CREATED             SIZE
+spring-h2-k8s                  latest               a6471b4adbf4        49 seconds ago      189MB
+sevad/spring-h2-k8s            0.0.2                a6471b4adbf4        49 seconds ago      189MB
+------------------------------------------------------------------------------------------------------
 
 in the terminal to see the newly tagged image
 ```bash
@@ -114,52 +133,59 @@ docker image ls
 ```
 | REPOSITORY                  |TAG              |IMAGE ID      |CREATED        |SIZE   |
 | ---------                   |:---              |:---           |:---            |:---    |
-| spring-boot-eazy-notes-demo |0.0.1-SNAPSHOT   | 3a39a37afd71 |3  minutes ago |147MB  |
+| spring-h2-k8s               |0.0.1-SNAPSHOT   | 3a39a37afd71 |3  minutes ago |147MB  |
 
 ### push do dockerhub
-```
-docker push sevad/spring-boot-easy-notes-demo:0.0.1-SNAPSHOT
+
+before push we have to change tag  !!!
+```bash
+docker push sevad/spring-h2-k8s:0.0.2
 ```
 
-The image is now published on the docker hub at the following link 
+The image was published on the docker hub at the following link 
 
 ```http request
-https://hub.docker.com/r/sevad/spring-boot-easy-notes-demo
+https://hub.docker.com/r/sevad/spring-h2-k8s
 ```
 
 ## Check docker hub image  
 ### Stop container 
 ```bash
-   docker stop container-name
+   docker stop sping-h2-container
 ```
 
 ### remove container 
 ```bash
-  docker rm container-name
+  docker rm sping-h2-container
 ```
 
 ### remove image 
 ```bash
   docker rmi 
-  docker rmi spring-boot-eazy-notes-demo
+  docker rmi spring-h2-k8s
 ``` 
+
+when we pulled from docker hub 
+```bash
+ docker rmi  sevad/spring-h2-k8s 
+```
 
 ### run container from docker hub 
 ```bash 
     docker run -e "SPRING_PROFILES_ACTIVE=dev" \
         -p 19000:9000\
-        --name=container-name\
-        sevad/spring-boot-easy-notes-demo:0.0.1-SNAPSHOT
+        --name=sping-h2-container\
+        sevad/spring-h2-k8s:0.0.2
 ```
 
 ## clean up instructions 
 ### 1. stop container. 
 ```bash
- docker stop container-name
+ docker stop sping-h2-container
 ```
 ### 2. remove container name.
 ```bash
-  docker rm container-name
+  docker rm sping-h2-container
 ```
 ### 3.To Drop in-actives images.
 ```bash
@@ -169,11 +195,11 @@ docker image prune
 ## Working with profile 
 
 ```bash
-docker build -t spring-boot-javaopts .
+docker build -t spring-h2-k8s .
 ```
 run 
 ```bash
-docker run -p 19000:9000   -e SPRING_PROFILES_ACTIVE='dev' spring-boot-javaopts
+docker run -p 19000:9000 -p 15006:5006  -e SPRING_PROFILES_ACTIVE='dev' spring-h2-k8s:0.0.2 
 ```
 
 ## Additional 
