@@ -19,9 +19,11 @@ ADD ${JAR_FILE} app.jar
 
 RUN sh -c 'touch /app.jar'
 ENV JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5006 -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} -Xms1024M -Xmx1536M"
-
+#---------------------------------------------------------
 # BASE VERSION WITHOT OPTIONS AND DEBUG PARAM
 # Run the jar file
 #ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
+#---------------------------------------------------------
+
 # DEBUG PORT AND ENV
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]

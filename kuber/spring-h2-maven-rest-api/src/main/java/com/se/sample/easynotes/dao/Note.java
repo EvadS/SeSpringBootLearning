@@ -1,4 +1,4 @@
-package com.se.sample.easynotes.model;
+package com.se.sample.easynotes.dao;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.annotation.CreatedDate;

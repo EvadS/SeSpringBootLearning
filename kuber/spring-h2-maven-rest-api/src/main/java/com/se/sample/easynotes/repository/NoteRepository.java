@@ -1,6 +1,7 @@
 package com.se.sample.easynotes.repository;
 
-import com.se.sample.easynotes.model.Note;
+
+import com.se.sample.easynotes.dao.Note;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

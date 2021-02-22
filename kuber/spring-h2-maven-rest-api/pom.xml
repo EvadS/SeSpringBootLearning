@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>easy-notes</artifactId>
+    <artifactId>spring-h2-maven-rest-api</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
-    <name>easy-notes</name>
+    <name>spring-h2-maven-rest-api</name>
     <description>Rest API for a Simple Note Taking Application</description>
 
     <parent>

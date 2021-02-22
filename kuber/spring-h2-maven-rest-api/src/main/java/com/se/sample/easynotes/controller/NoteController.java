@@ -1,7 +1,8 @@
 package com.se.sample.easynotes.controller;
 
+import com.se.sample.easynotes.dao.Note;
 import com.se.sample.easynotes.exception.ResourceNotFoundException;
-import com.se.sample.easynotes.model.Note;
+
 import com.se.sample.easynotes.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

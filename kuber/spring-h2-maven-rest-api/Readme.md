@@ -13,15 +13,8 @@ Build Restful CRUD API for a simple Note-Taking application using Spring Boot,H2
 3. Docker
 
 ## There are 2 options to run inside docker 
-need to check docker instructions
-### BASE VERSION WITHOUT OPTIONS AND DEBUG PARAM
-```
-#ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]
-```
-### DEBUG PORT AND ENV
-```
-ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]
-```
+ * base jar 
+ * spring with profile and debug port.
 
 ## Build and run the app using maven
 
@@ -182,3 +175,15 @@ run
 ```bash
 docker run -p 19000:9000   -e SPRING_PROFILES_ACTIVE='dev' spring-boot-javaopts
 ```
+
+## Additional 
+### clean port 
+For Linux/Mac OS search (sudo) run this in the terminal:
+
+$ lsof -i tcp:9000
+$ kill -9 PID
+---
+On Windows:
+
+netstat -ano | findstr :3000
+tskill typeyourPIDhere 
