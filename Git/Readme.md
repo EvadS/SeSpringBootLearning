@@ -31,5 +31,17 @@ git log -1 -p
 ```bash
  git checkout -- FILE_NAME
 ```
+### что будет записано в коммит 
+```bash
+ git diff --staged
+``` 
+
+### Изменения 
+изменить коммит не делая новый 
+```bash
+git commit --amend
+```
+
+
 
 

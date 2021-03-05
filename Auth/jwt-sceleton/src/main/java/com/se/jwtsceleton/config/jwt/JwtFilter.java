@@ -43,7 +43,7 @@ public class JwtFilter extends GenericFilterBean {
             CustomUserDetails customUserDetails = customUserDetailsService.loadUserByUsername(userLogin);
             UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
      
-       SecurityContextHolder.getContext().setAuthentication(auth);
+           SecurityContextHolder.getContext().setAuthentication(auth);
         }
 
         filterChain.doFilter(servletRequest, servletResponse);

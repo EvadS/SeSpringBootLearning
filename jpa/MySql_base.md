@@ -19,3 +19,9 @@ sudo restart mysq
 ```bash
 show databases;
 ```
+
+
+How to get a table creation script in MySQL Workbench?
+```bash
+show create table login_Db.user;
+```

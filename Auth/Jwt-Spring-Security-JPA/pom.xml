@@ -138,6 +138,12 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.25.0-GA</version>
+        </dependency>
+
         <!--Spring Mail -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
