@@ -36,9 +36,6 @@ public class Note implements Serializable {
     @Column(nullable = false)
     private Date publishingDate;
 
-    // Getters and Setters ... (Omitted for brevity)
-
-
 
     public Note() {
     }
