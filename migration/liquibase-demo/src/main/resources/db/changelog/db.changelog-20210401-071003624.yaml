@@ -1,0 +1,12 @@
+databaseChangeLog:
+- changeSet:
+    id: 1617261009112-1
+    author: evad-se (generated)
+    changes:
+    - addColumn:
+        columns:
+        - column:
+            name: alias
+            type: varchar(255)
+        tableName: users
+
