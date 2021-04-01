@@ -9,5 +9,4 @@ public class DemoLiquibaseMavenApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoLiquibaseMavenApplication.class, args);
     }
-
 }

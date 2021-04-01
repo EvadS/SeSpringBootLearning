@@ -91,6 +91,8 @@ password=
 driver=com.mysql.cj.jdbc.Driver
 outputChangeLogFile=src/main/resources/liquibase-outputChangeLog.xml
 ```
+# НЕПОСРЕДСТВЕННО РАБОТА
+
 ## Generate a ChangeLog From an Existing Database
 ```
    mvn liquibase:generateChangeLog
@@ -102,3 +104,14 @@ mvn liquibase:generateChangeLog -Dliquibase.diffTypes=data
 в результате текущее состояние базы будут в файле
 liquibase-outputChangeLog.xml
 
+команда liquibase-maven-plugin для сравнения тек. состояния entities и таблиц в бд
+
+mvn clean install liquibase:diff -DskipTests=true
+--------------------------------------
+
+Пытаемся натянуть профили 
+
+
+
+
+mvn liquibase:generateChangeLog -Plocal
