@@ -7,5 +7,22 @@ xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
 http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
 
+    <changeSet author="your_liquibase_username (generated)" id="1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="age" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="your_liquibase_username (generated)" id="2">
+        <addUniqueConstraint columnNames="username" constraintName="UK_r43af9ap4edm43mmtq01oddj6" tableName="users"/>
+    </changeSet>
 
 </databaseChangeLog>
