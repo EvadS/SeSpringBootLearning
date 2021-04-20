@@ -1,7 +1,7 @@
 package com.se.sample.service;
 
+import com.se.sample.entity.User;
 import com.se.sample.exception.ThereIsNoSuchUserException;
-import com.se.sample.model.User;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;

@@ -1,5 +1,10 @@
 Spring Boot REST API Validation + Globally Error Handling Tutorial with Example
 
+Base crud application with validation constraint  handling 
+
+used @ControllerAdvice and my own  @Constraint with validation message properties
+
+
 https://hellokoding.com/spring-boot-rest-api-validation-tutorial-with-example/
 
 
