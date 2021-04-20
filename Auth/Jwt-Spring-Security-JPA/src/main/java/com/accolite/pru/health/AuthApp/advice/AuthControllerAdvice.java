@@ -181,7 +181,7 @@ public class AuthControllerAdvice {
     }
 
     @ExceptionHandler(value = InvalidTokenRequestException.class)
-    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ResponseBody
     public ApiResponse handleInvalidTokenException(InvalidTokenRequestException ex, WebRequest request) {
         return new ApiResponse(false, ex.getMessage(), ex.getClass().getName(), resolvePathFromWebRequest(request));

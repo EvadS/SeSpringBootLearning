@@ -97,6 +97,8 @@ outputChangeLogFile=src/main/resources/liquibase-outputChangeLog.xml
 ```
    mvn liquibase:generateChangeLog
 ```
+
+
 получить change set с данными
 ```bash
 mvn liquibase:generateChangeLog -Dliquibase.diffTypes=data 

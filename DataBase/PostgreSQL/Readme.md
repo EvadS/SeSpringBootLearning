@@ -47,6 +47,9 @@ sudo deluser postgres
 В ходе установки была создана учетную запись пользователя **postgres**, которая связана с используемой по умолчанию ролью
  Postgres. Чтобы использовать Postgres, вы можете войти в эту учетную запись.
 
+ переключиться на учетную запись postgres 
+sudo -i -u postgres
+
 ### Change the postgres user’s Linux password
 ```bash
    sudo passwd postgres
@@ -57,6 +60,14 @@ sudo deluser postgres
   su - postgres
   psql -d template1 -c "ALTER USER postgres WITH PASSWORD 'newpassword';"
 ```
+
+вариант 2 
+зайти в psql 
+
+postgres=# \password
+Enter new password:
+Enter it again:
+postgres=#
 
 ### Create a Database
 ```
