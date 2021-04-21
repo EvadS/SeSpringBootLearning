@@ -10,6 +10,8 @@ import com.se.semple.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -25,15 +27,18 @@ public class PersonController {
         return persons;
     }
 
+//    @GetMapping(value = "/{personId}")
+//    public Person getPerson(@PathVariable("personId") Long personId) {
+//        return personRepository.findById(personId).orElseThrow(() -> new MyEntityNotFoundException(personId));
+//    }
+
     @GetMapping(value = "/{personId}")
-    public Person getPerson(@PathVariable("personId") long personId) {
-        return personRepository.findById(personId).orElseThrow(() -> new MyEntityNotFoundException(personId));
+    public Person getPerson(@PathVariable("personId") Long personId) throws EntityNotFoundException {
+        return personRepository.getOne(personId);
     }
 
-
-
     @PostMapping
-    public Person createPerson(@RequestBody Person person) {
+    public Person createPerson(@RequestBody @Valid Person person) {
         return personRepository.save(person);
     }
 

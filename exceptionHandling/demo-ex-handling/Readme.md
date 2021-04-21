@@ -18,3 +18,35 @@ use **@ControllerAdvice** and **@ExceptionHandler** to handle all exceptions at 
  
  ## @ExceptionHandler
  Annotation for handling exceptions in specific handler classes and/or handler methods.
+
+## Part2 
+### test HttpMessageNotReadableException
+
+```http request
+curl -X PUT \
+  http://localhost:8000/persons/3 \
+  -H 'Content-Type: application/json' \
+  -d '{
+   11"name": "alice"
+}'
+```
+
+### MethodArgumentNotValidException
+```http request
+curl -X POST \
+  http://localhost:8000/persons \
+  -H 'Content-Type: application/json' \
+  -d '{
+   "name": "ae"
+}'
+```
+
+### handleNoHandlerFoundException
+There is not controller by address 
+```http request
+curl -X GET \
+  http://localhost:8000/persons22/mn \
+ 
+  -H 'cache-control: no-cache'
+```
+
