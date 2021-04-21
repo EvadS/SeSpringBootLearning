@@ -1,9 +1,6 @@
 package com.se.semple.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 /**
@@ -17,6 +14,7 @@ public class Person {
     private Long id;
 
     @Size(min = 3, max = 10)
+    @Column(name = "name")
     private String name;
 
     public Person() {

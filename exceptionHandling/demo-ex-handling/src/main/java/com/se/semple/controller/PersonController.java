@@ -8,6 +8,7 @@ import com.se.semple.entity.Person;
 import com.se.semple.exception.MyEntityNotFoundException;
 import com.se.semple.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
@@ -27,15 +28,16 @@ public class PersonController {
         return persons;
     }
 
-//    @GetMapping(value = "/{personId}")
-//    public Person getPerson(@PathVariable("personId") Long personId) {
-//        return personRepository.findById(personId).orElseThrow(() -> new MyEntityNotFoundException(personId));
-//    }
-
     @GetMapping(value = "/{personId}")
-    public Person getPerson(@PathVariable("personId") Long personId) throws EntityNotFoundException {
-        return personRepository.getOne(personId);
+    public Person getPerson(@PathVariable("personId") Long personId) {
+        return personRepository.findById(personId).orElseThrow(() -> new MyEntityNotFoundException(personId));
     }
+//
+//    @GetMapping(value = "/{personId}")
+//    public ResponseEntity<Person> getPerson(@PathVariable("personId") Long personId) throws EntityNotFoundException {
+//        Person person = personRepository.getOne(personId);
+//        return ResponseEntity.ok(person);
+//    }
 
     @PostMapping
     public Person createPerson(@RequestBody @Valid Person person) {
@@ -47,5 +49,11 @@ public class PersonController {
         Person oldPerson = personRepository.getOne(id);
         oldPerson.setName(person.getName());
         return personRepository.save(oldPerson);
+    }
+
+    // For test
+    @GetMapping("/error")
+    public void throwError (){
+        throw  new NullPointerException();
     }
 }

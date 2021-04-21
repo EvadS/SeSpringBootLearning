@@ -3,6 +3,7 @@ package com.se.semple.exception;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,8 +12,8 @@ import java.util.List;
 public class ApiError {
     private String message;
     private String debugMessage;
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    private List<String> errors;
+
+    private List<String> errors = new ArrayList<>();
 
     public ApiError() {
     }

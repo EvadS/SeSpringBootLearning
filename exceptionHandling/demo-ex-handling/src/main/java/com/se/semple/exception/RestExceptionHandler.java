@@ -72,7 +72,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler
     }
 
 
-    //Default exception
+   //  Default exception
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
         ApiError apiError = new ApiError("prosto exception", ex.getMessage());

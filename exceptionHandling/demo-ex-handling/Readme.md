@@ -49,4 +49,22 @@ curl -X GET \
  
   -H 'cache-control: no-cache'
 ```
+Замечание 
+если getOne  возвращает прокси или же ленивая загрузка. используем для (OneToOne or ManyToOne) случаев екогда 
+нужно поместить ссылку
+
+Замечание 2 
+  include-stacktrace: on_trace_param
+  
+  показывать стек трейс если указано в запросе   (?trace=true)
+  
+  для того чтобы это проверить убираем хендлинг всех ошибок  @ExceptionHandler(Exception.class)
+  
+  curl -X GET \
+    http://localhost:8000/persons/error \
+  
+  
+   
+  
+
 
