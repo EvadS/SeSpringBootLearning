@@ -55,15 +55,14 @@ public class AppController {
         //send Email using default NO_REPLY from email
         SESProcessor.getInstance().add(new AmazonEmail(
         "eugene.s@it-dimension.com",
-        "Hey Atta***********",
-                html));
+        "Hey Atta***********", html));
 
-        //send Email using ATTA from email
-        SESProcessor.getInstance().add(new AmazonEmail(
-        "hi@attacomsian.com",
-        SESFrom.NO_REPLY,
-        "Hey Atta",
-        "We have an offer for you :)"));
+//        //send Email using ATTA from email
+//        SESProcessor.getInstance().add(new AmazonEmail(
+//        "hi@attacomsian.com",
+//        SESFrom.NO_REPLY,
+//        "Hey Atta",
+//        "We have an offer for you :)"));
 
         return "Emails Sent!";
     }

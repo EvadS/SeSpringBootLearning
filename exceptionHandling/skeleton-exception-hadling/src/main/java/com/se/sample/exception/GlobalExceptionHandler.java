@@ -7,11 +7,14 @@ import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.convert.ConversionFailedException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -23,6 +26,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolationException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -73,8 +77,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
 
     // INCORRECT PATH PARAM
-    @ExceptionHandler({MethodArgumentTypeMismatchException.class,
-            IllegalArgumentException.class})
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class
+            })
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
                                                                       WebRequest request) {
         String message = String.format("The parameter '%s' of value '%s' could not be converted to type '%s'",
@@ -114,6 +118,35 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     // <--  block custom exception
 
+
+    /**
+     * Handle failures commonly thrown from code
+     */
+    // TODO: not tested
+    @ExceptionHandler({ InvocationTargetException.class, IllegalArgumentException.class, ClassCastException.class,
+            ConversionFailedException.class })
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Object>  handleMiscFailures(Throwable t, WebRequest request) {
+        log.error("Unknown error occurred", t);
+        return buildErrorResponse(new Exception(t), "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR,request);
+    }
+
+    /**
+     * Send a 409 Conflict in case of concurrent modification
+     */
+    @ExceptionHandler({ ObjectOptimisticLockingFailureException.class, OptimisticLockingFailureException.class,
+            DataIntegrityViolationException.class })
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseEntity handleConflict(Exception ex, WebRequest request) {
+
+
+        log.error("Conflict in case of concurrent modification", ex.getMessage());
+        return buildErrorResponse(ex, "Unknown error occurred", HttpStatus.CONFLICT,request);
+    }
+
+    /**
+     * Catch all for any other exceptions...
+     */
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<Object> handleAllUncaughtException(
@@ -124,6 +157,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return buildErrorResponse(exception, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
     }
 
+    // TODO: not tested
+    @ExceptionHandler({ Exception.class })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<?> handleAnyException(Exception e, WebRequest request) {
+        log.error("Unknown error occurred", e);
+        return buildErrorResponse(e, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
+
+    }
 
     @Override
     public ResponseEntity<Object> handleExceptionInternal(
