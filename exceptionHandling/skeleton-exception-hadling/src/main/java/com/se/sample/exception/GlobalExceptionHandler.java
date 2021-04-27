@@ -163,7 +163,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handleAnyException(Exception e, WebRequest request) {
         log.error("Unknown error occurred", e);
         return buildErrorResponse(e, "Unknown error occurred", HttpStatus.INTERNAL_SERVER_ERROR, request);
-
     }
 
     @Override

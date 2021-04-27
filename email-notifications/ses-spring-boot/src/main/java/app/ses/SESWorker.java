@@ -1,7 +1,9 @@
 package app.ses;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
+import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailService;
 import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
@@ -50,6 +52,10 @@ public class SESWorker extends Thread {
     public void run() {
         try {
             AWSCredentialsProvider awsCreds = new ClasspathPropertiesFileCredentialsProvider();
+
+            AWSCredentials credentials = awsCreds.getCredentials();
+            Region currentRegion = Regions.getCurrentRegion();
+
 
             sesClient = AmazonSimpleEmailServiceClientBuilder.standard()
                     .withCredentials(awsCreds)

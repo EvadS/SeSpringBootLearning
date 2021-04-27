@@ -52,8 +52,9 @@ public class ManyToManyApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
       //  testStudentUniversity();
       //  testPostsTags();
-        testSearcher();
+      //  testSearcher();
 
+        int a =10;
 
     }
 
