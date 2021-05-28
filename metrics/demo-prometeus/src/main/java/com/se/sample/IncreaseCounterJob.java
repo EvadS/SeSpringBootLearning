@@ -28,7 +28,7 @@ public class IncreaseCounterJob {
         this.meterRegistry = meterRegistry;
     }
 
-    @Scheduled(fixedDelay = 15000)
+    //@Scheduled(fixedDelay = 15000)
     public void simulateNewOrderDE() {
         meterRegistry.counter("orders.created",
                 "country", "DE",
@@ -37,7 +37,7 @@ public class IncreaseCounterJob {
                 .increment();
     }
 
-    @Scheduled(fixedDelay = 15000)
+   // @Scheduled(fixedDelay = 15000)
     public void simulateNewOrderAT() {
         meterRegistry.counter("orders.created",
                 "country", "AT",
