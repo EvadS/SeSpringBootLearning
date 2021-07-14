@@ -34,14 +34,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/ws",
+							"raw": "http://localhost:8080/ws/",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"ws"
+								"ws",
+								""
 							]
 						}
 					},
