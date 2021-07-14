@@ -1,8 +1,8 @@
 package com.se.sample.soap;
 
-;
-import com.baeldung.springsoap.gen.GetCountryRequest;
-import com.baeldung.springsoap.gen.GetCountryResponse;
+
+import com.se.sample.soap.model.GetCountryRequest;
+import com.se.sample.soap.model.GetCountryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -16,7 +16,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class CountryEndpoint {
 
-    private static final String NAMESPACE_URI = "http://www.baeldung.com/springsoap/gen";
+    private static final String NAMESPACE_URI = "http://www.sample.se.com/soap/model";
 
     private CountryRepository countryRepository;
 

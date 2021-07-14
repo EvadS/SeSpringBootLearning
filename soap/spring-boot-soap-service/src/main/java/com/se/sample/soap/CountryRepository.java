@@ -1,7 +1,7 @@
 package com.se.sample.soap;
 
-import com.baeldung.springsoap.gen.Country;
-import com.baeldung.springsoap.gen.Currency;
+import com.se.sample.soap.model.Country;
+import com.se.sample.soap.model.Currency;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
