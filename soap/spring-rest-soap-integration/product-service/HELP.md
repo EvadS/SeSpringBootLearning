@@ -38,3 +38,9 @@
  
  Используемые  технологии
  Spring (Jpa, security), maven 
+ 
+ 
+To check if the application is running properly, we can open the WSDL through the URL: 
+```http request
+   http://localhost:8080/ws/product.wsdl
+```

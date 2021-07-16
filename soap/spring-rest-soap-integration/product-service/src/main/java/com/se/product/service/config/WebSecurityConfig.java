@@ -22,10 +22,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Profile("!dev")
 @Configuration
-@EnableWebSecurity(debug = false)
+//@EnableWebSecurity(debug = false)
 @EnableJpaRepositories(basePackages = "com.se.product.service.repository")
 @EnableGlobalMethodSecurity(
-        securedEnabled = true,
+        securedEnabled = true, // TODO se :
         jsr250Enabled = true,
         prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -97,6 +97,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/**/*.css",
                         "/**/*.js").permitAll()
                 .antMatchers("/**/api/auth/**").permitAll()
+                .antMatchers("/**/ws/**").permitAll()
+                //TODO: temporary solution to test ws
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);

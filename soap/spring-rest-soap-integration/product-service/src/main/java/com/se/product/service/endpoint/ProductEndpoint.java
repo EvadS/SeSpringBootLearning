@@ -19,22 +19,18 @@ public class ProductEndpoint {
 
     private static final String NAMESPACE_URI = "http://www.service.product.se.com/model/soap";
 
-//    private  final ProductRepository productRepository;
-//
-//    public ProductEndpoint(ProductRepository productRepository) {
-//        this.productRepository = productRepository;
-//    }
-//
-//    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductByCodeRequest")
-//    @ResponsePayload
-//    public GetProductResponse getProduct(@RequestPayload GetProductRequest request) {
-//        logger.debug("Handle [get product by code request], request code : {} ", request.getCode());
-//        GetProductResponse response = new GetProductResponse();
-//
-//        response.setProduct(getFakeProduct());
-//
-//        return response;
-//    }
+
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getProductRequest")
+    @ResponsePayload
+    public GetProductResponse getProductRequest(@RequestPayload GetProductRequest request) {
+        logger.debug("Handle [get product by code request], request code : {} ", request.getCode());
+        GetProductResponse response = new GetProductResponse();
+
+        response.setProduct(getFakeProduct());
+
+        return response;
+    }
 
     Product getFakeProduct(){
         Product product = new Product();
