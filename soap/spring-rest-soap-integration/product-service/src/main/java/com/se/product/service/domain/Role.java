@@ -14,6 +14,11 @@
 package com.se.product.service.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.se.product.service.model.enums.RoleName;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -23,6 +28,12 @@ import java.util.Set;
 /**
  * The type Role. Defines the role and the list of users who are associated with that role
  */
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
+
 @Entity(name = "ROLE")
 public class Role {
 
@@ -36,6 +47,7 @@ public class Role {
     @NaturalId
     private RoleName role;
 
+
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<User> userList = new HashSet<>();
@@ -44,35 +56,9 @@ public class Role {
         this.role = role;
     }
 
-    public Role() {
-
-    }
 
     public boolean isAdminRole() {
         return null != this && this.role.equals(RoleName.ROLE_ADMIN);
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public RoleName getRole() {
-        return role;
-    }
-
-    public void setRole(RoleName role) {
-        this.role = role;
-    }
-
-    public Set<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(Set<User> userList) {
-        this.userList = userList;
-    }
 }

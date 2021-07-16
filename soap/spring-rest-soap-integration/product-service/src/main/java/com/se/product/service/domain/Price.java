@@ -1,48 +1,33 @@
 package com.se.product.service.domain;
 
+import com.se.product.service.domain.audit.DateAudit;
+import com.se.product.service.domain.converters.CurrencyConverter;
+import com.se.product.service.model.enums.CurrencyType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
-//@Entity
-public class Price {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
+@Entity
+public class Price extends DateAudit {
 
-//    @Id
-//     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long id;
-//
-//    private Currency currency;
-//
-//    private Double cost;
-//
-////    @ManyToOne
-////    @JoinColumn(name = "PRODUCT_ID", nullable = true)
-////    private Product product;
-//
-//    public Price() {
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public Currency getCurrency() {
-//        return currency;
-//    }
-//
-//    public void setCurrency(Currency currency) {
-//        this.currency = currency;
-//    }
-//
-//    public Double getCost() {
-//        return cost;
-//    }
-//
-//    public void setCost(Double cost) {
-//        this.cost = cost;
-//    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column
+    @Convert(converter = CurrencyConverter.class)
+    private CurrencyType currencyType;
 
+    private Double cost;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = true)
+    private Product product;
 }

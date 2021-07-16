@@ -4,51 +4,53 @@ import com.se.product.service.validation.annotation.NullOrNotBlank;
 
 import javax.persistence.*;
 
-//@Entity
+@Entity
 public class Category {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//     private Long id;
-//
-//    @Column(name = "CATEGORY_NAME", unique = true)
-//    @NullOrNotBlank(message = "name can not be blank")
-//    private String name;
-//
-//
-//    @Column(name = "CATEGORY_CODE", unique = true)
-//    @NullOrNotBlank(message = "code can not be blank")
-//    private String code;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+     private Long id;
 
-//    @ManyToOne
-//    @JoinColumn(name = "PRODUCT_ID", nullable = true)
-//    private Product product;
-//
-//    public Category() {
-//    }
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public void setName(String name) {
-//        this.name = name;
-//    }
-//
-//    public String getCode() {
-//        return code;
-//    }
-//
-//    public void setCode(String code) {
-//        this.code = code;
-//    }
+    @Column(unique = true)
+    @NullOrNotBlank(message = "Category name can not be blank")
+    private String name;
+
+
+    @Column(unique = true)
+    @NullOrNotBlank(message = "Category code can not be blank")
+    private String code;
+
+
+    // TODO: move to many-to-many
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = true)
+    private Product product;
+
+    public Category() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
 
 }
